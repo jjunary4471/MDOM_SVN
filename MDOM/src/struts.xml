@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+<package name="default" extends="struts-default">
+	<action name="Login" >
+		<result>/WEB-INF/jsp/main/login.jsp</result>
+	</action>
+	<action name="MainMenu" class="action.main.MainMenu">
+		<result name="SUCCESS">/WEB-INF/jsp/main/mainmenu.jsp</result>
+	</action>	
+	<action name="MakeMonthlyDoc" class="action.appliccant.MonthlyDoc_Make">
+		<result name="SUCCESS">/WEB-INF/jsp/appliccant/monthlyDoc_make.jsp</result>
+	</action>
+	<action name="ConfirmMonthlyDoc" class="action.reviewer.MonthlyDoc_Confirm">
+		<result name="SUCCESS">/WEB-INF/jsp/reviewer/monthlyDoc_confirm.jsp</result>
+	</action>
+	<action name="ReviewMonthlyDoc" class="action.common.MonthlyDoc_Review">
+		<result name="SUCCESS">/WEB-INF/jsp/common/monthlyDoc_review.jsp</result>
+	</action>
+ </package>
+
+    <!-- Add packages here -->
+
+
+</struts>
