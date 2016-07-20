@@ -11,6 +11,12 @@
 			<interceptor-ref name="params" />
 			<result name="SUCCESS">/WEB-INF/jsp/making/MDOM0300.jsp</result>
 		</action>
+		<action name="Login">
+			<result>/WEB-INF/jsp/main/MDOM0100.jsp</result>
+		</action>
+		<action name="loginAction" class="action.main.MDOM0102">
+			<result name="SUCCESS">/WEB-INF/jsp/main/mainmenu.jsp</result>
+		</action>
 	</package>
 
 	<!-- Add packages here -->
