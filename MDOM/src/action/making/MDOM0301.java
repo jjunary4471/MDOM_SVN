@@ -4,13 +4,15 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
-import bean.DocumentInfoBean;
-import form.MakingForm;
+import bean.TR_InfoVO;
+import bean.TS_InfoVO;
+import dao.MDOM0301_DAO;
 
-public class MDOM0301 implements Action, Preparable, ModelDriven<MakingForm> {
+public class MDOM0301 implements Action, Preparable, ModelDriven<MDOM0301_DAO> {
 
-	DocumentInfoBean documentInfo = null;
-	MakingForm formData = null;
+	TS_InfoVO ts_InfoVO = null;
+	TR_InfoVO tr_InfoVO = null;
+	MDOM0301_DAO formData = null;
 	String documentYear = "16";
 	String documentMonth = "7";
 	
@@ -18,26 +20,28 @@ public class MDOM0301 implements Action, Preparable, ModelDriven<MakingForm> {
 	public String execute() throws Exception {
 		System.out.println("execute start");
 		
-		documentInfo = new DocumentInfoBean();
-		documentInfo.setUSER_ID("10000001");
-		documentInfo.setDOC_YM("20160701");
-		documentInfo.setTRNS_STATUS("2:承認要請");
-		documentInfo.setAUTH_USER("20000001");
-		formData.setDocumentInfo(documentInfo);
+		ts_InfoVO = new TS_InfoVO();
+		ts_InfoVO.setUser_id("10000001");
+		ts_InfoVO.setDoc_ym("20160701");
+		ts_InfoVO.setTrns_status("2:承認要請");
+		ts_InfoVO.setAuth_user("20000001");
+		formData.setTs_InfoVO(ts_InfoVO);
+		
+//		tr_InfoVO.set
 		
 		System.out.println("execute end");
 		return "SUCCESS";
 	}
 
 	@Override
-	public MakingForm getModel() {
+	public MDOM0301_DAO getModel() {
 		
 		return formData;
 	}
 
 	@Override
 	public void prepare() throws Exception {
-		this.formData = new MakingForm();
+		this.formData = new MDOM0301_DAO();
 	}
 	
 	public String getDocumentYear() {

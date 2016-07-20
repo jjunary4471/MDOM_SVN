@@ -16,11 +16,7 @@
 <body>
 	<h2>月次書類作成画面</h2>
 	<h3>
-		交通費作成状態(20
-		<s:property value="#request.documentYear" />
-		年
-		<s:property value="#request.documentMonth" />
-		月)
+		交通費作成状態(20<s:property value="#request.documentYear" />年<s:property value="#request.documentMonth" />月)
 	</h3>
 	<input type="button" value="今月書類" />
 	<font size="2">*対象月が前月の場合、クリックしてください。</font>
@@ -83,7 +79,7 @@
 							<td><s:textfield cssStyle="width: 60px; " /></td>
 						</tr>
 					</table>
-					<table width="830px" style="table-layout: fixed">
+					<table width="823px" style="table-layout: fixed">
 						<tr>
 							<td><font size="2">*定期券購入は乗物に入力してください。</font></td>
 							<td align="right"><s:submit value="追加"></s:submit> <s:submit
@@ -93,8 +89,6 @@
 				</td>
 			</tr>
 		</table>
-
-
 	</s:form>
 
 	<table style="width: 1140px;" style="table-layout: fixed">
@@ -116,17 +110,19 @@
 				<div
 					style="overflow-y: scroll; overflow-x: hidden; width: 1140px; height: 200px;">
 					<table rules="all" border="1">
-						<tr>
-							<td><input type="radio" name="check"></td>
-							<td>2016年7月1日（水）</td>
-							<td>五反田</td>
-							<td>品川</td>
-							<td>往復</td>
-							<td>YM</td>
-							<td>電車（定期券）</td>
-							<td align="right">￥1,234</td>
-							<td></td>
-						</tr>
+					<s:iterator value="tr_InfoVOList" status="trList">
+					<tr>
+						<td id="tr_center" style="width: 40px"><s:property value="user_id"/></td>
+						<td id="tr_center" style="width: 180px"><s:property value="kinmu_day"/></td>
+						<td id="tr_center" style="width: 160px;">区間(開始)</td>
+						<td id="tr_center" style="width: 160px;">区間(到着)</td>
+						<td id="tr_center" style="width: 80px;">往復/片道</td>
+						<td id="tr_center" style="width: 160px;">行先</td>
+						<td id="tr_center" style="width: 160px;">乗物</td>
+						<td id="tr_center" style="width: 80px;">金額</td>
+						<td id="tr_center" style="width: 80px;">前渡金</td>
+					</tr>
+					</s:iterator>
 					</table>
 				</div></td>
 			<table width="1140px" style="table-layout: fixed">
@@ -141,48 +137,41 @@
 			<td style="width: 1140px; height: 95px"><h3>休暇申請・報告書一覧</h3>
 				<table rules="all" border="1">
 					<tr style="height: 30px;">
-						<td style="width: 150px;"><p align="center">作成日</p></td>
-						<td style="width: 120px;"><p align="center">休暇区分</p></td>
-						<td style="width: 160px;"><p align="center">休暇理由</p></td>
-						<td style="width: 90px;"><p align="center">書類状態</p></td>
-						<td style="width: 90px;"><p align="center">依頼実施日</p></td>
-						<td style="width: 80px;"><p align="center">確認者</p></td>
-						<td style="width: 90px;"><p align="center">確認完了日</p></td>
-						<td style="width: 300px;"><p align="center">差し戻し理由</p></td>
+						<td id="tr_center" style="width: 160px;">作成日</td>
+						<td id="tr_center" style="width: 150px;">休暇区分</td>
+						<td id="tr_center" style="width: 150px;">休暇理由</td>
+						<td id="tr_center" style="width: 90px;">書類状態</td>
+						<td id="tr_center" style="width: 90px;">依頼実施日</td>
+						<td id="tr_center" style="width: 80px;">確認者</td>
+						<td id="tr_center" style="width: 90px;">確認完了日</td>
+						<td id="tr_center" style="width: 280px;">差し戻し理由</td>
 						<td></td>
 						<td></td>
 					</tr>
 					<tr>
-						<td><a href="url">2016年7月3日（水）</a></td>
-						<td>短期：全日休暇</td>
-						<td>一二三四五六七八九十</td>
-						<td align="center">2：承認要請</td>
-						<td align="center">2016/07/05</td>
-						<td align="center">高反尺</td>
-						<td align="center">2016/07/07</td>
-						<td>一二三四五六七八九十一二三四五六七八</td>
-						<td><input type="button" value="修正"></td>
-						<td><input type="button" value="削除"></td>
-					</tr>
-					<tr>
-						<td><a href="url">2016年7月3日（水）</a></td>
-						<td>長期：年末年始</td>
-						<td>体調不良</td>
-						<td align="center">1：作成中</td>
-						<td align="center">2016/07/05</td>
-						<td align="center">高反尺</td>
-						<td align="center"></td>
-						<td>ミスがある。</td>
+						<td><a href="url">2016年12月10日（水）</a></td>
+						<td id="tr_center">短期：全日休暇</td>
+						<td style="font-size:14px">一二三四五六七八九十</td>
+						<td id="tr_center">2：承認要請</td>
+						<td id="tr_center">2016/07/05</td>
+						<td id="tr_center">高反尺</td>
+						<td id="tr_center">2016/07/07</td>
+						<td style="font-size:14px">一二三四五六七八九十一二三四五六七八</td>
 						<td><input type="button" value="修正"></td>
 						<td><input type="button" value="削除"></td>
 					</tr>
 				</table>
-				<table style="width: 1140px;" style="table-layout: fixed">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<table width="1140px" style="table-layout: fixed">
 					<tr>
 						<td><font size="2">*作成日アンカーをクリックすると、休暇申請・報告書確認画面に移動します。</font></td>
-						<td align="right"><s:submit value="新規作成"></s:submit></td>
+						<td><s:submit value="新規作成"></s:submit></td>
 					</tr>
-				</table></td>
+				</table>
+			</td>
 		</tr>
 	</table>
 </body>
