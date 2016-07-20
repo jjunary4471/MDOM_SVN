@@ -1,4 +1,8 @@
 /action/
+/bean/
 /dao/
-/model/
-/struts.xml
+/db.properties
+/mapper_common.xml
+/mapper_review.xml
+/myBatisConfig.xml
+/mybatis/
