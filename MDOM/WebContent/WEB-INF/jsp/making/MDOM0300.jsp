@@ -1,14 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<script type="text/JavaScript"
+	src=http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js></script>
 <html>
 <style>
 #tr_center {
 	text-align: center;
 }
 </style>
+<script>
+	function transportCostAdd() {
+		var trAddForm = document.tr_add_form;
+		var numberCheck = /^[0-9]+$/;
+
+		if (trAddForm.transStartPoint_in.value == '') {
+			alert('区間(開始)の内容を入力してください。');
+			trAddForm.transStartPoint_in.focus();
+		} else if (trAddForm.transEndPoint_in.value == '') {
+			alert('区間(到着)の内容を入力してください。');
+			trAddForm.transEndPoint_in.focus();
+		} else if (trAddForm.transPlan_in.value == '') {
+			alert('乗物の内容を入力してください。');
+			trAddForm.transPlan_in.focus();
+		} else if (trAddForm.transCost_in.value == '') {
+			alert('金額の内容を入力してください。');
+			trAddForm.transCost_in.focus();
+		} else if (!numberCheck.test(trAddForm.transCost_in.value)) {
+			alert('金額は半角数字しか入力できません。');
+			trAddForm.transCost_in.focus();
+		} else if (!numberCheck.test(trAddForm.transAdvanceCost_in.value) && trAddForm.transAdvanceCost_in.value != '') {
+			alert('前渡金は半角数字しか入力できません。');
+			trAddForm.transAdvanceCost_in.focus();
+		} else {
+			document.tr_add_form.submit();
+		}
+	}
+
+	function checkZen(value) {
+		for(var i=0 ; i< value.length ; i++) {
+			var c = value.charCodeAt(i);
+			if((c >= 0xff61 && c <= 0xff9f) || c < 256) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+</script>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>月次書類作成画面</title>
@@ -16,7 +56,9 @@
 <body>
 	<h2>月次書類作成画面</h2>
 	<h3>
-		交通費作成状態(20<s:property value="#request.documentYear" />年<s:property value="#request.documentMonth" />月)
+		交通費作成状態(<span id="documentYear"><s:property
+				value="#request.documentYear" /></span>年<span id=documentMonth><s:property
+				value="#request.documentMonth" /></span>月)
 	</h3>
 	<input type="button" value="今月書類" />
 	<font size="2">*対象月が前月の場合、クリックしてください。</font>
@@ -34,23 +76,25 @@
 			<td id="tr_center" style="width: 80px;">確認完了日</td>
 			<td id="tr_center" style="width: 320px;">差し戻し理由</td>
 		</tr>
+
 		<tr style="width: 1100px; height: 20px;">
-			<td id="tr_center"><s:property value="documentInfo.USER_ID" /></td>
-			<td id="tr_center"><s:property value="documentInfo.USER_ID" /></td>
-			<td id="tr_center"><s:property value="documentInfo.USER_ID" /></td>
-			<td id="tr_center"><s:property value="documentInfo.USER_ID" /></td>
-			<td id="tr_center"><s:property value="documentInfo.TRNS_STATUS" /></td>
-			<td id="tr_center"><s:property value="documentInfo.REQ_DAY" /></td>
-			<td id="tr_center"><s:property value="documentInfo.AUTH_USER" /></td>
-			<td id="tr_center"><s:property
-					value="documentInfo.TRP_REJECT_REASON" /></td>
-			<td><s:property value="documentInfo.USER_ID" /></td>
+			<td id="tr_center"><s:property value="ts_InfoVO.user_id" /></td>
+			<td id="tr_center"><s:property value="ts_InfoVO.user_id" /></td>
+			<td id="tr_center"><s:property value="ts_InfoVO.user_id" /></td>
+			<td id="tr_center"><s:property value="ts_InfoVO.user_id" /></td>
+			<td id="tr_center"><s:property value="ts_InfoVO.doc_ym" /></td>
+			<td id="tr_center"><s:property value="ts_InfoVO.req_day" /></td>
+			<td id="tr_center"><s:property value="ts_InfoVO.auth_user" /></td>
+			<td id="tr_center"><s:property value="ts_InfoVO.cpl_day" /></td>
+			<td><s:property value="ts_InfoVO.trp_reject_reason" /></td>
 		</tr>
 	</table>
 
-	<s:form theme="simple">
+	<s:form name="tr_add_form" action="InsertTR_Info" method="POST"
+		enctype="multipart/form-data" theme="simple">
 		<table width="900px" style="table-layout: fixed">
 			<tr>
+
 				<td style="height: 95px">
 					<h3>
 						交通費登録<font style="font-weight: normal; font-size: 12px;">
@@ -67,26 +111,34 @@
 							<td id="tr_center" style="width: 60px;">金額 *</td>
 							<td id="tr_center" style="width: 60px;">前渡金</td>
 						</tr>
-
 						<tr>
-							<td><s:select list="{20160701,20160702}" /></td>
-							<td><s:textfield cssStyle="width: 110px; " /></td>
-							<td><s:textfield cssStyle="width: 110px; " /></td>
-							<td><s:select list="{'往復','片道'}" /></td>
-							<td><s:textfield cssStyle="width: 110px; " /></td>
-							<td><s:textfield cssStyle="width: 165px; " /></td>
-							<td><s:textfield cssStyle="width: 60px; " /></td>
-							<td><s:textfield cssStyle="width: 60px; " /></td>
+							<td><s:select name="kinmu_day" list="transDate_in" /></td>
+							<td><s:textfield id="transStartPoint_in" name="kukan_start"
+									cssStyle="width: 110px; " maxlength="23" /></td>
+							<td><s:textfield id="transEndPoint_in" name="kukan_stop"
+									cssStyle="width: 110px; " maxlength="23" /></td>
+							<td><s:select name="round_trip" list="#{'01':'往復','02':'片道'}"/></td>
+							<td><s:textfield id="transDestination_in" name="dest_area"
+									cssStyle="width: 110px; " maxlength="20" /></td>
+							<td><s:textfield id="transPlan_in" name="trp_shurui"
+									cssStyle="width: 165px; " maxlength="20" /></td>
+							<td><s:textfield id="transCost_in" name="trp_cost"
+									cssStyle="width: 60px; " maxlength="7" /></td>
+							<td><s:textfield id="transAdvanceCost_in" name="mae_money"
+									cssStyle="width: 60px; " maxlength="7" /></td>
 						</tr>
 					</table>
 					<table width="823px" style="table-layout: fixed">
 						<tr>
 							<td><font size="2">*定期券購入は乗物に入力してください。</font></td>
-							<td align="right"><s:submit value="追加"></s:submit> <s:submit
-									value="修正"></s:submit> <s:submit value="削除"></s:submit></td>
+							<td align="right"><input type="button"
+								onclick="transportCostAdd();" value="登録" /> <input
+								type="button" onclick="transportCostUpdate();" value="修正" /> <input
+								type="button" onclick="transportCostDelete();" value="削除" /></td>
 						</tr>
 					</table>
 				</td>
+
 			</tr>
 		</table>
 	</s:form>
@@ -108,21 +160,30 @@
 					</tr>
 				</table>
 				<div
-					style="overflow-y: scroll; overflow-x: hidden; width: 1140px; height: 200px;">
+					style="overflow-y: scroll; overflow-x: hidden; width: 1150px; height: 200px;">
 					<table rules="all" border="1">
-					<s:iterator value="tr_InfoVOList" status="trList">
-					<tr>
-						<td id="tr_center" style="width: 40px"><s:property value="user_id"/></td>
-						<td id="tr_center" style="width: 180px"><s:property value="kinmu_day"/></td>
-						<td id="tr_center" style="width: 160px;">区間(開始)</td>
-						<td id="tr_center" style="width: 160px;">区間(到着)</td>
-						<td id="tr_center" style="width: 80px;">往復/片道</td>
-						<td id="tr_center" style="width: 160px;">行先</td>
-						<td id="tr_center" style="width: 160px;">乗物</td>
-						<td id="tr_center" style="width: 80px;">金額</td>
-						<td id="tr_center" style="width: 80px;">前渡金</td>
-					</tr>
-					</s:iterator>
+						<s:iterator value="tr_InfoVOList" status="trList">
+							<tr>
+								<td id="tr_center" style="width: 40px"><input type="radio"
+									name="transCheck_out" /></td>
+								<td id="tr_center" style="width: 180px"><s:property
+										value="kinmu_day" /></td>
+								<td id="tr_center" style="width: 160px;"><s:property
+										value="kukan_start" /></td>
+								<td id="tr_center" style="width: 160px;"><s:property
+										value="kukan_stop" /></td>
+								<td id="tr_center" style="width: 80px;"><s:property
+										value="round_trip" /></td>
+								<td id="tr_center" style="width: 160px;"><s:property
+										value="dest_area" /></td>
+								<td id="tr_center" style="width: 160px;"><s:property
+										value="trp_shurui" /></td>
+								<td id="tr_center" style="width: 80px;"><s:property
+										value="trp_cost" /></td>
+								<td id="tr_center" style="width: 80px;"><s:property
+										value="mae_money" /></td>
+							</tr>
+						</s:iterator>
 					</table>
 				</div></td>
 			<table width="1140px" style="table-layout: fixed">
@@ -145,23 +206,25 @@
 						<td id="tr_center" style="width: 80px;">確認者</td>
 						<td id="tr_center" style="width: 90px;">確認完了日</td>
 						<td id="tr_center" style="width: 280px;">差し戻し理由</td>
-						<td></td>
-						<td></td>
 					</tr>
-					<tr>
-						<td><a href="url">2016年12月10日（水）</a></td>
-						<td id="tr_center">短期：全日休暇</td>
-						<td style="font-size:14px">一二三四五六七八九十</td>
-						<td id="tr_center">2：承認要請</td>
-						<td id="tr_center">2016/07/05</td>
-						<td id="tr_center">高反尺</td>
-						<td id="tr_center">2016/07/07</td>
-						<td style="font-size:14px">一二三四五六七八九十一二三四五六七八</td>
-						<td><input type="button" value="修正"></td>
-						<td><input type="button" value="削除"></td>
-					</tr>
-				</table>
-			</td>
+					<s:iterator value="HD_InfoVOList" status="hdList">
+						<tr>
+							<td><a href="url"><s:property value="trk_dt" /></a></td>
+							<td id="tr_center"><s:property value="hld_rsn_category" />:<s:property
+									value="hld_rsn_item" /></td>
+							<td style="font-size: 14px"><s:property
+									value="hld_rsn_category" /></td>
+							<td id="tr_center"><s:property value="hld_status" /></td>
+							<td id="tr_center"><s:property value="req_day" /></td>
+							<td id="tr_center"><s:property value="auth_user" /></td>
+							<td id="tr_center"><s:property value="cpl_day" /></td>
+							<td style="font-size: 14px"><s:property
+									value="hld_reject_reason" /></td>
+							<td><input type="button" value="修正"></td>
+							<td><input type="button" value="削除"></td>
+						</tr>
+					</s:iterator>
+				</table></td>
 		</tr>
 		<tr>
 			<td>

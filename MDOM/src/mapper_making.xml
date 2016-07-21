@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="making">
+
+	<select id="getUSInfo" parameterType="HashMap" resultType="bean.US_InfoVO">
+		SELECT user_id,user_password,user_ccfname,user_cclname,user_department,user_rank,auth_flg,auth_lvl
+		FROM UserInfoTBL
+		WHERE user_id = #{user_id}
+	</select>
+	
+	<select id="getTSInfo" parameterType="HashMap" resultType="bean.TS_InfoVO">
+		SELECT user_id,doc_ym,auth_user,trns_status,trp_reject_reason,req_day,cpl_day
+		FROM TranStatusTBL
+		WHERE user_id = #{user_id}
+	</select>
+	
+	<select id="getTRInfoList" parameterType="HashMap" resultType="bean.TR_InfoVO">
+		SELECT user_id,kinmu_day,mesai_no,kukan_start,kukan_stop,round_trip,dest_area,trp_shurui,trp_cost,mae_money
+		FROM TransportTBL
+		WHERE user_id = #{user_id}
+	</select>
+	
+	<select id="getHDInfoList" parameterType="HashMap" resultType="bean.HD_InfoVO">
+		
+		
+	</select>
+	
+	<insert id="setTRInfo" parameterType="bean.TR_InfoVO">
+		INSERT INTO TransportTBL (user_id,mesai_no,doc_ym,kinmu_day,kukan_start,kukan_stop,round_trip,dest_area,trp_shurui,trp_cost,mae_money,trk_id)
+		values (#{user_id},#{mesai_no},#{doc_ym},#{kinmu_day},#{kukan_start},#{kukan_stop},#{round_trip},#{dest_area},#{trp_shurui},#{trp_cost},#{mae_money},#{user_id})
+	</insert>
+	
+</mapper> 

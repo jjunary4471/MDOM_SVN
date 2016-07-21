@@ -1,7 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <html>
-<head></head>
+<head>
+<title>月次書類管理システム</title>
+</head>
 
 <style type="text/css">
 	#center { position:absolute; top:60%; left:50%; width:500px; height:200px; overflow:hidden; margin-top:-150px; margin-left:-100px;}
@@ -54,6 +56,10 @@
 </script>
 
 <body>
+<%
+	String checkFlag = (String)request.getAttribute("checkFlag");
+%>
+
 	<div id="title">
 		<h1>月次書類管理システム</h1>
 	</div>
@@ -62,6 +68,18 @@
 			<s:textfield name="userId" id="userId" label="社員番号" size="20" maxlength="8" onblur="idcheck();"/>
 			<s:password name="userPassword" id="userPassword" label="パスワード" size="20" maxlength="16" onblur="pwcheck();"/>
 			<s:submit name="loginBtn" value="ログイン"/>
+			
+			<%
+				if(checkFlag == "0") {
+			%>
+				<script>
+					alert('社員番号またはパスワードが正しくありません。');
+					location.href="Login.action";
+				</script>
+			<%
+				checkFlag = null;
+				}
+			%>
 		</s:form>
 	</div>
 </body>
