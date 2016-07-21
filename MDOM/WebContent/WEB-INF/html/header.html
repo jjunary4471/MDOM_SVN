@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style type="text/css">
+div.shadow {
+width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    background-color: white;
+    -webkit-box-shadow: 3px 3px 6px #adadad;  /* Safari and Chrome */
+    -moz-box-shadow: 3px 3px 6px #adadad;  /* Firefox */
+    box-shadow: 3px 3px 6px #adadad;  /* CSS3 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#adadad, Direction=135, Strength=6); 
+ }
+</style>
+<script>
+	function logout() {
+		parent.document.location.href="LogoutAction.action";
+	}
+</script>
+
+</head>
+<body>
+<div style="float:right;">
+<a href = "#" onclick="history.go(-1);"><img src="..\img\menuImg1.png" style="height:50px;width:50px;"></a>
+<a href = "#" onclick="logout();"><img src="../img/menulmg2.png" style="height:50px;width:50px;"></a>
+</div>
+</body>
+</html>

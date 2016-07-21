@@ -1,8 +1,3 @@
-/action/
-/bean/
-/dao/
-/db.properties
 /mapper_common.xml
-/mapper_review.xml
-/myBatisConfig.xml
-/mybatis/
+/mapper_making.xml
+/util/

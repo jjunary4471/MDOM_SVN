@@ -1,9 +1,7 @@
 package bean;
 
-public class TR_InfoVO {
+public class TR_MakingVO {
 	
-	private String user_id = null; 		// 社員番号
-	private String doc_ym = null; 		// 月次対象年月
 	private String kinmu_day = null; 	// 勤務日
 	private String mesai_no = null; 	// 交通費明細番号
 	private String kukan_start = null; 	// 区間開始
@@ -13,22 +11,8 @@ public class TR_InfoVO {
 	private String trp_shurui = null; 	// 乗物
 	private String trp_cost = null; 	// 金額
 	private String mae_money = null; 	// 前渡金
-	private String upd_dt = null; 		// 更新日付
-	private String upd_id = null; 		// 更新者
-	private String trk_dt = null; 		// 登録日付
-	private String trk_id = null; 		// 登録者
-	public String getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
-	}
-	public String getDoc_ym() {
-		return doc_ym;
-	}
-	public void setDoc_ym(String doc_ym) {
-		this.doc_ym = doc_ym;
-	}
+	
+	
 	public String getKinmu_day() {
 		return kinmu_day;
 	}
@@ -83,39 +67,4 @@ public class TR_InfoVO {
 	public void setMae_money(String mae_money) {
 		this.mae_money = mae_money;
 	}
-	public String getUpd_dt() {
-		return upd_dt;
-	}
-	public void setUpd_dt(String upd_dt) {
-		this.upd_dt = upd_dt;
-	}
-	public String getUpd_id() {
-		return upd_id;
-	}
-	public void setUpd_id(String upd_id) {
-		this.upd_id = upd_id;
-	}
-	public String getTrk_dt() {
-		return trk_dt;
-	}
-	public void setTrk_dt(String trk_dt) {
-		this.trk_dt = trk_dt;
-	}
-	public String getTrk_id() {
-		return trk_id;
-	}
-	public void setTrk_id(String trk_id) {
-		this.trk_id = trk_id;
-	}
-	@Override
-	public String toString() {
-		return "TR_InfoVO [user_id=" + user_id + ", doc_ym=" + doc_ym + ", kinmu_day=" + kinmu_day + ", mesai_no="
-				+ mesai_no + ", kukan_start=" + kukan_start + ", kukan_stop=" + kukan_stop + ", round_trip="
-				+ round_trip + ", dest_area=" + dest_area + ", trp_shurui=" + trp_shurui + ", trp_cost=" + trp_cost
-				+ ", mae_money=" + mae_money + ", upd_dt=" + upd_dt + ", upd_id=" + upd_id + ", trk_dt=" + trk_dt
-				+ ", trk_id=" + trk_id + "]";
-	}
-
-	
-
 }
