@@ -5,27 +5,65 @@
 <struts>
 
 	<package name="default" extends="struts-default">
-		<action name="MakeMonthlyDoc">
+
+		<action name="Login">
+			<result>/WEB-INF/jsp/MDOM0100.jsp</result>
+		</action>
+		
+		<action name="MakeMonthlyDoc" class="action.making.MDOM0301">
 			<interceptor-ref name="prepare" />
 			<interceptor-ref name="modelDriven" />
 			<interceptor-ref name="params" />
 			<result>/WEB-INF/jsp/MDOM0300.jsp</result>
 		</action>
-		<action name="Login">
-			<result>/WEB-INF/jsp/MDOM0100.jsp</result>
+		
+		<action name="currentMonth" class="action.making.MDOM0302">
+			<interceptor-ref name="prepare" />
+			<interceptor-ref name="modelDriven" />
+			<interceptor-ref name="params" />
+			<result name="SUCCESS"  type="redirect">MakeMonthlyDoc</result>
 		</action>
+
 		<action name="loginAction" class="action.login.MDOM0101">
 			<result name="SUCCESS">/WEB-INF/jsp/MDOM0200.jsp</result>
 			<result name="FAIL">/WEB-INF/jsp/MDOM0100.jsp</result>
 		</action>
+		
 		<action name="intoHLDWrite" class="action.holiday.MDOM0401">
 			<result name="SUCCESS">/WEB-INF/jsp/MDOM0400.jsp</result>
 			<result name="FAIL">/WEB-INF/jsp/MDOM0300.jsp</result>
 		</action>
+		
 		<action name="holidayWrite" class="action.holiday.MDOM0402">
 			<result name="SUCCESS">/WEB-INF/jsp/MDOM0300.jsp</result>
 			<result name="FAIL">/WEB-INF/jsp/MDOM0400.jsp</result>
 		</action>
+		
+		<action name="InsertTR_Info" class="action.making.MDOM0303">
+			<interceptor-ref name="prepare" />
+			<interceptor-ref name="modelDriven" />
+			<interceptor-ref name="params" />
+			<result name="SUCCESS"  type="redirect">MakeMonthlyDoc</result>
+
+		</action>
+		
+		<action name="deleteHD_Info" class="action.making.MDOM0304">
+			<interceptor-ref name="prepare" />
+			<interceptor-ref name="modelDriven" />
+			<interceptor-ref name="params" />
+			<result name="SUCCESS"  type="redirect">MakeMonthlyDoc</result>
+		</action>
+		
+		<action name="deleteHD_Info" class="action.making.MDOM0304">
+			<interceptor-ref name="prepare" />
+			<interceptor-ref name="modelDriven" />
+			<interceptor-ref name="params" />
+			<result name="SUCCESS"  type="redirect">MakeMonthlyDoc</result>
+		</action>
+		
+		
+		
+		
 	</package>
 
 	<!-- Add packages here -->

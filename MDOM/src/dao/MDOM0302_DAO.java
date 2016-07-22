@@ -1,35 +1,34 @@
 package dao;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import bean.HD_InfoVO;
 import bean.TR_InfoVO;
+import bean.TS_InfoVO;
+import bean.US_InfoVO;
 import mybatis.SqlMapClient;
 import util.MybatisMapper;
 
-public class MDOM0303_DAO {
-
+public class MDOM0302_DAO {
 	SqlMapClient sqlMapClient = null;
 	SqlSession sqlSession = null;
 	MybatisMapper mm = new MybatisMapper();
-
-	public MDOM0303_DAO() {
+	
+	public MDOM0302_DAO() {
 		this.sqlMapClient = new SqlMapClient();
 		this.sqlSession = this.sqlMapClient.getSqlSession();
 	}
-	
-	public String getTRInfo_mesai_no(Map<String,String> param) {
-		return sqlSession.selectOne(mm.MDOM0303_getTRInfo_mesai_no, param);
-	}
-	
-	public int setTRInfo(TR_InfoVO tr_InfoVO) {
-		int resultInt = sqlSession.insert(mm.MDOM0303_setTRInfo,tr_InfoVO);
+
+	public int updateUSInfo(Map<String,String> param) {
+		int resultInt = sqlSession.update(mm.MDOM0302_updateUSInfo, param);
 		sqlSession.commit();
 		return resultInt;
 	}
-
+	
 	public void close() {
 		sqlSession.close();
 	}
