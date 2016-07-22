@@ -13,6 +13,9 @@ public class MybatisMapper {
 	public String MDOM0301_getTRInfoList = "making.getTRInfoList";
 	public String MDOM0301_getHDInfoList = "making.getHDInfoList";	
 	
+	public String MDOM0302_updateUSInfo = "making.updateUSInfo";
+	
 	public String MDOM0303_setTRInfo = "making.setTRInfo";
+	public String MDOM0303_getTRInfo_mesai_no = "making.getTRInfo_mesai_no";
 	
 }

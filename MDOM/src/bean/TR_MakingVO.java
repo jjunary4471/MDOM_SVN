@@ -1,6 +1,6 @@
 package bean;
 
-public class TR_InfoMakingVO {
+public class TR_MakingVO {
 	
 	private String kinmu_day = null; 	// 勤務日
 	private String mesai_no = null; 	// 交通費明細番号

@@ -19,6 +19,7 @@ import bean.TR_InfoVO;
 import bean.TS_InfoVO;
 import bean.US_InfoVO;
 import dao.MDOM0301_DAO;
+import util.DateCalulator;
 
 public class MDOM0301 implements Action, Preparable, ModelDriven<MDOM0301_DAO> {
 	ActionContext context = ActionContext.getContext();
@@ -29,33 +30,41 @@ public class MDOM0301 implements Action, Preparable, ModelDriven<MDOM0301_DAO> {
 	US_InfoVO us_InfoVO = null;
 	List<TR_InfoVO> tr_InfoVOList = null;
 	List<HD_InfoVO> hd_InfoVOList = null;
+	String documentDate = null;
 	String documentYear = null;
 	String documentMonth = null;
+	String documentLastDay = null;
+	String currentMonth = null;
 	List<String> transDate_in = new ArrayList<String>();
 
 	@Override
 	public String execute() throws Exception {
 		System.out.println("MDOM0301 execute start");
 		try {
-			
 			//
 			session.put("user_id", "10000001");
 			context.setSession(session);
 			//
-
 			Map<String, String> param = new HashMap<String, String>();
 			param.put("user_id", "10000001");
-			
+			//
 			us_InfoVO = mdom0301_dao.getUSInfo(us_InfoVO, param);
 			ts_InfoVO = mdom0301_dao.getTSInfo(ts_InfoVO, param);
 			tr_InfoVOList = mdom0301_dao.getTRInfoList(tr_InfoVOList, param);
-			String documentDate = ts_InfoVO.getDoc_ym();
+			//
+			documentDate = ts_InfoVO.getDoc_ym();
 			documentYear = documentDate.substring(0,4);
 			documentMonth = documentDate.substring(4,6);
+			if(documentMonth.substring(0,1).equals("0")) {
+				documentMonth = documentMonth.substring(1, 2);
+			}
+			//
+			DateCalulator dateCalulator = new DateCalulator();
+			currentMonth = String.valueOf(dateCalulator.getCurrentMonth());
+			documentLastDay = String.valueOf(dateCalulator.getLastDay(documentYear,documentMonth));
+			//
 			
 			
-			transport_date();
-
 			System.out.println("MDOM0301 execute end");
 			return "SUCCESS";
 		} catch (Exception e) {
@@ -96,6 +105,22 @@ public class MDOM0301 implements Action, Preparable, ModelDriven<MDOM0301_DAO> {
 		return documentMonth;
 	}
 
+	public String getDocumentDate() {
+		return documentDate;
+	}
+	
+	public String getDocumentLastDay() {
+		return documentLastDay;
+	}
+	
+	public String getCurrentMonth() {
+		return currentMonth;
+	}
+
+	public void setDocumentMonth(String documentMonth) {
+		this.documentMonth = documentMonth;
+	}
+
 	public List<String> getTransDate_in() {
 		return transDate_in;
 	}
@@ -106,36 +131,5 @@ public class MDOM0301 implements Action, Preparable, ModelDriven<MDOM0301_DAO> {
 	
 	public List<TR_InfoVO> getTr_InfoVOList() {
 		return tr_InfoVOList;
-	}
-	
-	public void transport_date() {
-		String docuYear = documentYear;
-		String docuMonth = null;
-		if (documentMonth.length() == 1) {
-			docuMonth = "0" + documentMonth;
-		} else {
-			docuMonth = documentMonth;
-		}
-
-		try {
-			Calendar calendar = Calendar.getInstance();
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyymm");
-			String strDate = docuYear + docuMonth;
-			Date documentDate = dateFormat.parse(strDate);
-			int lastDay = calendar.getMaximum(Calendar.DAY_OF_MONTH);
-
-			for (int i = 1; i <= lastDay; i++) {
-				String strTemp = null;
-				if (i < 10) {
-					strTemp = "0" + String.valueOf(i);
-				} else {
-					strTemp = String.valueOf(i);
-				}
-				transDate_in.add(strDate + strTemp);
-			}
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }

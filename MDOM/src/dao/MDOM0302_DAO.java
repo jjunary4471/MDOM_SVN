@@ -2,32 +2,34 @@ package dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+
+import bean.HD_InfoVO;
 import bean.TR_InfoVO;
 import bean.TS_InfoVO;
+import bean.US_InfoVO;
+import mybatis.SqlMapClient;
+import util.MybatisMapper;
 
-public class MDOM0301_DAO {
+public class MDOM0302_DAO {
+	SqlMapClient sqlMapClient = null;
+	SqlSession sqlSession = null;
+	MybatisMapper mm = new MybatisMapper();
 	
-	TS_InfoVO ts_InfoVO = new TS_InfoVO();
-	List<TR_InfoVO> tr_InfoVOList = new ArrayList<TR_InfoVO>();
-
-	public TS_InfoVO getTs_InfoVO() {
-		return ts_InfoVO;
+	public MDOM0302_DAO() {
+		this.sqlMapClient = new SqlMapClient();
+		this.sqlSession = this.sqlMapClient.getSqlSession();
 	}
 
-	public void setTs_InfoVO(TS_InfoVO ts_InfoVO) {
-		this.ts_InfoVO = ts_InfoVO;
+	public int updateUSInfo(Map<String,String> param) {
+		int resultInt = sqlSession.update(mm.MDOM0302_updateUSInfo, param);
+		sqlSession.commit();
+		return resultInt;
 	}
-
-	public List<TR_InfoVO> getTr_InfoVOList() {
-		return tr_InfoVOList;
+	
+	public void close() {
+		sqlSession.close();
 	}
-
-	public void setTr_InfoVOList(List<TR_InfoVO> tr_InfoVOList) {
-		this.tr_InfoVOList = tr_InfoVOList;
-	}
-
-	
-	
-	
 }

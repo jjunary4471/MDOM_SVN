@@ -1,5 +1,6 @@
 package action.making;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.opensymphony.xwork2.Action;
@@ -21,13 +22,24 @@ public class MDOM0303 implements Action, Preparable, ModelDriven<TR_InfoVO> {
 	public String execute() throws Exception {
 		try {
 			
+			
+			Map<String, String> param = new HashMap<String, String>();
+			param.put("user_id", "10000002");
+			param.put("kinmu_day", tr_InfoVO.getKinmu_day());
+			
+			String mesai_noStr = mdom0303_dao.getTRInfo_mesai_no(param);
+			int mesai_no = 0;
+			if(mesai_noStr != null) {
+				mesai_no = Integer.parseInt(mesai_noStr);
+				mesai_no++;
+				mesai_noStr = String.valueOf(mesai_no);
+			}
+
 			tr_InfoVO.setUser_id(String.valueOf(session.get("user_id")));
-			tr_InfoVO.setMesai_no("0");
-			tr_InfoVO.setDoc_ym("201607");
+			tr_InfoVO.setMesai_no(mesai_noStr);
 			
 			int resultInt = mdom0303_dao.setTRInfo(tr_InfoVO);
 			
-			System.out.println(resultInt);
 			if(resultInt != 1) {
 				throw new Exception();
 			}
