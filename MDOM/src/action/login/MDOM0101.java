@@ -7,7 +7,7 @@ import java.util.Map;
 import com.opensymphony.xwork2.ActionContext;
 
 import bean.US_InfoVO;
-import dao.MDOM0102;
+import dao.MDOM0101_DAO;
 
 public class MDOM0101 {
 	private String userId;
@@ -24,7 +24,7 @@ public class MDOM0101 {
 	private String checkFlag;
 	
 	US_InfoVO us_InfoVO = new US_InfoVO();
-	MDOM0102 logindao = new MDOM0102();
+	MDOM0101_DAO logindao = new MDOM0101_DAO();
 	List<US_InfoVO> userInfoList = new ArrayList<US_InfoVO>();
 	ActionContext context = ActionContext.getContext();
 	Map<String, Object> session = (Map<String, Object>) context.getSession();

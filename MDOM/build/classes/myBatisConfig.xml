@@ -20,6 +20,8 @@
 
      <mappers>
          <mapper resource="mapper_making.xml" />
+         <mapper resource="mapper_common.xml" />
+         <mapper resource="mapper_holiday.xml" />
      </mappers>
   
  </configuration>

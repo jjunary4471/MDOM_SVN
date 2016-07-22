@@ -11,48 +11,84 @@
 
 <script>
 
+// 텍스트 박스 기존 데이터로 초기화 
+////////////////////////////////////////////////////////////////////////
+<% 
+	String nowDate = (String)request.getAttribute("nowDate");
+	String user_field = (String)request.getAttribute("user_field");
+	String user_pj = (String)request.getAttribute("user_pj");
+	String user_jpnum = (String)request.getAttribute("user_jpnum");
+	String user_etcnum = (String)request.getAttribute("user_etcnum");
+	String user_visa = (String)request.getAttribute("user_visa");
+%>
+
+function setData() {
+	
+	document.getElementById("holidayStart").value = "<%=nowDate%>";
+	document.getElementById("holidayEnd").value = "<%=nowDate%>";
+	document.getElementById("holidayField").value = "<%=user_field%>";
+	document.getElementById("holidayPjname").value = "<%=user_pj%>";
+	document.getElementById("holidayJpnum").value = "<%=user_jpnum%>";
+	document.getElementById("holidayEtcnum").value = "<%=user_etcnum%>";
+	document.getElementById("holidayVisa").value = "<%=user_visa%>";
+}
+
+////////////////////////////////////////////////////////////////////////
+
+
+
 var shortSelected;
 var longSelected;
 var etcSelected;
+
+var bigKubun;
+var smallKubun;
 
 var hldReason;
 var hldStart;
 var hldEnd;
 var hldField;
-var hldPgname;
+var hldPjname;
 var hldJpnum;
 var hldEtcnum;
 var hldVisa;
 
 
+	// 대항목 라디오 버튼 클릭 시 소항목 라디오 버튼 출력
+	//////////////////////////////////////////////////////////////////////////////////////
 	function div_show(s, ss) {
 		if (s == "短期") {
 			document.getElementById(ss).style.display = "";
 			document.getElementById("long").style.display = "none";
 			document.getElementById("etc").style.display = "none";
+			bigKubun = "1";
 		} else if (s == "長期") {
 			document.getElementById(ss).style.display = "";
 			document.getElementById("short").style.display = "none";
 			document.getElementById("etc").style.display = "none";
+			bigKubun = "2";
 		} else if (s == "他") {
 			document.getElementById(ss).style.display = "";
 			document.getElementById("short").style.display = "none";
 			document.getElementById("long").style.display = "none";
+			bigKubun = "3";
 		}
 	}
-
+	//////////////////////////////////////////////////////////////////////////////////////
 	
+	// 소항목 라디오 버튼 값 구하기 
+	//////////////////////////////////////////////////////////////////////////////////////
 	function shortHLDType() {
 		
 		longSelected = null;
 		etcSelected = null;
 		
-		size = document.holidayWrite.elements['shortHolidayType'].length;
+		size = document.hldWrite.elements['shortHolidayType'].length;
 		
 		for(var i=0; i < size; i++) {
-			if(document.holidayWrite.elements['shortHolidayType'][i].checked) {
-				shortSelected = document.holidayWrite.elements['shortHolidayType'][i].value;
-				alert(shortSelected);
+			if(document.hldWrite.elements['shortHolidayType'][i].checked) {
+				shortSelected = document.hldWrite.elements['shortHolidayType'][i].value;
+				smallKubun = shortSelected;
 				break;
 			}
 		}
@@ -63,12 +99,12 @@ var hldVisa;
 		shortSelected = null;
 		etcSelected = null;
 		
-		size = document.holidayWrite.elements['longHolidayType'].length;
+		size = document.hldWrite.elements['longHolidayType'].length;
 		
 		for(var i=0; i < size; i++) {
-			if(document.holidayWrite.elements['longHolidayType'][i].checked) {
-				longSelected = document.holidayWrite.elements['longHolidayType'][i].value;
-				alert(longSelected);
+			if(document.hldWrite.elements['longHolidayType'][i].checked) {
+				longSelected = document.hldWrite.elements['longHolidayType'][i].value;
+				smallKubun = longSelected;
 				break;
 			}
 		}
@@ -79,37 +115,156 @@ var hldVisa;
 		shortSelected = null;
 		longSelected = null;
 		
-		etcSelected = document.holidayWrite.elements['etcHolidayType'].value;
-		alert(etcSelected);
+		etcSelected = document.hldWrite.elements['etcHolidayType'].value;
+		smallKubun = etcSelected;
 	}
+	//////////////////////////////////////////////////////////////////////////////////////
 	
+	
+	// 등록 버튼 클릭 시 유효성 체크
 	function validate() {
 		hldReason = document.getElementById("holidayReason").value;
 		hldStart = document.getElementById("holidayStart").value;
 		hldEnd = document.getElementById("holidayEnd").value;
 		hldField = document.getElementById("holidayField").value;
-		hldPgname = document.getElementById("holidayPgname").value;
-		hldJpnum = document.getElementById("holidayJpnum").value;
-		hldEtcnum = document.getElementById("holidayEtcnum").value;
+		hldPjname = document.getElementById("holidayPjname").value;
 		hldVisa = document.getElementById("holidayVisa").value;
 		
-		
-		alert(hldReason);
-		 
-		if(hldReason == null) {
+		// 필수 항목 입력란이 공백일 경우
+		if(hldReason == "" || hldStart == "" || hldEnd == "" || hldField == ""
+				|| hldPjname == "" || hldVisa == "" 
+				|| (shortSelected == null && longSelected == null && etcSelected == null))
+		{
 			alert('必須項目を入力して下さい。');
 			return false;
+		}else{
+			// 휴가 날짜 길이 체크
+			//////////////////////////////////////////////////////////////////////////////////////
+			if(hldStart.length < 8) {
+				alert('休暇期間(開始日)は半角8桁(例:20160709)で入力して下さい。');
+				return false;
+			}else if(hldEnd.length < 8) {
+				alert('休暇期間(終了日)は半角8桁(例:20160709)で入力して下さい。');
+				return false;
+			}
+			//////////////////////////////////////////////////////////////////////////////////////
+			
+			// 휴가 날짜 전각반각 체크
+			//////////////////////////////////////////////////////////////////////////////////////
+			for(var i=0; i < hldStart.length; i++) {
+				var startCheck = hldStart.charCodeAt(i);
+				var endCheck = hldEnd.charCodeAt(i);
+				
+				if((startCheck <= 0xff61 && startCheck >= 0xff9f) || startCheck > 256) {
+					alert('休暇期間(開始日)は半角8桁(例:20160709)で入力して下さい。');
+					return false;
+				}else if((endCheck <= 0xff61 && endCheck >= 0xff9f) || endCheck > 256) {
+					alert('休暇期間(終了日)は半角8桁(例:20160709)で入力して下さい。');
+					return false;
+				}
+			}
+			//////////////////////////////////////////////////////////////////////////////////////
+
+			// 휴가 날짜 유효성 체크
+			//////////////////////////////////////////////////////////////////////////////////////
+			var startYear = hldStart.substring(0,4);
+			var startMonth = hldStart.substring(4,6);
+			var startDay = hldStart.substring(6,8);
+			
+			if(startYear < 1900 || startYear > 3000) {
+				alert('休暇期間(開始日)を正しく入力して下さい。');
+				return false;
+			}
+			
+			if(startMonth < 1 || startMonth > 12) {
+				alert('休暇期間(開始日)を正しく入力して下さい。');
+				return false;
+			}
+			
+			var startMaxDay = new Date(new Date(startYear, startMonth, 1) - 86400000).getDate();
+			if(startDay < 1 || startDay > startMaxDay){
+				alert('休暇期間(開始日)を正しく入力して下さい。');
+				return false;
+			}
+			
+			var endYear = hldEnd.substring(0,4);
+			var endMonth = hldEnd.substring(4,6);
+			var endDay = hldEnd.substring(6,8);
+			
+			if(endYear < 1900 || endYear > 3000) {
+				alert('休暇期間(終了日)を正しく入力して下さい。');
+				return false;
+			}
+			
+			if(endMonth < 1 || endMonth > 12) {
+				alert('休暇期間(終了日)を正しく入力して下さい。');
+				return false;
+			}
+			
+			var endMaxDay = new Date(new Date(endYear, endMonth, 1) - 86400000).getDate();
+			if(endDay < 1 || endDay > endMaxDay) {
+				alert('休暇期間(終了日)を正しく入力して下さい。');
+				return false;
+			}
+			//////////////////////////////////////////////////////////////////////////////////////
+			
+			// 휴가 완료일이 시작일보다 과거일 경우
+			//////////////////////////////////////////////////////////////////////////////////////
+			if(startYear > endYear) {
+				alert('休暇期間(開始日)または休暇期間(終了日)を正しく入力して下さい。');
+				return false;
+			}
+			
+			if(startMonth > endMonth) {
+				alert('休暇期間(開始日)または休暇期間(終了日)を正しく入力して下さい。');
+				return false;
+			}else if(startMonth == endMonth) {
+				if(startDay > endDay) {
+					alert('休暇期間(開始日)または休暇期間(終了日)を正しく入力して下さい。');
+					return false;	
+				}
+			}
+			//////////////////////////////////////////////////////////////////////////////////////
 		}
 		
-		return false;
+		// 휴가 구분 대항목, 소항목 코드 번호 입력
+		
+		if(smallKubun == "全日休暇") {
+			smallKubun = "1";
+		}else if(smallKubun == "半日休暇(午前)") {
+			smallKubun = "2";
+		}else if(smallKubun == "半日休暇(午後)") {
+			smallKubun = "3";
+		}else if(smallKubun == "遅刻") {
+			smallKubun = "4";
+		}else if(smallKubun == "早退") {
+			smallKubun = "5";
+		}else if(smallKubun == "振替休暇") {
+			smallKubun = "6";
+		}else if(smallKubun == "夏期休暇") {
+			smallKubun = "7";
+		}else if(smallKubun == "年末・年始休暇") {
+			smallKubun = "8";
+		}else if(smallKubun == "慶弔休暇(結婚)") {
+			smallKubun = "9";
+		}else if(smallKubun == "慶弔休暇(葬儀)") {
+			smallKubun = "10";
+		}else if(smallKubun == "慶弔休暇(他)") {
+			smallKubun = "11";
+		}else if(smallKubun == "帰社") {
+			smallKubun = "12";
+		}
+		
+		document.hldWrite.bigKubun.value = bigKubun;
+		document.hldWrite.smallKubun.value = smallKubun;
 		
 	}
 	
 </script>
 
 </head>
-<body>
-	<form name="hldWrite" action="holidayWrite" onsubmit='return validate();' >
+<body onload='setData()'>
+	<form name="hldWrite" action="holidayWrite" onsubmit='return validate();' accept-charset="UTF-8">
 	<div id="center">
 		<table style="width: 921px;">
 			<tr>
@@ -130,9 +285,6 @@ var hldVisa;
 					</tr>
 				</table>
 				<br><br><br>
-				
-				
-				
 				
 					<table rules="all" border="1">
 						「※」は必須入力
@@ -165,51 +317,53 @@ var hldVisa;
 						</tr>
 						<tr>
 							<td style="width: 180px;">休 暇 事 由※</td>
-							<td><input style="width: 300px;" type="text" name="holidayReason"></td>
+							<td><input style="width: 300px;" type="text" name="holidayReason" id="holidayReason" maxlength="40"></td>
 						</tr>
 						<tr>
 							<td style="width: 180px;">休 暇 期 間(開始日)※</td>
 							<td>
-								<input style="width: 300px;" type="text" name="holidayStart">
+								<input style="width: 300px;" type="text" name="holidayStart" id="holidayStart" maxlength="8">
 							</td>
 						</tr>
 						<tr>
 							<td style="width: 180px;">休 暇 期 間(終了日)※</td>
 							<td>
-								<input style="width: 300px;" type="text" name="holidayEnd">
+								<input style="width: 300px;" type="text" name="holidayEnd" id="holidayEnd" maxlength="8">
 							</td>
 						</tr>
 						<tr>
 							<td rowspan="2">特 記 事 項※</td>
 							<td style="width: 180px;">現場<br>
-								<input style="width: 300px;" type="text" name="holidayField">
+								<input style="width: 300px;" type="text" name="holidayField" id="holidayField" maxlength="20">
 							</td>
 						</tr>
 						<tr>
 							<td style="width: 180px;">プロジェクト名<br>
-								<input style="width: 300px;" type="text" name="holidayPgname">
+								<input style="width: 300px;" type="text" name="holidayPjname" id="holidayPjname" maxlength="20">
 							</td>
 						</tr>
 						<tr>
 							<td rowspan="2">緊 急 連 絡 先</td>
 							<td style="width: 180px;">日本<br>
-								<input style="width: 300px;" type="text" name="holidayJpnum">
+								<input style="width: 300px;" type="text" name="holidayJpnum" id="holidayJpnum" maxlength="12">
 							</td>
 						</tr>
 						<tr>
 							<td style="width: 180px;">日本外<br>
-								<input style="width: 300px;" type="text" name="holidayEtcnum">
+								<input style="width: 300px;" type="text" name="holidayEtcnum" id="holidayEtcnum" maxlength="12">
 							</td>
 						</tr>		
 						<tr>
 							<td>ビザの有効期限※</td>
-							<td><input style="width: 300px;" type="text" name="holidayVisa">
+							<td><input style="width: 300px;" type="text" name="holidayVisa" id="holidayVisa" maxlength="8">
 							</td>
 						</tr>
 					</table>
 					</td>
 			</tr>
 		</table>
+		<input type="hidden" name="bigKubun" value="">
+		<input type="hidden" name="smallKubun" value="">
 		<input name="holidayAdd" style="margin-left: 445px;" type="submit" value="登録">
 	</div>
 	</form>

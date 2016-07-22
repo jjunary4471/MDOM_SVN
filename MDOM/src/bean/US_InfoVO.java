@@ -14,7 +14,7 @@ public class US_InfoVO {
 	private String auth_flg = null;			// 権限有無フラグ
 	private String auth_lvl = null;			// 権限レベル
 	private String user_email = null;		// メール
-	private String user_area = null;		// 現場名
+	private String work_area = null;		// 現場名
 	private String project_name = null;		// プロジェクト名
 	private String user_phone_etc = null;	// 緊急連絡先日本外
 	private String visa_day = null;			// ビザ有効期間
@@ -22,7 +22,6 @@ public class US_InfoVO {
 	private String upd_id = null;			// 更新者
 	private String trk_dt = null;			// 登録日付
 	private String trk_id = null;			// 登録者
-	
 	public String getUser_id() {
 		return user_id;
 	}
@@ -95,11 +94,11 @@ public class US_InfoVO {
 	public void setUser_email(String user_email) {
 		this.user_email = user_email;
 	}
-	public String getUser_area() {
-		return user_area;
+	public String getWork_area() {
+		return work_area;
 	}
-	public void setUser_area(String user_area) {
-		this.user_area = user_area;
+	public void setWork_area(String work_area) {
+		this.work_area = work_area;
 	}
 	public String getProject_name() {
 		return project_name;
@@ -149,8 +148,10 @@ public class US_InfoVO {
 				+ ", user_cclname=" + user_cclname + ", user_katafname=" + user_katafname + ", user_katalname="
 				+ user_katalname + ", user_phone_jpn=" + user_phone_jpn + ", user_department=" + user_department
 				+ ", user_rank=" + user_rank + ", auth_flg=" + auth_flg + ", auth_lvl=" + auth_lvl + ", user_email="
-				+ user_email + ", user_area=" + user_area + ", project_name=" + project_name + ", user_phone_etc="
+				+ user_email + ", work_area=" + work_area + ", project_name=" + project_name + ", user_phone_etc="
 				+ user_phone_etc + ", visa_day=" + visa_day + ", upd_dt=" + upd_dt + ", upd_id=" + upd_id + ", trk_dt="
 				+ trk_dt + ", trk_id=" + trk_id + "]";
 	}
+	
+	
 }

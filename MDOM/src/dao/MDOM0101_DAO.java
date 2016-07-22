@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import bean.US_InfoVO;
 import mybatis.SqlMapClient;
 
-public class MDOM0102 {
+public class MDOM0101_DAO {
 	private SqlSession sql;
 	
 	public String loginPass(String userid, String userpw) {

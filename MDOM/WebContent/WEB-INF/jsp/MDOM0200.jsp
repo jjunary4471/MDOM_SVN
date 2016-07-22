@@ -7,21 +7,23 @@
 <title>月次書類管理システム</title>
 
 <style type="text/css">
-iframe{
-  	height : 50px;
-    background-color: white;
-    -webkit-box-shadow: 3px 3px 6px #adadad;  /* Safari and Chrome */
-    -moz-box-shadow: 3px 3px 6px #adadad;  /* Firefox */
-    box-shadow: 3px 3px 6px #adadad;  /* CSS3 */
-    filter: progid:DXImageTransform.Microsoft.Shadow(color=#adadad, Direction=135, Strength=6); 
-}
+	.menuStyle {
+		margin-left:280px;
+		margin-top:200px;
+	}
 </style>
+
+<script>
+	function writeDsp() {
+		parent.document.location.href="MakeMonthlyDoc.action";
+	}
+</script>
+
 </head>
 <body>
-<iframe src="/MDOM/WebContent/WEB-INF/html/header.html" height="80px" width="100%" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0>
-</iframe>
 
-<input type="image" src="/MDOM/WebContent/WEB-INF/img/menuImg1.jpg" name="submit" value="submit">
+<a href="#" onclick="writeDsp()"><img src="img/menu1.jpg" width="400px" class="menuStyle"></a>
+<a href="#"><img src="img/menu2.jpg" width="400px" ></a>
 
 </body>
 </html>

@@ -3,14 +3,8 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="common">
+<mapper namespace="holiday">
 
-	<select id="loginPass" parameterType="HashMap" resultType="bean.US_InfoVO">
-		SELECT *
-		FROM UserInfoTBL
-		WHERE USER_ID = #{id} and USER_PASSWORD = #{pw}
-	</select>
-	
 	<select id="getUserInfo" parameterType="HashMap" resultType="bean.US_InfoVO">
 		SELECT *
 		FROM UserInfoTBL
