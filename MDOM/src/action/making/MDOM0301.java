@@ -1,13 +1,11 @@
 package action.making;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
@@ -21,66 +19,63 @@ import bean.US_InfoVO;
 import dao.MDOM0301_DAO;
 import util.DateCalulator;
 
-public class MDOM0301 implements Action, Preparable, ModelDriven<MDOM0301_DAO> {
-	ActionContext context = ActionContext.getContext();
-	Map<String, Object> session = null;
-	
-	MDOM0301_DAO mdom0301_dao = null;
-	TS_InfoVO ts_InfoVO = null;
-	US_InfoVO us_InfoVO = null;
-	List<TR_InfoVO> tr_InfoVOList = null;
-	List<HD_InfoVO> hd_InfoVOList = null;
-	String documentDate = null;
-	String documentYear = null;
-	String documentMonth = null;
-	String documentLastDay = null;
-	String currentMonth = null;
-	List<String> transDate_in = new ArrayList<String>();
-
+public class MDOM0301 implements Action, Preparable{
+	private Logger log = Logger.getLogger(this.getClass());
+	private ActionContext context = ActionContext.getContext();
+	private Map<String, Object> session = null;
+	// dao
+	private MDOM0301_DAO mdom0301_dao		= null;
+	// bean
+	private TS_InfoVO ts_InfoVO				= null;
+	private US_InfoVO us_InfoVO				= null;
+	private List<TR_InfoVO> tr_InfoVOList	= null;
+	private List<HD_InfoVO> hd_InfoVOList	= null;
+	// request
+	private String documentDate		= null;
+	private String documentYear		= null;
+	private String documentMonth	= null;
+	private String documentLastDay	= null;
+	private String currentMonth		= null;
+	//
 	@Override
 	public String execute() throws Exception {
-		System.out.println("MDOM0301 execute start");
+		log.info("==============================================================");
+		log.info("==========MDOM0301 execute start==============================");
 		try {
-			//
-			session.put("user_id", "10000001");
+			// セッション取得
+			session.put("s_user_id", "10000001");
 			context.setSession(session);
-			//
+			String user_id = String.valueOf(session.get("s_user_id"));
+			// データベース取得
 			Map<String, String> param = new HashMap<String, String>();
-			param.put("user_id", "10000001");
-			//
+			param.put("user_id", user_id);
 			us_InfoVO = mdom0301_dao.getUSInfo(us_InfoVO, param);
 			ts_InfoVO = mdom0301_dao.getTSInfo(ts_InfoVO, param);
+			param.put("doc_ym", ts_InfoVO.getDoc_ym());
 			tr_InfoVOList = mdom0301_dao.getTRInfoList(tr_InfoVOList, param);
-			//
+			// ドキュメント日付の設定
 			documentDate = ts_InfoVO.getDoc_ym();
 			documentYear = documentDate.substring(0,4);
 			documentMonth = documentDate.substring(4,6);
 			if(documentMonth.substring(0,1).equals("0")) {
 				documentMonth = documentMonth.substring(1, 2);
 			}
-			//
+			// システム日付 の設定
 			DateCalulator dateCalulator = new DateCalulator();
 			currentMonth = String.valueOf(dateCalulator.getCurrentMonth());
 			documentLastDay = String.valueOf(dateCalulator.getLastDay(documentYear,documentMonth));
-			//
 			
-			
-			System.out.println("MDOM0301 execute end");
 			return "SUCCESS";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "ERROR";
 		} finally {
 			mdom0301_dao.close();
+			log.info("============================================================");
+			log.info("==========MDOM0301 execute end==============================");
 		}
 	}
-
-	@Override
-	public MDOM0301_DAO getModel() {
-
-		return null;
-	}
-
+	
 	@Override
 	public void prepare() throws Exception {
 		session = context.getSession();
@@ -119,10 +114,6 @@ public class MDOM0301 implements Action, Preparable, ModelDriven<MDOM0301_DAO> {
 
 	public void setDocumentMonth(String documentMonth) {
 		this.documentMonth = documentMonth;
-	}
-
-	public List<String> getTransDate_in() {
-		return transDate_in;
 	}
 
 	public US_InfoVO getUs_InfoVO() {

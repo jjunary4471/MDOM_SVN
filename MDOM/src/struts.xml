@@ -14,7 +14,7 @@
 			<interceptor-ref name="prepare" />
 			<interceptor-ref name="modelDriven" />
 			<interceptor-ref name="params" />
-			<result>/WEB-INF/jsp/MDOM0300.jsp</result>
+			<result name="SUCCESS">/WEB-INF/jsp/MDOM0300.jsp</result>
 		</action>
 		
 		<action name="currentMonth" class="action.making.MDOM0302">

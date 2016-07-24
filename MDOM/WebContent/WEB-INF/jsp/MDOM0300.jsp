@@ -12,18 +12,41 @@
 }
 </style>
 <script>
-	function transportCostAdd() {
+	// 今月書類作成イベント
+	function currentMonthWrite() {
+		var status =
+<%TS_InfoVO ts_InfoVO = (TS_InfoVO) request.getAttribute("ts_InfoVO");
+			out.print(ts_InfoVO.getTrns_status());%>
+	+ '';
+		var currentMonth =
+<%=request.getAttribute("currentMonth")%>
+	;
+		var documentMonth =
+<%=request.getAttribute("documentMonth")%>
+	;
+		if (documentMonth == currentMonth) {
+
+		} else if (status == "1：作成中") {
+
+		} else {
+			document.currentMonthBtn.submit();
+		}
+	}
+	// 交通費入力有効性チェック
+	function transportCheck() {
 		var trAddForm = document.tr_add_form;
 		var numberCheck = /^[0-9]+$/;
-
+		var returnInt = 0;
 		if (trAddForm.transDate_in.value == '') {
 			alert('勤務日を入力してください。');
 			trAddForm.transDate_in.focus();
 		} else if (!numberCheck.test(trAddForm.transDate_in.value)) {
 			alert('勤務日は半角数字しか入力できません。');
 			trAddForm.transDate_in.focus();
-		} else if (Number(trAddForm.transDate_in.value) < 0
-				|| Number(trAddForm.transDate_in.value) > <%=request.getAttribute("documentLastDay") %>) {
+		} else if (Number(trAddForm.transDate_in.value) < 1
+				|| Number(trAddForm.transDate_in.value) >
+<%=request.getAttribute("documentLastDay")%>
+	) {
 			alert('勤務日は今月の日を入力してください。');
 			trAddForm.transDate_in.focus();
 		} else if (trAddForm.transStartPoint_in.value == '') {
@@ -46,10 +69,10 @@
 			alert('前渡金は半角数字しか入力できません。');
 			trAddForm.transAdvanceCost_in.focus();
 		} else {
-			document.tr_add_form.submit();
+			returnInt = 1;
 		}
+		return returnInt;
 	}
-
 	function checkZen(value) {
 		for (var i = 0; i < value.length; i++) {
 			var c = value.charCodeAt(i);
@@ -59,40 +82,80 @@
 		}
 		return true;
 	}
-
-	function currentMonthWrite() {
-		var status =
-<%TS_InfoVO ts_InfoVO = (TS_InfoVO) request.getAttribute("ts_InfoVO");
-			out.print(ts_InfoVO.getTrns_status());%>
-	+ '';
-		var currentMonth =
-<%=request.getAttribute("currentMonth")%>
-	;
-		var documentMonth =
-<%=request.getAttribute("documentMonth")%>
-	;
-		if (documentMonth == currentMonth) {
-
-		} else if (status == "1：作成中") {
-
-		} else {
-			document.currentMonthBtn.submit();
+	// 交通費登録イベント
+	function transportCostAdd() {
+		var check = transportCheck();
+		if (check == 1) {
+			$('input[id="tr_add_form_flag_in"]').val("0");
+			document.tr_add_form.submit();
 		}
 	}
+	// 交通費更新ボタンイベント
+	function transportCostUpdate() {
+		var doc_ym_in = $('input[id="doc_ym_in"]').val();
+		var mesai_no_in = $('input[id="mesai_no_in"]').val();
+		var transDate_in = $('input[id="transDate_in"]').val();
+		var transDate_check_in = $('input[id="transDate_check_in"]').val();
+		var check = transportCheck();
+		if (check == 1) {
+			if (doc_ym_in == "" || mesai_no_in == "") {
+			} else if (transDate_check_in != transDate_in) {
+				alert("勤務日がチェックした交通費情報と異なります。")
+			} else {
+				$('input[id="tr_add_form_flag_in"]').val("1");
+				document.tr_add_form.submit();
+			}
+		}
+	}
+	// 交通費削除ボタンイベント
+	function transportCostDelete() {
+		var doc_ym_in = $('input[id="doc_ymd_in"]').val();
+		var mesai_no_in = $('input[id="mesai_no_in"]').val();
+		if (doc_ym_in != "" || mesai_no_in != "") {
+			if (confirm("選択した交通費を削除しますか？") == true) {
 
-	function transportCheck(index) {
+				$('input[id="tr_add_form_flag_in"]').val("2");
+				document.tr_add_form.submit();
+			}
+		}
+	}
+	// 交通費確認ボタンイベント
+	function transportReview() {
+		document.tr_review_form.submit();
+	}
+	// 休暇申請・報告書確認アンカーイベント
+	function holidayReview() {
+		document.hd_Review_form.submit();
+	}
+	// 休暇申請・報告書登録ボタンイベント
+	function holidayAdd() {
+		document.hd_add_form.submit();
+	}
+	// 休暇申請・報告書更新ボタンイベント
+	function holidayUpdate() {
+		document.hd_update_form.submit();
+	}
+	// 休暇申請・報告書削除ボタンイベント
+	function holidayDelete() {
+		if (confirm("選択した休暇申請・報告書を削除しますか？") == true) {
+			document.hd_delete_form.submit();
+		}
+	}
+	// 交通費ラジオボタンチェックイベント
+	function transportRadioCheck(index) {
 		var transDate_in = $('#transDate_in');
+		var transDate_check_in = $('input[id="transDate_check_in"]');
 		var transStartPoint_in = $('#transStartPoint_in');
 		var transEndPoint_in = $('#transEndPoint_in');
 		var round_trip_in = $('#round_trip_in');
-		var transDestination_in = $('#trtransDestination_inansDate_in');
+		var transDestination_in = $('#transDestination_in');
 		var transPlan_in = $('#transPlan_in');
 		var transCost_in = $('#transCost_in');
 		var transAdvanceCost_in = $('#transAdvanceCost_in');
-		var doc_ym_in = $('#doc_ym_in');
-		var mesai_no_in = $('#mesai_no_in');
+		var mesai_no_in = $('input[id="mesai_no_in"]');
 
 		var transDate_out = $('td[name="transDate_out"]')[index].innerText;
+		transDate_out = transDate_out.substring(6, 8);
 		var transStartPoint_out = $('td[name="transStartPoint_out"]')[index].innerText;
 		var transEndPoint_out = $('td[name="transEndPoint_out"]')[index].innerText;
 		var transRound_out = $('td[name="transRound_out"]')[index].innerText;
@@ -100,18 +163,17 @@
 		var transPlan_out = $('td[name="transPlan_out"]')[index].innerText;
 		var transCost_out = $('td[name="transCost_out"]')[index].innerText;
 		var transAdvanceCost_out = $('td[name="transAdvanceCost_out"]')[index].innerText;
-		var doc_ym_out = $('td[name="doc_ym_out"]')[index].innerText;
 		var mesai_no_out = $('td[name="mesai_no_out"]')[index].innerText;
 
 		transDate_in.val(transDate_out);
+		transDate_check_in.val(transDate_out);
 		transStartPoint_in.val(transStartPoint_out);
 		transEndPoint_in.val(transEndPoint_out);
-		//round_trip_in.;
+		round_trip_in.val(transRound_out).attr("selected", "selected");
 		transDestination_in.val(transDestination_out);
 		transPlan_in.val(transCost_out);
 		transCost_in.val(transCost_out);
 		transAdvanceCost_in.val(transAdvanceCost_out);
-		doc_ym_in.val(doc_ym_out);
 		mesai_no_in.val(mesai_no_out);
 
 	}
@@ -127,10 +189,16 @@
 				value="#request.documentYear" /></span>年<span id=documentMonth><s:property
 				value="#request.documentMonth" /></span>月)
 	</h3>
-	<s:form name="currentMonthBtn" action="currentMonth" method="POST"
+	<%--																		--%>
+	<%--							今月書類ボタン押下							--%>
+	<%--	event		onclick="currentMonthWrite()"							--%>
+	<%--	form		name="currentMonthBtn" 									--%>
+	<%--				action="currentMonth"									--%>
+	<%--	parameter	doc_ym="documentDate"									--%>
+	<%--																		--%>
+	<s:form name="currentMonthBtn" action="currentMonth()" method="POST"
 		enctype="multipart/form-data" theme="simple">
-		<s:hidden name="doc_ym" value="ts_InfoVO.doc_ym" />
-		<s:param name="doc_ym">${ts_InfoVO.doc_ym}</s:param>
+		<s:hidden name="doc_ym" value="%{documentDate}" />
 		<input type="button" onclick="currentMonthWrite()" value="今月書類" />
 	</s:form>
 	<font size="2">*対象月が前月の場合、クリックしてください。</font>
@@ -162,12 +230,55 @@
 		</tr>
 	</table>
 
+	<td><s:property value="#request.documentYear" /> <s:property
+			value="#request.documentMonth" /> <s:textfield id="transDate_in"
+			name="kinmu_day" cssStyle="width: 20px; " maxlength="2" /></td>
+	<td><s:textfield id="transStartPoint_in" name="kukan_start"
+			cssStyle="width: 110px; " maxlength="23" /></td>
+	<td><s:textfield id="transEndPoint_in" name="kukan_stop"
+			cssStyle="width: 110px; " maxlength="23" /></td>
+	<td><s:select id="round_trip_in" name="round_trip"
+			list="#{'01':'往復','02':'片道'}" /></td>
+	<td><s:textfield id="transDestination_in" name="dest_area"
+			cssStyle="width: 110px; " maxlength="20" /></td>
+	<td><s:textfield id="transPlan_in" name="trp_shurui"
+			cssStyle="width: 165px; " maxlength="20" /></td>
+	<td><s:textfield id="transCost_in" name="trp_cost"
+			cssStyle="width: 60px; " maxlength="7" /></td>
+	<td><s:textfield id="transAdvanceCost_in" name="mae_money"
+			cssStyle="width: 60px; " maxlength="7" /></td>
+
+	<%--																		--%>
+	<%--						交通費追加ボタン押下								--%>
+	<%--						交通費修正ボタン押下								--%>
+	<%--						交通費削除ボタン押下								--%>
+	<%--	event		onclick	="transportCostAdd()"							--%>
+	<%--	form		name	="tr_add_form" 									--%>
+	<%--				action	="InsertTR_Info"								--%>
+	<%--	parameter	doc_ym	="documentDate"									--%>
+	<%--				mesai_no="mesai_no_out"									--%>
+	<%--				tr_add_form_flag	登録の場合、”0”						--%>
+	<%--									修正の場合、”1”						--%>
+	<%--									削除の場合、”2”						--%>
+	<%--				kinmu_day												--%>
+	<%--				kukan_start												--%>
+	<%--				kukan_stop												--%>
+	<%--				mesai_no												--%>
+	<%--				round_trip												--%>
+	<%--				dest_area												--%>
+	<%--				trp_shurui												--%>
+	<%--				trp_cost												--%>
+	<%--				mae_money												--%>
+	<%--				dest_area												--%>
+	<%--																		--%>
 	<s:form name="tr_add_form" action="InsertTR_Info" method="POST"
 		enctype="multipart/form-data" theme="simple">
-		<s:hidden name="doc_ym" value="documentDate" />
+		<s:hidden id="transDate_check_in" name="transDate_check" />
+		<s:hidden id="doc_ym_in" name="doc_ym" value="%{documentDate}" />
+		<s:hidden id="mesai_no_in" name="mesai_no" />
+		<s:hidden id="tr_add_form_flag_in" name="tr_add_form_flag" value="0" />
 		<table width="900px" style="table-layout: fixed">
 			<tr>
-
 				<td style="height: 95px">
 					<h3>
 						交通費登録<font style="font-weight: normal; font-size: 12px;">
@@ -193,7 +304,7 @@
 									cssStyle="width: 110px; " maxlength="23" /></td>
 							<td><s:textfield id="transEndPoint_in" name="kukan_stop"
 									cssStyle="width: 110px; " maxlength="23" /></td>
-							<td><s:select name="round_trip_in"
+							<td><s:select id="round_trip_in" name="round_trip"
 									list="#{'01':'往復','02':'片道'}" /></td>
 							<td><s:textfield id="transDestination_in" name="dest_area"
 									cssStyle="width: 110px; " maxlength="20" /></td>
@@ -218,8 +329,6 @@
 
 			</tr>
 		</table>
-		<s:hidden name="doc_ym_in" />
-		<s:hidden name="mesai_no_in" />
 	</s:form>
 
 	<table style="width: 1140px;" style="table-layout: fixed">
@@ -239,7 +348,7 @@
 					</tr>
 				</table>
 				<div
-					style="overflow-y: scroll; overflow-x: hidden; width: 1150px; height: 200px;">
+					style="overflow-y: scroll; overflow-x: hidden; width: 1150px; height: 185px;">
 					<table id="tr_Info_List_Table" rules="all" border="1">
 						<s:iterator value="tr_InfoVOList" status="trList">
 							<tr name="tr_Info_List_Tr">
@@ -248,12 +357,12 @@
 								<td name="mesai_no_out" style="display: none"><s:property
 										value="mesai_no" /></td>
 								<td id="tr_center" style="width: 40px"><input type="radio"
-									name="transCheck_out" onclick="transportCheck(this.value)"
+									name="transCheck_out" onclick="transportRadioCheck(this.value)"
 									value="<s:property value='%{#trList.index}' />" /></td>
 								<td id="tr_center" name="transDate_out" style="width: 180px"><s:property
 										value="kinmu_day" /></td>
 								<td id="tr_center" name="transStartPoint_out"
-									style="width: 160px"><s:property value="kinmu_day" /></td>
+									style="width: 160px"><s:property value="kukan_start" /></td>
 								<td id="tr_center" name="transEndPoint_out"
 									style="width: 160px;"><s:property value="kukan_stop" /></td>
 								<td id="tr_center" name="transRound_out" style="width: 80px;"><s:property
@@ -271,10 +380,19 @@
 					</table>
 				</div></td>
 			<table width="1140px" style="table-layout: fixed">
-				<s:form name="---------------" action="---------------"
+				<%--																		--%>
+				<%--						交通費確認ボタン押下								--%>
+				<%--	event		onclick	="transportCostAdd()"							--%>
+				<%--	form		name	="tr_review_form" 								--%>
+				<%--				action	="--------------"								--%>
+				<%--	parameter	doc_ym	="documentDate"									--%>
+				<%--																		--%>
+				<s:form name="tr_review_form" action="----------------"
 					method="POST" enctype="multipart/form-data" theme="simple">
+					<s:hidden name="doc_ym" value="%{documentDate}" />
 					<tr>
-						<td align="right"><s:submit value="交通費確認"></s:submit></td>
+						<td align="right"><input type="button"
+							onclick="transportReview()" value="交通費確認" /></td>
 					</tr>
 				</s:form>
 			</table>
@@ -294,11 +412,22 @@
 						<td id="tr_center" style="width: 90px;">確認完了日</td>
 						<td id="tr_center" style="width: 280px;">差し戻し理由</td>
 					</tr>
+
+					<%--																		--%>
+					<%--						作成日アンカーを押下								--%>
+					<%--	event		onclick	="holidayReview()"								--%>
+					<%--	form		name	="hd_review_form" 								--%>
+					<%--				action	="--------------"								--%>
+					<%--	parameter	trk_dt	="HD_InfoVOList.trk_dt"							--%>
+					<%--																		--%>
 					<s:iterator value="HD_InfoVOList" status="hdList">
 						<tr>
-							<td><form name="hollidayReview">
-									<a href="url"><s:property value="trk_dt" />
-								</form> </a></td>
+							<td><form name="hd_review_form" action="--------------"
+									method="POST" enctype="multipart/form-data" theme="simple">
+									<s:hidden name="trk_dt" value="trk_dt" />
+									<a onclick="holidayReview()"><s:property value="trk_dt" />
+									</a>
+								</form></td>
 							<td id="tr_center"><s:property value="hld_rsn_category" />:<s:property
 									value="hld_rsn_item" /></td>
 							<td style="font-size: 14px"><s:property
@@ -309,15 +438,29 @@
 							<td id="tr_center"><s:property value="cpl_day" /></td>
 							<td style="font-size: 14px"><s:property
 									value="hld_reject_reason" /></td>
-							<td><s:form name="holidayUpdate" action="---------------"
+
+							<%--																		--%>
+							<%--						休暇申請・報告書修正ボタン押下						--%>
+							<%--	event		onclick		="holidayUpdate()"							--%>
+							<%--	form		name		="hd_update_form" 							--%>
+							<%--				action		="--------------"							--%>
+							<%--	parameter	hld_mng_no	="hld_mng_no"								--%>
+							<%--																		--%>
+							<%--						休暇申請・報告書削除ボタン押下						--%>
+							<%--	event		onclick		="holidayDelete()"							--%>
+							<%--	form		name		="hd_delete_form" 							--%>
+							<%--				action		="deleteHD_Info"							--%>
+							<%--	parameter	hld_mng_no	="hld_mng_no"								--%>
+							<%--																		--%>
+							<td><s:form name="hd_update_form" action="-----------------"
 									method="POST" enctype="multipart/form-data" theme="simple">
 									<s:hidden name="hld_mng_no" value="hld_mng_no" />
-									<input type="button" onclick="" value="修正">
+									<input type="button" onclick="holidayUpdate()" value="修正">
 								</s:form></td>
-							<td><s:form name="holidayDelete" action="deleteHD_Info"
+							<td><s:form name="hd_delete_form" action="deleteHD_Info"
 									method="POST" enctype="multipart/form-data" theme="simple">
 									<s:hidden name="hld_mng_no" value="hld_mng_no" />
-									<input type="button" onclick="" value="削除">
+									<input type="button" onclick="holidayDelete()" value="削除">
 								</s:form></td>
 						</tr>
 					</s:iterator>
@@ -327,10 +470,17 @@
 			<td>
 				<table width="1140px" style="table-layout: fixed">
 					<tr>
+						<%--																		--%>
+						<%--					休暇申請・報告書作成ボタン押下							--%>
+						<%--	event		onclick	="holidayAdd()"									--%>
+						<%--	form		name	="hd_add_form" 									--%>
+						<%--				action	="intoHldWrite"									--%>
+						<%--	parameter															--%>
+						<%--																		--%>
 						<td><font size="2">*作成日アンカーをクリックすると、休暇申請・報告書確認画面に移動します。</font></td>
-						<s:form name="holidayAdd" action="intoHldWrite" method="POST"
+						<s:form name="hd_add_form" action="intoHldWrite" method="POST"
 							enctype="multipart/form-data" theme="simple">
-							<td><s:submit value="新規作成"></s:submit></td>
+							<td><input type="button" onclick="holidayAdd()" value="新規作成"></td>
 						</s:form>
 					</tr>
 				</table>
