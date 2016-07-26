@@ -6,9 +6,10 @@ public class HD_InfoVO {
 	
 	private String user_id = null;			// 社員番号
 	private String hld_mng_no = null;		// 休暇申請管理番号
-	private String hld_kubun = null;		// 休暇区分
-	private String hld_rsn_category = null;	// 休暇理由（大分類）
-	private String hld_rsn_item = null;		// 休暇理由（小分類）
+	private String mk_day = null;			// 作成日
+	private String hld_kbn_category = null;	// 休暇区分（大分類）
+	private String hld_kbn_item = null;		// 休暇区分（小分類）
+	private String hld_rsn = null;			// 休暇理由
 	private String hld_start = null;		// 休暇期間(開始日)
 	private String hld_end = null;			// 休暇期間(終了日)	
 	private String hld_phone_jpn = null;	// 電話番号
@@ -21,10 +22,16 @@ public class HD_InfoVO {
 	private String auth_user = null;		// 確認者
 	private String hld_status = null;		// 書類状態
 	private String hld_reject_reason = null;// 差し戻す理由
-	private Timestamp upd_dt = null;			// 更新日付
+	private Timestamp upd_dt = null;		// 更新日付
 	private String upd_id = null;			// 更新者
-	private Timestamp trk_dt = null;			// 登録日付
+	private Timestamp trk_dt = null;		// 登録日付
 	private String trk_id = null;			// 登録者
+	
+	private String kyuka_day = null;
+	private String week_day = null;
+	private String hld_kbn_category_name = null;// 休暇区分（大分類）
+	private String hld_kbn_item_name = null;	// 休暇区分（小分類）
+	private String hld_status_name = null;		// 書類状態
 	public String getUser_id() {
 		return user_id;
 	}
@@ -37,23 +44,29 @@ public class HD_InfoVO {
 	public void setHld_mng_no(String hld_mng_no) {
 		this.hld_mng_no = hld_mng_no;
 	}
-	public String getHld_kubun() {
-		return hld_kubun;
+	public String getMk_day() {
+		return mk_day;
 	}
-	public void setHld_kubun(String hld_kubun) {
-		this.hld_kubun = hld_kubun;
+	public void setMk_day(String mk_day) {
+		this.mk_day = mk_day;
 	}
-	public String getHld_rsn_category() {
-		return hld_rsn_category;
+	public String getHld_kbn_category() {
+		return hld_kbn_category;
 	}
-	public void setHld_rsn_category(String hld_rsn_category) {
-		this.hld_rsn_category = hld_rsn_category;
+	public void setHld_kbn_category(String hld_kbn_category) {
+		this.hld_kbn_category = hld_kbn_category;
 	}
-	public String getHld_rsn_item() {
-		return hld_rsn_item;
+	public String getHld_kbn_item() {
+		return hld_kbn_item;
 	}
-	public void setHld_rsn_item(String hld_rsn_item) {
-		this.hld_rsn_item = hld_rsn_item;
+	public void setHld_kbn_item(String hld_kbn_item) {
+		this.hld_kbn_item = hld_kbn_item;
+	}
+	public String getHld_rsn() {
+		return hld_rsn;
+	}
+	public void setHld_rsn(String hld_rsn) {
+		this.hld_rsn = hld_rsn;
 	}
 	public String getHld_start() {
 		return hld_start;
@@ -151,18 +164,36 @@ public class HD_InfoVO {
 	public void setTrk_id(String trk_id) {
 		this.trk_id = trk_id;
 	}
-	@Override
-	public String toString() {
-		return "HD_InfoVO [user_id=" + user_id + ", hld_mng_no=" + hld_mng_no + ", hld_kubun=" + hld_kubun
-				+ ", hld_rsn_category=" + hld_rsn_category + ", hld_rsn_item=" + hld_rsn_item + ", hld_start="
-				+ hld_start + ", hld_end=" + hld_end + ", hld_phone_jpn=" + hld_phone_jpn + ", hld_work_area="
-				+ hld_work_area + ", hld_project_name=" + hld_project_name + ", hld_phone_etc=" + hld_phone_etc
-				+ ", visa_day=" + visa_day + ", req_day=" + req_day + ", cpl_ay=" + cpl_ay + ", auth_user=" + auth_user
-				+ ", hld_status=" + hld_status + ", hld_reject_reason=" + hld_reject_reason + ", upd_dt=" + upd_dt
-				+ ", upd_id=" + upd_id + ", trk_dt=" + trk_dt + ", trk_id=" + trk_id + "]";
+	public String getWeek_day() {
+		return week_day;
 	}
-	
-
+	public void setWeek_day(String week_day) {
+		this.week_day = week_day;
+	}
+	public String getHld_kbn_category_name() {
+		return hld_kbn_category_name;
+	}
+	public void setHld_kbn_category_name(String hld_kbn_category_name) {
+		this.hld_kbn_category_name = hld_kbn_category_name;
+	}
+	public String getHld_kbn_item_name() {
+		return hld_kbn_item_name;
+	}
+	public void setHld_kbn_item_name(String hld_kbn_item_name) {
+		this.hld_kbn_item_name = hld_kbn_item_name;
+	}
+	public String getHld_status_name() {
+		return hld_status_name;
+	}
+	public void setHld_status_name(String hld_status_name) {
+		this.hld_status_name = hld_status_name;
+	}
+	public String getKyuka_day() {
+		return kyuka_day;
+	}
+	public void setKyuka_day(String kyuka_day) {
+		this.kyuka_day = kyuka_day;
+	}
 	
 	
 }

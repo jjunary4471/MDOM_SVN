@@ -21,14 +21,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="getTRInfoList" parameterType="HashMap" resultType="bean.TR_InfoVO">
 		SELECT
-		user_id,doc_ym,kinmu_day,mesai_no,kukan_start,kukan_stop,round_trip,dest_area,trp_shurui,trp_cost,mae_money
+		user_id,doc_ym,kinmu_day,mesai_no,kukan_start,kukan_stop,(select code_name from codtbl where code_bunrui_no="007" and code_no=round_trip) round_trip_name,round_trip,dest_area,trp_shurui,trp_cost,mae_money
 		FROM TransportTBL
 		WHERE user_id = #{user_id} AND doc_ym = #{doc_ym}
 		Order By kinmu_day
 	</select>
-
+	
 	<select id="getHDInfoList" parameterType="HashMap" resultType="bean.HD_InfoVO">
-		SELECT *
+		SELECT user_id,hld_mng_no,mk_day,hld_kbn_category,hld_kbn_item,hld_rsn,hld_start,hld_end,req_day,cpl_day,auth_user,
+		(select code_name from codtbl where code_bunrui_no="008" and code_no=hld_kbn_category) hld_kbn_category_name, 
+		(select code_name from codtbl where code_bunrui_no="009" and code_no=hld_kbn_item) hld_kbn_item_name, 
+		(select code_name from codtbl where code_bunrui_no="006" and code_no=hld_status) hld_status
 		FROM HolidayTBL
 		WHERE user_id = #{user_id}
 		Order By mk_day

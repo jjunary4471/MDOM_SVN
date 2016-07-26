@@ -43,7 +43,7 @@
 			<result name="FAIL">/WEB-INF/jsp/MDOM0400.jsp</result>
 		</action>
 		
-		<action name="InsertTR_Info" class="action.making.MDOM0303">
+		<action name="insertTR_Info" class="action.making.MDOM0303">
 			<interceptor-ref name="prepare" />
 			<interceptor-ref name="modelDriven" />
 			<interceptor-ref name="params" />

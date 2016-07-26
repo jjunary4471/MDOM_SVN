@@ -17,6 +17,8 @@ public class TR_InfoVO {
 	private String upd_id = null; 		// 更新者
 	private String trk_dt = null; 		// 登録日付
 	private String trk_id = null; 		// 登録者
+	private String week_day = null;
+	private String round_trip_name = null;
 	private String tr_add_form_flag = null;
 	public String getUser_id() {
 		return user_id;
@@ -108,21 +110,23 @@ public class TR_InfoVO {
 	public void setTrk_id(String trk_id) {
 		this.trk_id = trk_id;
 	}
+	public String getWeek_day() {
+		return week_day;
+	}
+	public void setWeek_day(String week_day) {
+		this.week_day = week_day;
+	}
+	public String getRound_trip_name() {
+		return round_trip_name;
+	}
+	public void setRound_trip_name(String round_trip_name) {
+		this.round_trip_name = round_trip_name;
+	}
 	public String getTr_add_form_flag() {
 		return tr_add_form_flag;
 	}
 	public void setTr_add_form_flag(String tr_add_form_flag) {
 		this.tr_add_form_flag = tr_add_form_flag;
 	}
-	@Override
-	public String toString() {
-		return "TR_InfoVO [user_id=" + user_id + ", doc_ym=" + doc_ym + ", kinmu_day=" + kinmu_day + ", mesai_no="
-				+ mesai_no + ", kukan_start=" + kukan_start + ", kukan_stop=" + kukan_stop + ", round_trip="
-				+ round_trip + ", dest_area=" + dest_area + ", trp_shurui=" + trp_shurui + ", trp_cost=" + trp_cost
-				+ ", mae_money=" + mae_money + ", upd_dt=" + upd_dt + ", upd_id=" + upd_id + ", trk_dt=" + trk_dt
-				+ ", trk_id=" + trk_id + ", tr_add_form_flag=" + tr_add_form_flag + "]";
-	}
-
 	
-
 }

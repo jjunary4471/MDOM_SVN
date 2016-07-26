@@ -157,6 +157,7 @@ public class US_InfoVO {
 	}
 	public void setUser_rank_name(String user_rank_name) {
 		this.user_rank_name = user_rank_name;
+<<<<<<< Upstream, based on origin/master
 	}
 	
 	@Override
@@ -169,6 +170,8 @@ public class US_InfoVO {
 				+ user_phone_etc + ", visa_day=" + visa_day + ", upd_dt=" + upd_dt + ", upd_id=" + upd_id + ", trk_dt="
 				+ trk_dt + ", trk_id=" + trk_id + ", user_department_name=" + user_department_name + ", user_rank_name="
 				+ user_rank_name + "]";
+=======
+>>>>>>> bcf0ccd 2016-07-26
 	}
 	
 	

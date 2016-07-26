@@ -2,6 +2,7 @@ package action.making;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -27,13 +28,13 @@ public class MDOM0301 implements Action, Preparable{
 	private MDOM0301_DAO mdom0301_dao		= null;
 	// bean
 	private TS_InfoVO ts_InfoVO				= null;
-	private US_InfoVO us_InfoVO				= null;
 	private List<TR_InfoVO> tr_InfoVOList	= null;
 	private List<HD_InfoVO> hd_InfoVOList	= null;
 	// request
 	private String documentDate		= null;
 	private String documentYear		= null;
 	private String documentMonth	= null;
+	private String documentDay		= null;
 	private String documentLastDay	= null;
 	private String currentMonth		= null;
 	//
@@ -49,7 +50,6 @@ public class MDOM0301 implements Action, Preparable{
 			// データベース取得
 			Map<String, String> param = new HashMap<String, String>();
 			param.put("user_id", user_id);
-			us_InfoVO = mdom0301_dao.getUSInfo(us_InfoVO, param);
 			ts_InfoVO = mdom0301_dao.getTSInfo(ts_InfoVO, param);
 			param.put("doc_ym", ts_InfoVO.getDoc_ym());
 			tr_InfoVOList = mdom0301_dao.getTRInfoList(tr_InfoVOList, param);
@@ -61,10 +61,31 @@ public class MDOM0301 implements Action, Preparable{
 			if(documentMonth.substring(0,1).equals("0")) {
 				documentMonth = documentMonth.substring(1, 2);
 			}
+			
 			// システム日付 の設定
 			DateCalulator dateCalulator = new DateCalulator();
 			currentMonth = String.valueOf(dateCalulator.getCurrentMonth());
 			documentLastDay = String.valueOf(dateCalulator.getLastDay(documentYear,documentMonth));
+			// 曜日設定
+			Iterator<TR_InfoVO> iteratorTr = tr_InfoVOList.iterator();
+			while(iteratorTr.hasNext()) {
+				TR_InfoVO tr_InfoVOTemp = iteratorTr.next();
+				String week_day = null;
+				week_day = dateCalulator.getWeekDay(documentYear, documentMonth, tr_InfoVOTemp.getKinmu_day());
+				tr_InfoVOTemp.setWeek_day(week_day);
+			}
+			Iterator<HD_InfoVO> iteratorHd = hd_InfoVOList.iterator();
+			iteratorHd = hd_InfoVOList.iterator();
+			while(iteratorHd.hasNext()) {
+				HD_InfoVO hd_InfoVOTemp = iteratorHd.next();
+				String week_day = null;
+				String day = null;
+				day = hd_InfoVOTemp.getMk_day();
+				day = day.substring(4, 6);
+				week_day = dateCalulator.getWeekDay(documentYear, documentMonth, day);
+				hd_InfoVOTemp.setKyuka_day(day);
+				hd_InfoVOTemp.setWeek_day(week_day);
+			}
 			
 			return "SUCCESS";
 		} catch (Exception e) {
@@ -82,7 +103,6 @@ public class MDOM0301 implements Action, Preparable{
 		session = context.getSession();
 		mdom0301_dao = new MDOM0301_DAO();
 		this.ts_InfoVO = new TS_InfoVO();
-		this.us_InfoVO = new US_InfoVO();
 		this.hd_InfoVOList = new ArrayList<HD_InfoVO>();
 		this.tr_InfoVOList = new ArrayList<TR_InfoVO>();
 	}
@@ -117,10 +137,6 @@ public class MDOM0301 implements Action, Preparable{
 		this.documentMonth = documentMonth;
 	}
 
-	public US_InfoVO getUs_InfoVO() {
-		return us_InfoVO;
-	}
-	
 	public List<TR_InfoVO> getTr_InfoVOList() {
 		return tr_InfoVOList;
 	}
