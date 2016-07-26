@@ -34,9 +34,8 @@ public class MDOM0303 implements Action, Preparable, ModelDriven<TR_InfoVO> {
 			String doc_ym = tr_InfoVO.getDoc_ym();
 			String kinmu_day = tr_InfoVO.getKinmu_day();
 			if (kinmu_day.length() == 1) { // kinmu_dayの桁が1の場合、0を付ける。
-				kinmu_day = "0" + kinmu_day;
+				kinmu_day = "0" + kinmu_day; // DD形式にする。
 			}
-			kinmu_day = doc_ym + kinmu_day; // kinmu_dayにdoc_ymを付けて、YYYYMMDD形式にする。
 			tr_InfoVO.setUser_id(user_id);
 			tr_InfoVO.setKinmu_day(kinmu_day);
 			

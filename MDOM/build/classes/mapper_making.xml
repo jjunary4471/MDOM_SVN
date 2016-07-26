@@ -39,7 +39,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SET
 		doc_ym=#{currentDoc_ym}, trns_status='01', trp_reject_reason='',
 		req_day='', cpl_day=''
-		WHERE user_id = #{user_id} AND doc_ym = #{doc_ym}
+		WHERE user_id = #{user_id} AND doc_ym =
+		#{doc_ym}
 		#{doc_ym}
 	</update>
 
@@ -68,14 +69,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{round_trip},dest_area = #{dest_area},trp_shurui =
 		#{trp_shurui},trp_cost = #{trp_cost},mae_money = #{mae_money},upd_id =
 		#{user_id}
-		WHERE user_id = #{user_id} AND mesai_no = #{mesai_no} AND doc_ym = #{doc_ym} AND kinmu_day = #{kinmu_day}
+		WHERE user_id = #{user_id} AND mesai_no = #{mesai_no} AND
+		doc_ym = #{doc_ym} AND kinmu_day = #{kinmu_day}
 	</update>
-	
-	<delete id="deleteTRInfo"  parameterType="bean.TR_InfoVO">
+
+	<delete id="deleteTRInfo" parameterType="bean.TR_InfoVO">
 		DELETE FROM TransportTBL
-		WHERE user_id = #{user_id} AND mesai_no = #{mesai_no} AND doc_ym = #{doc_ym} AND kinmu_day = #{kinmu_day}
+		WHERE user_id = #{user_id} AND mesai_no = #{mesai_no} AND doc_ym =
+		#{doc_ym} AND kinmu_day = #{kinmu_day}
 	</delete>
-	
+
 	<delete id="deleteHDInfo" parameterType="HashMap">
 		DELETE FROM HoliDayTBL
 		WHERE user_id = #{user_id} AND hld_mng_no = #{hld_mng_no}

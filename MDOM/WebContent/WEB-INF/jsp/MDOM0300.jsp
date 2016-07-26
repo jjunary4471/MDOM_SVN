@@ -358,7 +358,8 @@
 									onclick="transportRadioCheck(this.value)"
 									value="<s:property value='%{#trList.index}' />" /></td>
 								<td id="tr_align_center" name="transDate_out"
-									style="width: 180px"><s:property value="kinmu_day" /></td>
+									style="width: 180px"><s:property value="doc_ym" />
+									<s:property value="kinmu_day" /></td>
 								<td id="tr_align_center" name="transStartPoint_out"
 									style="width: 160px"><s:property value="kukan_start" /></td>
 								<td id="tr_align_center" name="transEndPoint_out"
@@ -385,8 +386,8 @@
 				<%--				action	="--------------"								--%>
 				<%--	parameter	doc_ym	="documentDate"									--%>
 				<%--																		--%>
-				<s:form name="tr_review_form" action="reviewTR_Info"
-					method="POST" enctype="multipart/form-data" theme="simple">
+				<s:form name="tr_review_form" action="reviewTR_Info" method="POST"
+					enctype="multipart/form-data" theme="simple">
 					<s:hidden name="doc_year" value="%{documentYear}" />
 					<s:hidden name="doc_month" value="%{documentMonth}" />
 					<s:hidden name="tr_InfoVOList" value="%{tr_InfoVOList}" />
