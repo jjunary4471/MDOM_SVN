@@ -10,6 +10,10 @@
 			<result>/WEB-INF/jsp/MDOM0100.jsp</result>
 		</action>
 		
+		<action name="LogoutAction" class="action.login.MDOM0101" method = "logoutAction">
+			<result name="success">/WEB-INF/jsp/MDOM0100.jsp</result>
+		</action>
+		
 		<action name="MakeMonthlyDoc" class="action.making.MDOM0301">
 			<interceptor-ref name="prepare" />
 			<interceptor-ref name="modelDriven" />

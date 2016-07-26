@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import bean.CD_InfoVO;
 import bean.US_InfoVO;
 import mybatis.SqlMapClient;
 
@@ -24,4 +25,5 @@ public class MDOM0101_DAO {
 		sql.close();
 		return user;
 	}
+
 }

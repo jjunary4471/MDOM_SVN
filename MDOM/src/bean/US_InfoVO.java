@@ -22,6 +22,10 @@ public class US_InfoVO {
 	private String upd_id = null;			// 更新者
 	private String trk_dt = null;			// 登録日付
 	private String trk_id = null;			// 登録者
+	
+	private String user_department_name = null;	// 部署
+	private String user_rank_name = null;		// 職級
+	
 	public String getUser_id() {
 		return user_id;
 	}
@@ -142,6 +146,19 @@ public class US_InfoVO {
 	public void setTrk_id(String trk_id) {
 		this.trk_id = trk_id;
 	}
+	public String getUser_department_name() {
+		return user_department_name;
+	}
+	public void setUser_department_name(String user_department_name) {
+		this.user_department_name = user_department_name;
+	}
+	public String getUser_rank_name() {
+		return user_rank_name;
+	}
+	public void setUser_rank_name(String user_rank_name) {
+		this.user_rank_name = user_rank_name;
+	}
+	
 	@Override
 	public String toString() {
 		return "US_InfoVO [user_id=" + user_id + ", user_password=" + user_password + ", user_ccfname=" + user_ccfname
@@ -150,7 +167,8 @@ public class US_InfoVO {
 				+ ", user_rank=" + user_rank + ", auth_flg=" + auth_flg + ", auth_lvl=" + auth_lvl + ", user_email="
 				+ user_email + ", work_area=" + work_area + ", project_name=" + project_name + ", user_phone_etc="
 				+ user_phone_etc + ", visa_day=" + visa_day + ", upd_dt=" + upd_dt + ", upd_id=" + upd_id + ", trk_dt="
-				+ trk_dt + ", trk_id=" + trk_id + "]";
+				+ trk_dt + ", trk_id=" + trk_id + ", user_department_name=" + user_department_name + ", user_rank_name="
+				+ user_rank_name + "]";
 	}
 	
 	
