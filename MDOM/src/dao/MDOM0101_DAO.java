@@ -20,7 +20,7 @@ public class MDOM0101_DAO {
 		Map<String, Object> source = new HashMap<String, Object>();
 		source.put("id", userid);
 		
-		List<US_InfoVO> user = sql.selectList("common.getUserInfo", source);
+		List<US_InfoVO> user = sql.selectList("login.getUserInfo", source);
 		
 		sql.close();
 		return user;

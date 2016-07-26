@@ -12,7 +12,11 @@ import com.opensymphony.xwork2.ActionContext;
 import bean.US_InfoVO;
 import dao.MDOM0101_DAO;
 import dao.MDOM0402_DAO;
-
+/**
+ * 작성화면 들어왔을시 기본 데이터 출력
+ * @author leedongyeop
+ *
+ */
 public class MDOM0401 {
 
 	private String user_id;

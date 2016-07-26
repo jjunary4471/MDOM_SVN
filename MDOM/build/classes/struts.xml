@@ -38,6 +38,11 @@
 			<result name="FAIL">/WEB-INF/jsp/MDOM0300.jsp</result>
 		</action>
 		
+		<action name="intoHLDEdit" class="action.holiday.MDOM0401">
+			<result name="SUCCESS">/WEB-INF/jsp/MDOM0400.jsp</result>
+			<result name="FAIL">/WEB-INF/jsp/MDOM0300.jsp</result>
+		</action>
+		
 		<action name="holidayWrite" class="action.holiday.MDOM0402">
 			<result name="SUCCESS">/WEB-INF/jsp/MDOM0300.jsp</result>
 			<result name="FAIL">/WEB-INF/jsp/MDOM0400.jsp</result>
