@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="making">
+
+	<select id="getUSInfo" parameterType="HashMap" resultType="bean.US_InfoVO">
+		SELECT
+		user_id,user_password,user_ccfname,user_cclname,user_department,user_rank,auth_flg,auth_lvl
+		FROM UserInfoTBL
+		WHERE user_id = #{user_id}
+	</select>
+
+	<select id="getTSInfo" parameterType="HashMap" resultType="bean.TS_InfoVO">
+		SELECT
+		user_id,doc_ym,auth_user,trns_status,trp_reject_reason,req_day,cpl_day
+		FROM TranStatusTBL
+		WHERE user_id = #{user_id}
+	</select>
+
+	<select id="getTRInfoList" parameterType="HashMap" resultType="bean.TR_InfoVO">
+		SELECT
+		user_id,doc_ym,kinmu_day,mesai_no,kukan_start,kukan_stop,round_trip,dest_area,trp_shurui,trp_cost,mae_money
+		FROM TransportTBL
+		WHERE user_id = #{user_id} AND doc_ym = #{doc_ym}
+		Order By kinmu_day
+	</select>
+
+	<select id="getHDInfoList" parameterType="HashMap" resultType="bean.HD_InfoVO">
+		SELECT
+		user_id,doc_ym,kinmu_day,mesai_no,kukan_start,kukan_stop,round_trip,dest_area,trp_shurui,trp_cost,mae_money
+		FROM TransportTBL
+		WHERE user_id = #{user_id} AND doc_ym = #{doc_ym}
+		Order By kinmu_day
+	</select>
+
+	<update id="updateUSInfo" parameterType="HashMap">
+		UPDATE TranStatusTBL
+		SET
+		doc_ym=#{currentDoc_ym}, trns_status='01', trp_reject_reason='',
+		req_day='', cpl_day=''
+		WHERE user_id = #{user_id} AND doc_ym =
+		#{doc_ym}
+	</update>
+
+	<select id="getTRInfo_mesai_no" parameterType="HashMap"
+		resultType="String">
+		SELECT mesai_no
+		FROM TransportTBL
+		WHERE user_id = #{user_id}
+		AND doc_ym = #{doc_ym} AND kinmu_day = #{kinmu_day}
+		Order By mesai_no
+		DESC
+		LIMIT 1
+	</select>
+
+	<insert id="insertTRInfo" parameterType="bean.TR_InfoVO">
+		INSERT INTO TransportTBL
+		(user_id,mesai_no,doc_ym,kinmu_day,kukan_start,kukan_stop,round_trip,dest_area,trp_shurui,trp_cost,mae_money,trk_id)
+		VALUES
+		(#{user_id},#{mesai_no},#{doc_ym},#{kinmu_day},#{kukan_start},#{kukan_stop},#{round_trip},#{dest_area},#{trp_shurui},#{trp_cost},#{mae_money},#{user_id})
+	</insert>
+
+	<update id="updateTRInfo" parameterType="bean.TR_InfoVO">
+		UPDATE TransportTBL
+		SET
+		kukan_start = #{kukan_start},kukan_stop = #{kukan_stop},round_trip =
+		#{round_trip},dest_area = #{dest_area},trp_shurui =
+		#{trp_shurui},trp_cost = #{trp_cost},mae_money = #{mae_money},upd_id =
+		#{user_id}
+		WHERE user_id = #{user_id} AND mesai_no = #{mesai_no} AND doc_ym = #{doc_ym} AND kinmu_day = #{kinmu_day}
+	</update>
+	
+	<delete id="deleteTRInfo"  parameterType="bean.TR_InfoVO">
+		DELETE FROM TransportTBL
+		WHERE user_id = #{user_id} AND mesai_no = #{mesai_no} AND doc_ym = #{doc_ym} AND kinmu_day = #{kinmu_day}
+	</delete>
+	
+	<delete id="deleteHDInfo" parameterType="HashMap">
+		DELETE FROM HoliDayTBL
+		WHERE user_id = #{user_id} AND hld_mng_no = #{hld_mng_no}
+	</delete>
+
+
+</mapper> 
