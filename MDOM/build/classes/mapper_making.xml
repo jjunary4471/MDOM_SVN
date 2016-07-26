@@ -28,11 +28,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="getHDInfoList" parameterType="HashMap" resultType="bean.HD_InfoVO">
-		SELECT
-		user_id,doc_ym,kinmu_day,mesai_no,kukan_start,kukan_stop,round_trip,dest_area,trp_shurui,trp_cost,mae_money
+		SELECT *
 		FROM HolidayTBL
 		WHERE user_id = #{user_id}
-		Order By kinmu_day
+		Order By mk_day
 	</select>
 
 	<update id="updateUSInfo" parameterType="HashMap">
