@@ -1,4 +1,4 @@
-package action.common;
+package common;
 
 public class MDOM_COMMON {
 
