@@ -1,5 +1,7 @@
 package bean;
 
+import java.sql.Timestamp;
+
 public class HD_InfoVO {
 	
 	private String user_id = null;			// 社員番号
@@ -19,11 +21,10 @@ public class HD_InfoVO {
 	private String auth_user = null;		// 確認者
 	private String hld_status = null;		// 書類状態
 	private String hld_reject_reason = null;// 差し戻す理由
-	private String upd_dt = null;			// 更新日付
+	private Timestamp upd_dt = null;			// 更新日付
 	private String upd_id = null;			// 更新者
-	private String trk_dt = null;			// 登録日付
+	private Timestamp trk_dt = null;			// 登録日付
 	private String trk_id = null;			// 登録者
-	
 	public String getUser_id() {
 		return user_id;
 	}
@@ -126,10 +127,10 @@ public class HD_InfoVO {
 	public void setHld_reject_reason(String hld_reject_reason) {
 		this.hld_reject_reason = hld_reject_reason;
 	}
-	public String getUpd_dt() {
+	public Timestamp getUpd_dt() {
 		return upd_dt;
 	}
-	public void setUpd_dt(String upd_dt) {
+	public void setUpd_dt(Timestamp upd_dt) {
 		this.upd_dt = upd_dt;
 	}
 	public String getUpd_id() {
@@ -138,10 +139,10 @@ public class HD_InfoVO {
 	public void setUpd_id(String upd_id) {
 		this.upd_id = upd_id;
 	}
-	public String getTrk_dt() {
+	public Timestamp getTrk_dt() {
 		return trk_dt;
 	}
-	public void setTrk_dt(String trk_dt) {
+	public void setTrk_dt(Timestamp trk_dt) {
 		this.trk_dt = trk_dt;
 	}
 	public String getTrk_id() {
@@ -160,6 +161,8 @@ public class HD_InfoVO {
 				+ ", hld_status=" + hld_status + ", hld_reject_reason=" + hld_reject_reason + ", upd_dt=" + upd_dt
 				+ ", upd_id=" + upd_id + ", trk_dt=" + trk_dt + ", trk_id=" + trk_id + "]";
 	}
+	
+
 	
 	
 }

@@ -10,5 +10,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM UserInfoTBL
 		WHERE USER_ID = #{id}
 	</select>
+
+	<select id="getDocNum" resultType="Integer">
+		SELECT MAX(HLD_MNG_NO)
+		FROM holidaytbl
+		WHERE USER_ID = #{user_id}
+	</select>
+
+	<insert id="setHLDInfo" parameterType="HashMap">
+		INSERT INTO holidaytbl (USER_ID, HLD_MNG_NO, MK_DAY, HLD_KBN_CATEGORY, HLD_KBN_ITEM, HLD_RSN, HLD_START,
+		HLD_END, HLD_PHONE_JPN, HLD_WORK_AREA, HLD_PROJECT_NAME, HLD_PHONE_ETC, VISA_DAY, REQ_DAY, CPL_DAY, AUTH_USER,
+		HLD_STATUS, HLD_REJECT_REASON, UPD_DT, TRK_DT, TRK_ID)
+		VALUES(#{USER_ID}, #{HLD_MNG_NO}, #{MK_DAY}, #{HLD_KBN_CATEGORY}, #{HLD_KBN_ITEM}, #{HLD_RSN}, 
+		#{HLD_START}, #{HLD_END}, #{HLD_PHONE_JPN}, #{HLD_WORK_AREA}, #{HLD_PROJECT_NAME}, #{HLD_PHONE_ETC}, 
+		#{VISA_DAY}, "", "", "", #{HLD_STATUS}, "", now(), now(), #{TRK_ID})
+	</insert>
 	
-</mapper> 
+
+	
+</mapper> 	

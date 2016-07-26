@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="loginPass" parameterType="HashMap" resultType="bean.US_InfoVO">
 		SELECT *
 		FROM UserInfoTBL
-		WHERE USER_ID = #{id} and USER_PASSWORD = #{pw}
+		WHERE USER_ID = #{id}
 	</select>
 	
 	<select id="getUserInfo" parameterType="HashMap" resultType="bean.US_InfoVO">

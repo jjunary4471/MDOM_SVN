@@ -7,14 +7,15 @@ import java.util.Map;
 import com.opensymphony.xwork2.ActionContext;
 
 import bean.US_InfoVO;
+import common.StringUtility;
 import dao.MDOM0101_DAO;
 
 public class MDOM0101 {
 	private String userId;
 	private String userPassword;
-	private String loginChk;
-		
+
 	private String user_id;
+	private String user_pw;
 	private String user_name;
 	private String user_rank;
 	private String user_department;
@@ -33,11 +34,12 @@ public class MDOM0101 {
 		
 		try{
 
-			loginChk = logindao.loginPass(this.userId, this.userPassword);
-
-			if(loginChk.equals("OK")) {
-				
-				userInfoList = logindao.getUserInfo(this.userId);
+			userInfoList = logindao.getUserInfo(this.userId);
+			
+			user_pw = userInfoList.get(0).getUser_password();
+			
+			if(StringUtility.checkEqual(user_pw,
+					StringUtility.getSHA256(this.userPassword))) {
 				
 				us_InfoVO = userInfoList.get(0);
 				
@@ -58,6 +60,9 @@ public class MDOM0101 {
 				session.put("s_user_auth_lvl", auth_lvl);
 				context.setSession(session);
 
+			}else {
+				checkFlag = "0";
+				return "FAIL";
 			}
 			
 		}catch(Exception e) {
