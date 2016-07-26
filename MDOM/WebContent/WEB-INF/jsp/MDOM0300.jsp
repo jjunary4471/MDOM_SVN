@@ -229,6 +229,28 @@
 			<td><s:property value="ts_InfoVO.trp_reject_reason" /></td>
 		</tr>
 	</table>
+<<<<<<< HEAD
+=======
+
+	<td><s:property value="#request.documentYear" /> <s:property
+			value="#request.documentMonth" /> <s:textfield id="transDate_in"
+			name="kinmu_day" cssStyle="width: 20px; " maxlength="2" /></td>
+	<td><s:textfield id="transStartPoint_in" name="kukan_start"
+			cssStyle="width: 110px; " maxlength="23" /></td>
+	<td><s:textfield id="transEndPoint_in" name="kukan_stop"
+			cssStyle="width: 110px; " maxlength="23" /></td>
+	<td><s:select id="round_trip_in" name="round_trip"
+			list="#{'01':'往復','02':'片道'}" /></td>
+	<td><s:textfield id="transDestination_in" name="dest_area"
+			cssStyle="width: 110px; " maxlength="20" /></td>
+	<td><s:textfield id="transPlan_in" name="trp_shurui"
+			cssStyle="width: 165px; " maxlength="20" /></td>
+	<td><s:textfield id="transCost_in" name="trp_cost"
+			cssStyle="width: 60px; " maxlength="7" /></td>
+	<td><s:textfield id="transAdvanceCost_in" name="mae_money"
+			cssStyle="width: 60px; " maxlength="7" /></td>
+
+>>>>>>> branch 'master' of https://github.com/jjunary4471/MDOM_SVN.git
 	<%--																		--%>
 	<%--						交通費追加ボタン押下								--%>
 	<%--						交通費修正ボタン押下								--%>
