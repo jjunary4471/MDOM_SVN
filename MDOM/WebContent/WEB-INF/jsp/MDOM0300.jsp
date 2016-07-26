@@ -7,10 +7,15 @@
 	src=http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js></script>
 <html>
 <style>
-#tr_center {
+#tr_align_center {
 	text-align: center;
 }
+
+#tr_vertical_center {
+	vertical-align: middle;
+}
 </style>
+
 <script>
 	// 今月書類作成イベント
 	function currentMonthWrite() {
@@ -206,58 +211,41 @@
 	<table width="1100px" rules="all" border="1"
 		style="table-layout: fixed">
 		<tr style="width: 1100px; height: 30px;">
-			<td id="tr_center" style="width: 80px;">社員番号</td>
-			<td id="tr_center" style="width: 80px;">社員名</td>
-			<td id="tr_center" style="width: 80px;">所属部署</td>
-			<td id="tr_center" style="width: 80px;">職位</td>
-			<td id="tr_center" style="width: 180px;">月次書類状態</td>
-			<td id="tr_center" style="width: 80px;">依頼実施日</td>
-			<td id="tr_center" style="width: 80px;">確認者</td>
-			<td id="tr_center" style="width: 80px;">確認完了日</td>
-			<td id="tr_center" style="width: 320px;">差し戻し理由</td>
+			<td id="tr_align_center" style="width: 80px;">社員番号</td>
+			<td id="tr_align_center" style="width: 80px;">社員名</td>
+			<td id="tr_align_center" style="width: 80px;">所属部署</td>
+			<td id="tr_align_center" style="width: 80px;">職位</td>
+			<td id="tr_align_center" style="width: 180px;">月次書類状態</td>
+			<td id="tr_align_center" style="width: 80px;">依頼実施日</td>
+			<td id="tr_align_center" style="width: 80px;">確認者</td>
+			<td id="tr_align_center" style="width: 80px;">確認完了日</td>
+			<td id="tr_align_center" style="width: 320px;">差し戻し理由</td>
 		</tr>
 
 		<tr style="width: 1100px; height: 20px;">
-			<td id="tr_center"><s:property value="ts_InfoVO.user_id" /></td>
-			<td id="tr_center"><s:property value="#session['userName']" /></td>
-			<td id="tr_center"><s:property value="#session['userDept']" /></td>
-			<td id="tr_center"><s:property value="#session['userRank']" /></td>
-			<td id="tr_center"><s:property value="ts_InfoVO.trns_status" /></td>
-			<td id="tr_center"><s:property value="ts_InfoVO.req_day" /></td>
-			<td id="tr_center"><s:property value="ts_InfoVO.auth_user" /></td>
-			<td id="tr_center"><s:property value="ts_InfoVO.cpl_day" /></td>
+			<td id="tr_align_center"><s:property value="ts_InfoVO.user_id" /></td>
+			<td id="tr_align_center"><s:property
+					value="#session['userName']" /></td>
+			<td id="tr_align_center"><s:property
+					value="#session['userDept']" /></td>
+			<td id="tr_align_center"><s:property
+					value="#session['userRank']" /></td>
+			<td id="tr_align_center"><s:property
+					value="ts_InfoVO.trns_status" /></td>
+			<td id="tr_align_center"><s:property value="ts_InfoVO.req_day" /></td>
+			<td id="tr_align_center"><s:property value="ts_InfoVO.auth_user" /></td>
+			<td id="tr_align_center"><s:property value="ts_InfoVO.cpl_day" /></td>
 			<td><s:property value="ts_InfoVO.trp_reject_reason" /></td>
 		</tr>
 	</table>
-<<<<<<< HEAD
-=======
 
-	<td><s:property value="#request.documentYear" /> <s:property
-			value="#request.documentMonth" /> <s:textfield id="transDate_in"
-			name="kinmu_day" cssStyle="width: 20px; " maxlength="2" /></td>
-	<td><s:textfield id="transStartPoint_in" name="kukan_start"
-			cssStyle="width: 110px; " maxlength="23" /></td>
-	<td><s:textfield id="transEndPoint_in" name="kukan_stop"
-			cssStyle="width: 110px; " maxlength="23" /></td>
-	<td><s:select id="round_trip_in" name="round_trip"
-			list="#{'01':'往復','02':'片道'}" /></td>
-	<td><s:textfield id="transDestination_in" name="dest_area"
-			cssStyle="width: 110px; " maxlength="20" /></td>
-	<td><s:textfield id="transPlan_in" name="trp_shurui"
-			cssStyle="width: 165px; " maxlength="20" /></td>
-	<td><s:textfield id="transCost_in" name="trp_cost"
-			cssStyle="width: 60px; " maxlength="7" /></td>
-	<td><s:textfield id="transAdvanceCost_in" name="mae_money"
-			cssStyle="width: 60px; " maxlength="7" /></td>
-
->>>>>>> branch 'master' of https://github.com/jjunary4471/MDOM_SVN.git
 	<%--																		--%>
 	<%--						交通費追加ボタン押下								--%>
 	<%--						交通費修正ボタン押下								--%>
 	<%--						交通費削除ボタン押下								--%>
 	<%--	event		onclick	="transportCostAdd()"							--%>
 	<%--	form		name	="tr_add_form" 									--%>
-	<%--				action	="InsertTR_Info"								--%>
+	<%--				action	="insertTR_Info"								--%>
 	<%--	parameter	doc_ym	="documentDate"									--%>
 	<%--				mesai_no="mesai_no_out"									--%>
 	<%--				tr_add_form_flag	登録の場合、”0”						--%>
@@ -274,7 +262,7 @@
 	<%--				mae_money												--%>
 	<%--				dest_area												--%>
 	<%--																		--%>
-	<s:form name="tr_add_form" action="InsertTR_Info" method="POST"
+	<s:form name="tr_add_form" action="insertTR_Info" method="POST"
 		enctype="multipart/form-data" theme="simple">
 		<s:hidden id="transDate_check_in" name="transDate_check" />
 		<s:hidden id="doc_ym_in" name="doc_ym" value="%{documentDate}" />
@@ -289,37 +277,43 @@
 					</h3>
 					<table>
 						<tr>
-							<td id="tr_center" style="width: 90px">勤務日 *</td>
-							<td id="tr_center" style="width: 110px;">区間（開始） *</td>
-							<td id="tr_center" style="width: 110px;">区間（到着） *</td>
-							<td id="tr_center" style="width: 90px;">往復/片道 *</td>
-							<td id="tr_center" style="width: 110px;">行先</td>
-							<td id="tr_center" style="width: 165px;">乗物 *</td>
-							<td id="tr_center" style="width: 60px;">金額 *</td>
-							<td id="tr_center" style="width: 60px;">前渡金</td>
+							<td id="tr_align_center" style="width: 90px">勤務日 *</td>
+							<td id="tr_align_center" style="width: 110px;">区間（開始） *</td>
+							<td id="tr_align_center" style="width: 110px;">区間（到着） *</td>
+							<td id="tr_align_center" style="width: 90px;">往復/片道 *</td>
+							<td id="tr_align_center" style="width: 110px;">行先</td>
+							<td id="tr_align_center" style="width: 165px;">乗物 *</td>
+							<td id="tr_align_center" style="width: 60px;">金額 *</td>
+							<td id="tr_align_center" style="width: 60px;">前渡金</td>
 						</tr>
 						<tr>
-							<td><s:property value="#request.documentYear" /> <s:property
+							<td id="tr_vertical_center"><s:property
+									value="#request.documentYear" /> <s:property
 									value="#request.documentMonth" /> <s:textfield
 									id="transDate_in" name="kinmu_day" cssStyle="width: 20px; "
 									maxlength="2" /></td>
-							<td><s:textfield id="transStartPoint_in" name="kukan_start"
+							<td id="tr_vertical_center"><s:textfield
+									id="transStartPoint_in" name="kukan_start"
 									cssStyle="width: 110px; " maxlength="23" /></td>
-							<td><s:textfield id="transEndPoint_in" name="kukan_stop"
+							<td id="tr_vertical_center"><s:textfield
+									id="transEndPoint_in" name="kukan_stop"
 									cssStyle="width: 110px; " maxlength="23" /></td>
-							<td><s:select id="round_trip_in" name="round_trip"
+							<td id="tr_vertical_center"><s:select cssStyle="width:90px;"
+									id="round_trip_in" name="round_trip"
 									list="#{'01':'往復','02':'片道'}" /></td>
-							<td><s:textfield id="transDestination_in" name="dest_area"
+							<td id="tr_vertical_center"><s:textfield
+									id="transDestination_in" name="dest_area"
 									cssStyle="width: 110px; " maxlength="20" /></td>
-							<td><s:textfield id="transPlan_in" name="trp_shurui"
-									cssStyle="width: 165px; " maxlength="20" /></td>
-							<td><s:textfield id="transCost_in" name="trp_cost"
-									cssStyle="width: 60px; " maxlength="7" /></td>
-							<td><s:textfield id="transAdvanceCost_in" name="mae_money"
+							<td id="tr_vertical_center"><s:textfield id="transPlan_in"
+									name="trp_shurui" cssStyle="width: 165px; " maxlength="20" /></td>
+							<td id="tr_vertical_center"><s:textfield id="transCost_in"
+									name="trp_cost" cssStyle="width: 60px; " maxlength="7" /></td>
+							<td id="tr_vertical_center"><s:textfield
+									id="transAdvanceCost_in" name="mae_money"
 									cssStyle="width: 60px; " maxlength="7" /></td>
 						</tr>
 					</table>
-					<table width="823px" style="table-layout: fixed">
+					<table width="853px" style="table-layout: fixed">
 						<tr>
 							<td><font size="2">*定期券購入は乗物に入力してください。</font></td>
 							<td align="right"><input type="button"
@@ -339,15 +333,15 @@
 			<td style="height: 95px"><h3>交通費明細一覧</h3>
 				<table rules="all" border="1">
 					<tr style="height: 30px;">
-						<td id="tr_center" style="width: 40px">選択</td>
-						<td id="tr_center" style="width: 180px">勤務日</td>
-						<td id="tr_center" style="width: 160px;">区間(開始)</td>
-						<td id="tr_center" style="width: 160px;">区間(到着)</td>
-						<td id="tr_center" style="width: 80px;">往復/片道</td>
-						<td id="tr_center" style="width: 160px;">行先</td>
-						<td id="tr_center" style="width: 160px;">乗物</td>
-						<td id="tr_center" style="width: 80px;">金額</td>
-						<td id="tr_center" style="width: 80px;">前渡金</td>
+						<td id="tr_align_center" style="width: 40px">選択</td>
+						<td id="tr_align_center" style="width: 180px">勤務日</td>
+						<td id="tr_align_center" style="width: 160px;">区間(開始)</td>
+						<td id="tr_align_center" style="width: 160px;">区間(到着)</td>
+						<td id="tr_align_center" style="width: 80px;">往復/片道</td>
+						<td id="tr_align_center" style="width: 160px;">行先</td>
+						<td id="tr_align_center" style="width: 160px;">乗物</td>
+						<td id="tr_align_center" style="width: 80px;">金額</td>
+						<td id="tr_align_center" style="width: 80px;">前渡金</td>
 					</tr>
 				</table>
 				<div
@@ -359,30 +353,31 @@
 										value="doc_ym" /></td>
 								<td name="mesai_no_out" style="display: none"><s:property
 										value="mesai_no" /></td>
-								<td id="tr_center" style="width: 40px"><input type="radio"
-									name="transCheck_out" onclick="transportRadioCheck(this.value)"
+								<td id="tr_align_center" style="width: 40px"><input
+									type="radio" name="transCheck_out"
+									onclick="transportRadioCheck(this.value)"
 									value="<s:property value='%{#trList.index}' />" /></td>
-								<td id="tr_center" name="transDate_out" style="width: 180px"><s:property
-										value="kinmu_day" /></td>
-								<td id="tr_center" name="transStartPoint_out"
+								<td id="tr_align_center" name="transDate_out"
+									style="width: 180px"><s:property value="kinmu_day" /></td>
+								<td id="tr_align_center" name="transStartPoint_out"
 									style="width: 160px"><s:property value="kukan_start" /></td>
-								<td id="tr_center" name="transEndPoint_out"
+								<td id="tr_align_center" name="transEndPoint_out"
 									style="width: 160px;"><s:property value="kukan_stop" /></td>
-								<td id="tr_center" name="transRound_out" style="width: 80px;"><s:property
-										value="round_trip" /></td>
-								<td id="tr_center" name="transDestination_out"
+								<td id="tr_align_center" name="transRound_out"
+									style="width: 80px;"><s:property value="round_trip" /></td>
+								<td id="tr_align_center" name="transDestination_out"
 									style="width: 160px;"><s:property value="dest_area" /></td>
-								<td id="tr_center" name="transPlan_out" style="width: 160px;"><s:property
-										value="trp_shurui" /></td>
-								<td id="tr_center" name="transCost_out" style="width: 80px;"><s:property
-										value="trp_cost" /></td>
-								<td id="tr_center" name="transAdvanceCost_out"
+								<td id="tr_align_center" name="transPlan_out"
+									style="width: 160px;"><s:property value="trp_shurui" /></td>
+								<td id="tr_align_center" name="transCost_out"
+									style="width: 80px;"><s:property value="trp_cost" /></td>
+								<td id="tr_align_center" name="transAdvanceCost_out"
 									style="width: 80px;"><s:property value="mae_money" /></td>
 							</tr>
 						</s:iterator>
 					</table>
 				</div></td>
-			<table width="1140px" style="table-layout: fixed">
+			<table width="1135px" style="table-layout: fixed">
 				<%--																		--%>
 				<%--						交通費確認ボタン押下								--%>
 				<%--	event		onclick	="transportCostAdd()"							--%>
@@ -390,9 +385,12 @@
 				<%--				action	="--------------"								--%>
 				<%--	parameter	doc_ym	="documentDate"									--%>
 				<%--																		--%>
-				<s:form name="tr_review_form" action="----------------"
+				<s:form name="tr_review_form" action="reviewTR_Info"
 					method="POST" enctype="multipart/form-data" theme="simple">
-					<s:hidden name="doc_ym" value="%{documentDate}" />
+					<s:hidden name="doc_year" value="%{documentYear}" />
+					<s:hidden name="doc_month" value="%{documentMonth}" />
+					<s:hidden name="tr_InfoVOList" value="%{tr_InfoVOList}" />
+					<s:hidden name="hd_InfoVOList" value="%{hd_InfoVOList}" />
 					<tr>
 						<td align="right"><input type="button"
 							onclick="transportReview()" value="交通費確認" /></td>
@@ -406,14 +404,14 @@
 			<td style="width: 1140px; height: 95px"><h3>休暇申請・報告書一覧</h3>
 				<table rules="all" border="1">
 					<tr style="height: 30px;">
-						<td id="tr_center" style="width: 160px;">作成日</td>
-						<td id="tr_center" style="width: 150px;">休暇区分</td>
-						<td id="tr_center" style="width: 150px;">休暇理由</td>
-						<td id="tr_center" style="width: 90px;">書類状態</td>
-						<td id="tr_center" style="width: 90px;">依頼実施日</td>
-						<td id="tr_center" style="width: 80px;">確認者</td>
-						<td id="tr_center" style="width: 90px;">確認完了日</td>
-						<td id="tr_center" style="width: 280px;">差し戻し理由</td>
+						<td id="tr_align_center" style="width: 160px;">作成日</td>
+						<td id="tr_align_center" style="width: 150px;">休暇区分</td>
+						<td id="tr_align_center" style="width: 150px;">休暇理由</td>
+						<td id="tr_align_center" style="width: 90px;">書類状態</td>
+						<td id="tr_align_center" style="width: 90px;">依頼実施日</td>
+						<td id="tr_align_center" style="width: 80px;">確認者</td>
+						<td id="tr_align_center" style="width: 90px;">確認完了日</td>
+						<td id="tr_align_center" style="width: 280px;">差し戻し理由</td>
 					</tr>
 
 					<%--																		--%>
@@ -431,14 +429,14 @@
 									<a onclick="holidayReview()"><s:property value="trk_dt" />
 									</a>
 								</form></td>
-							<td id="tr_center"><s:property value="hld_rsn_category" />:<s:property
-									value="hld_rsn_item" /></td>
+							<td id="tr_align_center"><s:property
+									value="hld_rsn_category" />:<s:property value="hld_rsn_item" /></td>
 							<td style="font-size: 14px"><s:property
 									value="hld_rsn_category" /></td>
-							<td id="tr_center"><s:property value="hld_status" /></td>
-							<td id="tr_center"><s:property value="req_day" /></td>
-							<td id="tr_center"><s:property value="auth_user" /></td>
-							<td id="tr_center"><s:property value="cpl_day" /></td>
+							<td id="tr_align_center"><s:property value="hld_status" /></td>
+							<td id="tr_align_center"><s:property value="req_day" /></td>
+							<td id="tr_align_center"><s:property value="auth_user" /></td>
+							<td id="tr_align_center"><s:property value="cpl_day" /></td>
 							<td style="font-size: 14px"><s:property
 									value="hld_reject_reason" /></td>
 
@@ -471,7 +469,7 @@
 		</tr>
 		<tr>
 			<td>
-				<table width="1140px" style="table-layout: fixed">
+				<table width="1118px" style="table-layout: fixed">
 					<tr>
 						<%--																		--%>
 						<%--					休暇申請・報告書作成ボタン押下							--%>
@@ -483,7 +481,8 @@
 						<td><font size="2">*作成日アンカーをクリックすると、休暇申請・報告書確認画面に移動します。</font></td>
 						<s:form name="hd_add_form" action="intoHLDWrite" method="POST"
 							enctype="multipart/form-data" theme="simple">
-							<td><input type="button" onclick="holidayAdd()" value="新規作成"></td>
+							<td align="right"><input type="button"
+								onclick="holidayAdd()" value="新規作成"></td>
 						</s:form>
 					</tr>
 				</table>

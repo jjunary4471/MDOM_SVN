@@ -53,6 +53,7 @@ public class MDOM0301 implements Action, Preparable{
 			ts_InfoVO = mdom0301_dao.getTSInfo(ts_InfoVO, param);
 			param.put("doc_ym", ts_InfoVO.getDoc_ym());
 			tr_InfoVOList = mdom0301_dao.getTRInfoList(tr_InfoVOList, param);
+			hd_InfoVOList = mdom0301_dao.getHDInfoList(hd_InfoVOList, param);
 			// ドキュメント日付の設定
 			documentDate = ts_InfoVO.getDoc_ym();
 			documentYear = documentDate.substring(0,4);
@@ -122,5 +123,9 @@ public class MDOM0301 implements Action, Preparable{
 	
 	public List<TR_InfoVO> getTr_InfoVOList() {
 		return tr_InfoVOList;
+	}
+
+	public List<HD_InfoVO> getHd_InfoVOList() {
+		return hd_InfoVOList;
 	}
 }
