@@ -8,6 +8,7 @@ import com.opensymphony.xwork2.ActionContext;
 
 import bean.CD_InfoVO;
 import bean.US_InfoVO;
+import common.MDOM_CD;
 import common.StringUtility;
 import dao.MDOM0101_DAO;
 
@@ -32,11 +33,15 @@ public class MDOM0101 {
 	List<US_InfoVO> userInfoList = new ArrayList<US_InfoVO>();
 	List<CD_InfoVO> userCodeInfo = new ArrayList<CD_InfoVO>();
 	ActionContext context = ActionContext.getContext();
+	MDOM_CD mdomCd = null;
 	Map<String, Object> session = (Map<String, Object>) context.getSession();
 		
+	@SuppressWarnings("static-access")
 	public String execute() throws Exception{
 		
 		try{
+			
+			mdomCd = new MDOM_CD(null);
 
 			userInfoList = logindao.getUserInfo(this.userId);
 						
@@ -51,9 +56,9 @@ public class MDOM0101 {
 				user_id = us_InfoVO.getUser_id();
 				user_name = us_InfoVO.getUser_ccfname() + us_InfoVO.getUser_cclname();
 				user_rank = us_InfoVO.getUser_rank();
-				user_rank_name = us_InfoVO.getUser_rank_name();
+				user_rank_name = mdomCd.getCodeName(mdomCd.rank, user_rank);
 				user_department = us_InfoVO.getUser_department();
-				user_department_name = us_InfoVO.getUser_department_name();
+				user_department_name = mdomCd.getCodeName(mdomCd.dept, user_department);
 				auth_flg = us_InfoVO.getAuth_flg();
 				auth_lvl = us_InfoVO.getAuth_lvl();
 				
@@ -66,6 +71,7 @@ public class MDOM0101 {
 				session.put("s_user_dept_name", user_department_name);
 				session.put("s_user_auth_flg", auth_flg);
 				session.put("s_user_auth_lvl", auth_lvl);
+				session.put("s_allCdMap", mdomCd.getAllCdMap());
 				context.setSession(session);
 
 			}else {
