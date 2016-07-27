@@ -63,16 +63,6 @@
 			<result name="SUCCESS"  type="redirect">MakeMonthlyDoc</result>
 		</action>
 		
-		<action name="deleteHD_Info" class="action.making.MDOM0304">
-			<interceptor-ref name="prepare" />
-			<interceptor-ref name="modelDriven" />
-			<interceptor-ref name="params" />
-			<result name="SUCCESS"  type="redirect">MakeMonthlyDoc</result>
-		</action>
-		
-		
-		
-		
 	</package>
 
 	<!-- Add packages here -->

@@ -148,7 +148,7 @@ tr {
 	// 休暇申請・報告書削除ボタンイベント
 	function holidayDelete() {
 		if (confirm("選択した休暇申請・報告書を削除しますか？") == true) {
-			document.hd_delete_form.submit();
+			$("form[name=hd_delete_form]").submit();
 		}
 	}
 	// 交通費ラジオボタンチェックイベント
@@ -164,16 +164,25 @@ tr {
 		var transAdvanceCost_in = $('#transAdvanceCost_in');
 		var mesai_no_in = $('input[id="mesai_no_in"]');
 
-		var transDate_out = $('td[name="transDate_out"]')[index].innerText;
-		transDate_out = transDate_out.substring(6, 8);
-		var transStartPoint_out = $('td[name="transStartPoint_out"]')[index].innerText;
-		var transEndPoint_out = $('td[name="transEndPoint_out"]')[index].innerText;
-		var transRound_out = $('td[name="transRound_out"]')[index].innerText;
-		var transDestination_out = $('td[name="transDestination_out"]')[index].innerText;
-		var transPlan_out = $('td[name="transPlan_out"]')[index].innerText;
-		var transCost_out = $('td[name="transCost_out"]')[index].innerText;
-		var transAdvanceCost_out = $('td[name="transAdvanceCost_out"]')[index].innerText;
-		var mesai_no_out = $('td[name="mesai_no_out"]')[index].innerText;
+		var transDate_out			= $.trim($('td[name="kinmu_day_out"]')[index].innerText);
+		var transStartPoint_out		= $.trim($('td[name="transStartPoint_out"]')[index].innerText);
+		var transEndPoint_out		= $.trim($('td[name="transEndPoint_out"]')[index].innerText);
+		var transRound_out			= $.trim($('td[name="transRound_out"]')[index].innerText);
+		var transDestination_out	= $.trim($('td[name="transDestination_out"]')[index].innerText);
+		var transPlan_out			= $.trim($('td[name="transPlan_out"]')[index].innerText);
+		var transCost_out			= $.trim($('td[name="transCost_out"]')[index].innerText);
+		var transAdvanceCost_out	= $.trim($('td[name="transAdvanceCost_out"]')[index].innerText);
+		var mesai_no_out			= $.trim($('td[name="mesai_no_out"]')[index].innerText);
+		
+		transDate_out.trim();
+		transStartPoint_out = transStartPoint_out.trim();
+		transEndPoint_out.trim();
+		transRound_out.trim();
+		transDestination_out.trim();
+		transPlan_out.trim();
+		transCost_out.trim();
+		transAdvanceCost_out.trim();
+		mesai_no_out.trim();
 
 		transDate_in.val(transDate_out);
 		transDate_check_in.val(transDate_out);
@@ -181,7 +190,7 @@ tr {
 		transEndPoint_in.val(transEndPoint_out);
 		round_trip_in.val(transRound_out).attr("selected", "selected");
 		transDestination_in.val(transDestination_out);
-		transPlan_in.val(transCost_out);
+		transPlan_in.val(transPlan_out);
 		transCost_in.val(transCost_out);
 		transAdvanceCost_in.val(transAdvanceCost_out);
 		mesai_no_in.val(mesai_no_out);
@@ -193,6 +202,8 @@ tr {
 <title>月次書類作成画面</title>
 </head>
 <body>
+<iframe src="header/header.jsp" height="80px" width="100%" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0>
+</iframe>
 	<h2>月次書類作成画面</h2>
 	<h3>
 		交通費作成状態(<span id="documentYear"><s:property
@@ -241,7 +252,7 @@ tr {
 				<s:property value="#session.s_user_rank_name" />
 			</td>
 			<td id="tr_align_center">
-				<s:property value="ts_InfoVO.trns_status" />
+				<s:property value="ts_InfoVO.trns_status" />:<s:property value="ts_InfoVO.trns_status_name" />
 			</td>
 			<td id="tr_align_center">
 				<s:property value="ts_InfoVO.req_day" />
@@ -388,6 +399,9 @@ tr {
 								<td name="mesai_no_out" style="display: none">
 									<s:property value="mesai_no" />
 								</td>
+								<td name="kinmu_day_out" style="display: none">
+									<s:property value="kinmu_day" />
+								</td>
 								<td id="tr_align_center" style="width: 40px">
 									<input type="radio" name="transCheck_out"
 										onclick="transportRadioCheck(this.value)"
@@ -515,7 +529,7 @@ tr {
 							<%--						休暇申請・報告書修正ボタン押下						--%>
 							<%--	event		onclick		="holidayUpdate()"							--%>
 							<%--	form		name		="hd_update_form" 							--%>
-							<%--				action		="--------------"							--%>
+							<%--				action		="intoHLDEdit"								--%>
 							<%--	parameter	hld_mng_no	="hld_mng_no"								--%>
 							<%--																		--%>
 							<%--						休暇申請・報告書削除ボタン押下						--%>
@@ -525,18 +539,19 @@ tr {
 							<%--	parameter	hld_mng_no	="hld_mng_no"								--%>
 							<%--																		--%>
 							<td>
-								<s:form name="hd_update_form" action="-----------------"
+								<s:form name="hd_update_form" action="intoHLDEdit"
 									method="POST" enctype="multipart/form-data" theme="simple">
 									<s:hidden name="hld_flag" value="1" />
-									<s:hidden name="hld_mng_no" value="hld_mng_no" />
-									<input type="button" onclick="holidayUpdate()" value="修正">
+									<s:hidden name="hld_mng_no" value="%{hld_mng_no}" />
+									<s:submit value="修正" action="intoHLDEdit"/>
 								</s:form>
 							</td>
+							
 							<td>
-								<s:form name="hd_delete_form" action="deleteHD_Info"
+								<s:form name="hd_delete_form" action="deleteHD_Info" onsubmit="return false"
 									method="POST" enctype="multipart/form-data" theme="simple">
-									<s:hidden name="hld_mng_no" value="hld_mng_no" />
-									<input type="button" onclick="holidayDelete()" value="削除">
+									<s:hidden name="hld_mng_no" value="%{hld_mng_no}" />
+									<s:submit onclick="holidayDelete()" value="削除"/>
 								</s:form>
 							</td>
 						</tr>

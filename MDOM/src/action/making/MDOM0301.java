@@ -24,6 +24,7 @@ public class MDOM0301 implements Action, Preparable{
 	private Logger log = Logger.getLogger(this.getClass());
 	private ActionContext context = ActionContext.getContext();
 	private Map<String, Object> session = null;
+	private Map parameter = null;
 	// dao
 	private MDOM0301_DAO mdom0301_dao		= null;
 	// bean
@@ -44,7 +45,6 @@ public class MDOM0301 implements Action, Preparable{
 		log.info("==========MDOM0301 execute start==============================");
 		try {
 			// セッション取得
-			session.put("s_user_id", "10000001");
 			context.setSession(session);
 			String user_id = String.valueOf(session.get("s_user_id"));
 			// データベース取得
@@ -81,7 +81,7 @@ public class MDOM0301 implements Action, Preparable{
 				String week_day = null;
 				String day = null;
 				day = hd_InfoVOTemp.getMk_day();
-				day = day.substring(4, 6);
+				day = day.substring(6, 8);
 				week_day = dateCalulator.getWeekDay(documentYear, documentMonth, day);
 				hd_InfoVOTemp.setKyuka_day(day);
 				hd_InfoVOTemp.setWeek_day(week_day);

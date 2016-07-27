@@ -23,7 +23,7 @@ public class MDOM0304_DAO {
 	public int deleteHDInfo(Map<String, String> param) {
 		int returnInt = 0;
 		try {
-			returnInt = sqlSession.delete(mm.MDOM0304_deleteTRInfo, param);
+			returnInt = sqlSession.delete(mm.MDOM0304_deleteHDInfo, param);
 			sqlSession.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
