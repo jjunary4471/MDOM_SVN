@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="common">
 
-	<select id="getCDInfoList" parameterType="HashMap" resultType="bean.US_InfoVO">
+	<select id="getCDInfoList" parameterType="HashMap" resultType="bean.CD_InfoVO">
 		SELECT *
 		FROM codtbl
 		ORDER BY CODE_KANRI_NO
