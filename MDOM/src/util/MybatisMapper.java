@@ -1,11 +1,5 @@
 package util;
 
-import java.util.List;
-
-import bean.HD_InfoVO;
-import bean.TR_InfoVO;
-import bean.TS_InfoVO;
-
 public class MybatisMapper {
 	
 	public String MDOM0301_getUSInfo = "mdom03.getUSInfo";
@@ -21,6 +15,9 @@ public class MybatisMapper {
 	public String MDOM0303_deleteTRInfo = "mdom03.deleteTRInfo";
 
 	public String MDOM0304_deleteHDInfo = "mdom03.deleteHDInfo";
+	
+	public String MDOM0601_getTRInfoList = "mdom06.getTRInfoList";
+	public String MDOM0601_getHDInfoList = "mdom06.getHDInfoList";	
 
 	public String MDOMCOMMON_getCDInfoList = "common.getCDInfoList";
 }

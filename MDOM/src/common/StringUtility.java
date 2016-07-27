@@ -2,6 +2,8 @@ package common;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 public class StringUtility {
 	
@@ -37,6 +39,13 @@ public class StringUtility {
 			SHA = null;
 		}
 		return SHA;
+	}
+	
+	public static String getYenMoney(String money){
+		NumberFormat nf = new DecimalFormat("#,##0");
+		Double dMoney = Double.valueOf(money);
+		
+		return "￥" + nf.format(dMoney);
 	}
 	
 	
