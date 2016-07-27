@@ -38,7 +38,7 @@
 			<result name="FAIL">/WEB-INF/jsp/MDOM0300.jsp</result>
 		</action>
 		
-		<action name="intoHLDEdit" class="action.holiday.MDOM0401">
+		<action name="intoHLDEdit" class="action.holiday.MDOM0401" method="intoHLDEdit">
 			<result name="SUCCESS">/WEB-INF/jsp/MDOM0400.jsp</result>
 			<result name="FAIL">/WEB-INF/jsp/MDOM0300.jsp</result>
 		</action>
@@ -53,7 +53,6 @@
 			<interceptor-ref name="modelDriven" />
 			<interceptor-ref name="params" />
 			<result name="SUCCESS"  type="redirect">MakeMonthlyDoc</result>
-
 		</action>
 		
 		<action name="deleteHD_Info" class="action.making.MDOM0304">

@@ -26,6 +26,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{VISA_DAY}, "", "", "", #{HLD_STATUS}, "", now(), now(), #{TRK_ID})
 	</insert>
 	
-
+	<update id="setUserInfo">
+		UPDATE UserInfoTBL set
+			USER_ID = #{USER_ID},
+			USER_PHONE_JPN = #{USER_PHONE_JPN},
+			WORK_AREA = #{WORK_AREA},
+			PROJECT_NAME = #{PROJECT_NAME},
+			USER_PHONE_ETC = #{USER_PHONE_ETC},
+			VISA_DAY = #{VISA_DAY}
+		WHERE USER_ID = #{USER_ID}
+	</update>
+	
+	<select id="setHLDEdit" parameterType="HashMap" resultType="bean.HD_InfoVO">
+		SELECT *
+		FROM holidaytbl
+		WHERE USER_ID = #{USER_ID} and HLD_MNG_NO = #{HLD_MNG_NO}
+	</select>
 	
 </mapper> 	

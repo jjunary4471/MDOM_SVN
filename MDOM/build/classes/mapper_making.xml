@@ -14,7 +14,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="getTSInfo" parameterType="HashMap" resultType="bean.TS_InfoVO">
 		SELECT
-		user_id,doc_ym,auth_user,trns_status,trp_reject_reason,req_day,cpl_day
+		user_id,doc_ym,auth_user,trns_status,trp_reject_reason,req_day,cpl_day,
+		(select code_name from codtbl where code_bunrui_no="006" and code_no=trns_status) trns_status_name
 		FROM TranStatusTBL
 		WHERE user_id = #{user_id}
 	</select>
