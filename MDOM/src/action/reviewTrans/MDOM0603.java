@@ -62,7 +62,7 @@ public class MDOM0603 implements Action, Preparable {
 			Map<String, Integer> map = null;
 			// セッション取得
 			String user_name = String.valueOf(session.get("s_user_name"));
-			user_name = user_name.substring(0, 0) + " " + user_name.substring(1);
+			user_name = user_name.substring(0, 1) + " " + user_name.substring(1);
 			String user_department = String.valueOf(session.get("s_user_dept_name"));
 			// パラメーター取得
 			MDOM0301_DAO mdom0301_dao = new MDOM0301_DAO();
@@ -92,10 +92,10 @@ public class MDOM0603 implements Action, Preparable {
 			// 交通費情報
 			DateCalulator dc = new DateCalulator();
 			int lastDay = dc.getLastDay(doc_year, doc_month); // 最後の日取得
-			int startDay = 1;
-			int beforeDay = 0; // Excelに最後で入力した日
-			int rownum = 5; // カレンダー開始業
-			int iteratorCheck = 0; // 交通費情報の残り判定
+			int startDay = 1;		// 1日
+			int beforeDay = 0;		// Excelに最後で入力した日
+			int rownum = 5;			// カレンダー開始行
+			int iteratorCheck = 0;	// 交通費情報の残り判定
 			Iterator<TR_InfoVO> iterator = tr_InfoVOList.iterator();
 			TR_InfoVO tr_InfoVO = null;
 			if (iterator.hasNext()) {
@@ -128,16 +128,16 @@ public class MDOM0603 implements Action, Preparable {
 						round_trip = "⇔";
 					}
 					if (day == kinmu_day) { // カレンダーの日と交通費の日が同じ場合
-						workRow.getCell(0).setCellValue(kinmu_day);
-						workRow.getCell(2).setCellValue(kukan_start + round_trip + kukan_stop);
-						workRow.getCell(5).setCellValue(dest_area);
-						workRow.getCell(6).setCellValue(trp_shurui);
-						workRow.getCell(7).setCellValue(trp_cost);
+						workRow.getCell(0).setCellValue(kinmu_day);								// 勤務日
+						workRow.getCell(2).setCellValue(kukan_start + round_trip + kukan_stop); // 区間
+						workRow.getCell(5).setCellValue(dest_area); 							// 行先
+						workRow.getCell(6).setCellValue(trp_shurui);							// 乗物
+						workRow.getCell(7).setCellValue(trp_cost);								// 金額
 						if (mae_money != null && !mae_money.trim().isEmpty()) {
-							workRow.getCell(8).setCellValue(Double.parseDouble(mae_money));
+							workRow.getCell(8).setCellValue(Double.parseDouble(mae_money));		// 前渡金
 						}
-						workRow.getCell(1).setCellFormula(weekDayFormula);
-						workRow.getCell(9).setCellFormula(balanceFormula);
+						workRow.getCell(1).setCellFormula(weekDayFormula);						// 残高
+						workRow.getCell(9).setCellFormula(balanceFormula);						// 合計
 						if (iterator.hasNext()) {
 							tr_InfoVO = iterator.next();
 						} else {
@@ -145,8 +145,8 @@ public class MDOM0603 implements Action, Preparable {
 						}
 						beforeDay = day;
 					} else if (beforeDay == kinmu_day) { // 前日と交通費の日が同じ場合
-						workRow.createCell(0);
-						workRow.createCell(1);
+						workRow.getCell(0).setCellValue("");
+						workRow.getCell(1).setCellValue("");
 						workRow.getCell(2).setCellValue(kukan_start + round_trip + kukan_stop);
 						workRow.getCell(5).setCellValue(dest_area);
 						workRow.getCell(6).setCellValue(trp_shurui);
@@ -154,7 +154,6 @@ public class MDOM0603 implements Action, Preparable {
 						if (mae_money != null && !mae_money.trim().isEmpty()) {
 							workRow.getCell(8).setCellValue(Double.parseDouble(mae_money));
 						}
-						workRow.getCell(1).setCellFormula(weekDayFormula);
 						workRow.getCell(9).setCellFormula(balanceFormula);
 						if (iterator.hasNext()) {
 							tr_InfoVO = iterator.next();
@@ -164,7 +163,6 @@ public class MDOM0603 implements Action, Preparable {
 						day--;
 					} else { // その以外の場合
 						workRow.getCell(0).setCellValue(day);
-						workRow.getCell(1).setCellFormula(weekDayFormula);
 						workRow.getCell(9).setCellFormula(balanceFormula);
 						beforeDay = day;
 					}
@@ -180,17 +178,20 @@ public class MDOM0603 implements Action, Preparable {
 						+ "),1),\"日\",\"月\",\"火\",\"水\",\"木\",\"金\",\"土\")";
 			}
 			// 合計
-			totalBalanceFormula = "J" + rownum;
-			workRow = workSheet.getRow(rownum);
-			workRow.getCell(9).setCellFormula(totalBalanceFormula);
-			
-			totalCostFormula = "SUM(H5:H" + workRow+1 + ")";
-			workRow = workSheet.getRow(rownum);
-			workRow.getCell(7).setCellFormula(totalBalanceFormula);
+			totalBalanceFormula = "J" + rownum;						// 関数
+			workRow = workSheet.getRow(rownum);						// 行取得
+			workRow.getCell(9).setCellFormula(totalBalanceFormula);	// 関数設定
+			// 金額合計
+			rownum++;												// 金額行番号
+			totalCostFormula = "SUM(H5:H" + workRow + ")";			// 関数
+			workRow = workSheet.getRow(rownum); 					// 行取得
+			workRow.getCell(7).setCellFormula(totalBalanceFormula);	// 関数設定
 
-			workBook.write(fos);
+			workBook.write(fos);	// Excelファイル作成
+			return "SUCCESS";
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "ERROR";
 		} finally {
 			try {
 				fis.close();
@@ -201,7 +202,6 @@ public class MDOM0603 implements Action, Preparable {
 				e.printStackTrace();
 			}
 		}
-		return null;
 	}
 
 	public void setTr_InfoVOList(List<TR_InfoVO> tr_InfoVOList) {

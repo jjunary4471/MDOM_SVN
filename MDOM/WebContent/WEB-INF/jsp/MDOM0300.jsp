@@ -22,16 +22,27 @@ tr {
 </style>
 
 <script>
-	// 今月書類作成イベント
-	function currentMonthWrite() {
+	$(document).ready(function() {
 		var status =<%=request.getAttribute("documentStatus")%>;
 		var currentMonth =<%=request.getAttribute("currentMonth")%>;
 		var documentMonth =<%=request.getAttribute("documentMonth")%>;
-		if (documentMonth == currentMonth) {
-		} else if (status == "1") {
+		if (documentMonth != currentMonth) {
+		} else if (status == "3") {
 		} else {
-			document.currentMonthBtn.submit();
+			$('#currentMonthBtn').attr("disabled",true);
 		}
+		
+		if(status != "1") {	// 作成中じゃない場合非活性化
+			$('#transAddBtn').attr("disabled",true);
+			$('#transUpdateBtn').attr("disabled",true);
+			$('#transDeleteBtn').attr("disabled",true);
+		}
+		
+	});
+
+	// 今月書類作成イベント
+	function currentMonthWrite() {
+		document.currentMonthForm.submit();
 	}
 	// 交通費入力有効性チェック
 	function transportCheck() {
@@ -97,27 +108,30 @@ tr {
 		var mesai_no_in = $('input[id="mesai_no_in"]').val();
 		var transDate_in = $('input[id="transDate_in"]').val();
 		var transDate_check_in = $('input[id="transDate_check_in"]').val();
-		var check = transportCheck();
-		if (check == 1) {
-			if (doc_ym_in == "" || mesai_no_in == "") {
+		if (mesai_no_in) { // mesai_no_inがnull&undefinedじゃない場合
+			var check = transportCheck()
+			if (check != 1) {
 			} else if (transDate_check_in != transDate_in) {
 				alert("勤務日がチェックした交通費情報と異なります。")
 			} else {
 				$('input[id="tr_add_form_flag_in"]').val("1");
 				document.tr_add_form.submit();
-			}
+			} 
+		}else {
+			alert("修正対象となる項目を選択して下さい。");
 		}
 	}
 	// 交通費削除ボタンイベント
 	function transportCostDelete() {
 		var doc_ym_in = $('input[id="doc_ymd_in"]').val();
 		var mesai_no_in = $('input[id="mesai_no_in"]').val();
-		if (doc_ym_in != "" || mesai_no_in != "") {
+		if (mesai_no_in) { // mesai_no_inがnull&undefinedじゃない場合
 			if (confirm("選択した交通費を削除しますか？") == true) {
-
 				$('input[id="tr_add_form_flag_in"]').val("2");
 				document.tr_add_form.submit();
 			}
+		} else {
+			alert("削除対象となる項目を選択して下さい。");
 		}
 	}
 	// 交通費確認ボタンイベント
@@ -144,6 +158,7 @@ tr {
 	}
 	// 交通費ラジオボタンチェックイベント
 	function transportRadioCheck(index) {
+		
 		var transDate_in = $('#transDate_in');
 		var transDate_check_in = $('input[id="transDate_check_in"]');
 		var transStartPoint_in = $('#transStartPoint_in');
@@ -204,14 +219,14 @@ tr {
 	<%--																		--%>
 	<%--							今月書類ボタン押下							--%>
 	<%--	event		onclick="currentMonthWrite()"							--%>
-	<%--	form		name="currentMonthBtn" 									--%>
+	<%--	form		name="currentMonthForm" 								--%>
 	<%--				action="currentMonth"									--%>
 	<%--	parameter	doc_ym="documentDate"									--%>
 	<%--																		--%>
-	<s:form name="currentMonthBtn" action="currentMonth" method="POST"
+	<s:form name="currentMonthForm" action="currentMonth" method="POST"
 		enctype="multipart/form-data" theme="simple">
 		<s:hidden name="current_doc_ym" value="%{documentDate}" />
-		<input type="button" onclick="currentMonthWrite()" value="今月書類" />
+		<input id="currentMonthBtn" type="button" onclick="currentMonthWrite()" value="今月書類" />
 	</s:form>
 	<font size="2">*対象月が前月の場合、クリックしてください。</font>
 	<br>
@@ -324,7 +339,7 @@ tr {
 							</td>
 							<td id="tr_vertical_center">
 								<s:select cssStyle="width:90px;" id="round_trip_in"
-									name="round_trip" list="#{'00':'片道','01':'往復'}" />
+									name="round_trip" list="#request.cd_InfoVOList"  listKey="CODE_NO" listValue="CODE_NAME" />
 							</td>
 							<td id="tr_vertical_center">
 								<s:textfield id="transDestination_in" name="dest_area"
@@ -350,9 +365,9 @@ tr {
 								<font size="2">*定期券購入は乗物に入力してください。</font>
 							</td>
 							<td align="right">
-								<input type="button" onclick="transportCostAdd();" value="登録" />
-								<input type="button" onclick="transportCostUpdate();" value="修正" />
-								<input type="button" onclick="transportCostDelete();" value="削除" />
+								<input id="transAddBtn" type="button" onclick="transportCostAdd();" value="登録" />
+								<input id="transUpdateBtn" type="button" onclick="transportCostUpdate();" value="修正" />
+								<input id="transDeleteBtn" type="button" onclick="transportCostDelete();" value="削除" />
 							</td>
 						</tr>
 					</table>
@@ -576,5 +591,13 @@ tr {
 			</td>
 		</tr>
 	</table>
+		<s:form action="test" method="POST"
+					enctype="multipart/form-data" theme="simple">
+					<s:hidden name="doc_year" value="%{documentYear}" />
+					<s:hidden name="doc_month" value="%{documentMonth}" />
+					<s:hidden name="tr_InfoVOList" value="%{tr_InfoVOList}" />
+					<s:hidden name="hd_InfoVOList" value="%{hd_InfoVOList}" />
+					<s:submit value="----" />
+				</s:form>
 </body>
 </html>

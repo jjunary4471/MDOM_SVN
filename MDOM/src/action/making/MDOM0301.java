@@ -3,6 +3,7 @@ package action.making;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,14 +11,15 @@ import org.apache.log4j.Logger;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
+import bean.CD_InfoVO;
 import bean.HD_InfoVO;
 import bean.TR_InfoVO;
 import bean.TS_InfoVO;
-import bean.US_InfoVO;
+import common.MDOM_CD;
 import dao.MDOM0301_DAO;
+import dao.MDOMCD_DAO;
 import util.DateCalulator;
 
 public class MDOM0301 implements Action, Preparable{
@@ -31,6 +33,10 @@ public class MDOM0301 implements Action, Preparable{
 	private TS_InfoVO ts_InfoVO				= null;
 	private List<TR_InfoVO> tr_InfoVOList	= null;
 	private List<HD_InfoVO> hd_InfoVOList	= null;
+	private LinkedHashMap<String, CD_InfoVO> cd_InfoVOList	= null;
+	private Map<String, LinkedHashMap<String, CD_InfoVO>> cd_hashMap = null;
+	private List<String> code_noList = null;
+	private List<String> code_nameList = null;
 	// request
 	private String documentDate		= null;
 	private String documentYear		= null;
@@ -67,6 +73,14 @@ public class MDOM0301 implements Action, Preparable{
 			DateCalulator dateCalulator = new DateCalulator();
 			currentMonth = String.valueOf(dateCalulator.getCurrentMonth());
 			documentLastDay = String.valueOf(dateCalulator.getLastDay(documentYear,documentMonth));
+			// コード取得
+			cd_hashMap = (Map<String, LinkedHashMap<String, CD_InfoVO>>) session.get("s_allCdMap");
+			cd_InfoVOList = cd_hashMap.get(MDOM_CD.rnd_trip);
+			//
+			//
+			//
+			//
+			//
 			// 曜日設定
 			Iterator<TR_InfoVO> iteratorTr = tr_InfoVOList.iterator();
 			while(iteratorTr.hasNext()) {
@@ -145,4 +159,12 @@ public class MDOM0301 implements Action, Preparable{
 	public List<HD_InfoVO> getHd_InfoVOList() {
 		return hd_InfoVOList;
 	}
+
+	public LinkedHashMap<String, CD_InfoVO> getCd_InfoVOList() {
+		return cd_InfoVOList;
+	}
+
+	
+	
+	
 }
