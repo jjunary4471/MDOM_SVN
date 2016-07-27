@@ -13,29 +13,28 @@
 
 // 텍스트 박스 기존 데이터로 초기화 
 ////////////////////////////////////////////////////////////////////////
+
 <% 
+	String hldFlag = (String)request.getAttribute("hld_flag");
+	String hldMngNo = (String)request.getAttribute("hld_mng_no");
+
 	String nowDate = (String)request.getAttribute("nowDate");
 	String user_field = (String)request.getAttribute("user_field");
 	String user_pj = (String)request.getAttribute("user_pj");
 	String user_jpnum = (String)request.getAttribute("user_jpnum");
 	String user_etcnum = (String)request.getAttribute("user_etcnum");
 	String user_visa = (String)request.getAttribute("user_visa");
+	
+	String hldReason = (String)request.getAttribute("hldReason");
+	String hldStart = (String)request.getAttribute("hldStart");
+	String hldEnd = (String)request.getAttribute("hldEnd");
+	String hldCategory = (String)request.getAttribute("hldCategory");
+	String hldItem = (String)request.getAttribute("hldItem");
+	
+	
 %>
 
-function setData() {
-	
-	document.getElementById("holidayStart").value = "<%=nowDate%>";
-	document.getElementById("holidayEnd").value = "<%=nowDate%>";
-	document.getElementById("holidayField").value = "<%=user_field%>";
-	document.getElementById("holidayPjname").value = "<%=user_pj%>";
-	document.getElementById("holidayJpnum").value = "<%=user_jpnum%>";
-	document.getElementById("holidayEtcnum").value = "<%=user_etcnum%>";
-	document.getElementById("holidayVisa").value = "<%=user_visa%>";
-}
-
-////////////////////////////////////////////////////////////////////////
-
-
+var typeChk;
 
 var shortSelected;
 var longSelected;
@@ -53,6 +52,114 @@ var hldJpnum;
 var hldEtcnum;
 var hldVisa;
 
+var categoryChk = hldWrite.holidayType;
+var shortItemChk = hldWrite.shortHolidayType;
+var longItemChk = hldWrite.longHolidayType;
+var etcItemChk = hldWrite.etcHolidayType;
+
+
+function setData() {
+	
+	if(<%=hldFlag%> == 1) {
+		
+		typeChk = "1";
+		
+		document.getElementById("holidayBtn").value = "修正";
+		
+		document.getElementById("holidayReason").value = "<%=hldReason%>";
+		document.getElementById("holidayStart").value = "<%=hldStart%>";
+		document.getElementById("holidayEnd").value = "<%=hldEnd%>";
+		document.getElementById("holidayField").value = "<%=user_field%>";
+		document.getElementById("holidayPjname").value = "<%=user_pj%>";
+		document.getElementById("holidayJpnum").value = "<%=user_jpnum%>";
+		document.getElementById("holidayEtcnum").value = "<%=user_etcnum%>";
+		document.getElementById("holidayVisa").value = "<%=user_visa%>";
+				
+		if(<%=hldCategory%> == 01) {
+			categoryChk[0].checked = true;
+			bigKubun = "01";
+
+			if(<%=hldItem%> == 10) {
+				smallKubun = "10";
+				shortItemChk[0].checked = true;
+			}else if(<%=hldItem%> == 11) {
+				smallKubun = "11";
+				shortItemChk[1].checked = true;
+			}else if(<%=hldItem%> == 12) {
+				smallKubun = "12";
+				shortItemChk[2].checked = true;
+			}else if(<%=hldItem%> == 13) {
+				smallKubun = "13";
+				shortItemChk[3].checked = true;
+			}else if(<%=hldItem%> == 14) {
+				smallKubun = "14";
+				shortItemChk[4].checked = true;
+			}else if(<%=hldItem%> == 15) {
+				smallKubun = "15";
+				shortItemChk[5].checked = true;
+			}
+			
+			document.getElementById("short").style.display = "";
+			document.getElementById("long").style.display = "none";
+			document.getElementById("etc").style.display = "none";
+			
+		}else if(<%=hldCategory%> == 02) {
+			bigKubun = "02";
+			categoryChk[1].checked = true;
+			
+			if(<%=hldItem%> == 20) {
+				smallKubun = "20";
+				longItemChk[0].checked = true;
+			}else if(<%=hldItem%> == 21) {
+				smallKubun = "21";
+				longItemChk[1].checked = true;
+			}else if(<%=hldItem%> == 22) {
+				smallKubun = "22";
+				longItemChk[2].checked = true;
+			}else if(<%=hldItem%> == 23) {
+				smallKubun = "23";
+				longItemChk[3].checked = true;
+			}else if(<%=hldItem%> == 24) {
+				smallKubun = "24";
+				longItemChk[4].checked = true;
+			}
+			
+			document.getElementById("short").style.display = "none";
+			document.getElementById("long").style.display = "";
+			document.getElementById("etc").style.display = "none";
+			
+		}else if(<%=hldCategory%> == 99) {
+			bigKubun = "99";
+			categoryChk[2].checked = true;
+			smallKubun = "30";
+			etcItemChk.checked = true;
+			
+			document.getElementById("short").style.display = "none";
+			document.getElementById("long").style.display = "none";
+			document.getElementById("etc").style.display = "";
+		}
+		
+	}else {
+		
+		typeChk = "0";
+		
+		document.getElementById("holidayStart").value = "<%=nowDate%>";
+		document.getElementById("holidayEnd").value = "<%=nowDate%>";
+		document.getElementById("holidayField").value = "<%=user_field%>";
+		document.getElementById("holidayPjname").value = "<%=user_pj%>";
+		document.getElementById("holidayJpnum").value = "<%=user_jpnum%>";
+		document.getElementById("holidayEtcnum").value = "<%=user_etcnum%>";
+		document.getElementById("holidayVisa").value = "<%=user_visa%>";
+	}
+
+}
+
+////////////////////////////////////////////////////////////////////////
+
+
+
+
+
 
 	// 대항목 라디오 버튼 클릭 시 소항목 라디오 버튼 출력
 	//////////////////////////////////////////////////////////////////////////////////////
@@ -61,17 +168,17 @@ var hldVisa;
 			document.getElementById(ss).style.display = "";
 			document.getElementById("long").style.display = "none";
 			document.getElementById("etc").style.display = "none";
-			bigKubun = "1";
+			bigKubun = "01";
 		} else if (s == "長期") {
 			document.getElementById(ss).style.display = "";
 			document.getElementById("short").style.display = "none";
 			document.getElementById("etc").style.display = "none";
-			bigKubun = "2";
+			bigKubun = "02";
 		} else if (s == "他") {
 			document.getElementById(ss).style.display = "";
 			document.getElementById("short").style.display = "none";
 			document.getElementById("long").style.display = "none";
-			bigKubun = "3";
+			bigKubun = "99";
 		}
 	}
 	//////////////////////////////////////////////////////////////////////////////////////
@@ -230,33 +337,35 @@ var hldVisa;
 		// 휴가 구분 대항목, 소항목 코드 번호 입력
 		
 		if(smallKubun == "全日休暇") {
-			smallKubun = "1";
-		}else if(smallKubun == "半日休暇(午前)") {
-			smallKubun = "2";
-		}else if(smallKubun == "半日休暇(午後)") {
-			smallKubun = "3";
-		}else if(smallKubun == "遅刻") {
-			smallKubun = "4";
-		}else if(smallKubun == "早退") {
-			smallKubun = "5";
-		}else if(smallKubun == "振替休暇") {
-			smallKubun = "6";
-		}else if(smallKubun == "夏期休暇") {
-			smallKubun = "7";
-		}else if(smallKubun == "年末・年始休暇") {
-			smallKubun = "8";
-		}else if(smallKubun == "慶弔休暇(結婚)") {
-			smallKubun = "9";
-		}else if(smallKubun == "慶弔休暇(葬儀)") {
 			smallKubun = "10";
-		}else if(smallKubun == "慶弔休暇(他)") {
+		}else if(smallKubun == "午前半休") {
 			smallKubun = "11";
-		}else if(smallKubun == "帰社") {
+		}else if(smallKubun == "午後半休") {
 			smallKubun = "12";
+		}else if(smallKubun == "遅刻") {
+			smallKubun = "13";
+		}else if(smallKubun == "早退") {
+			smallKubun = "14";
+		}else if(smallKubun == "振替休暇") {
+			smallKubun = "15";
+		}else if(smallKubun == "夏期休暇") {
+			smallKubun = "20";
+		}else if(smallKubun == "年末・年始休暇") {
+			smallKubun = "21";
+		}else if(smallKubun == "慶弔休暇(結婚)") {
+			smallKubun = "22";
+		}else if(smallKubun == "慶弔休暇(葬儀)") {
+			smallKubun = "23";
+		}else if(smallKubun == "慶弔休暇(他)") {
+			smallKubun = "24";
+		}else if(smallKubun == "帰社") {
+			smallKubun = "30";
 		}
 		
 		document.hldWrite.bigKubun.value = bigKubun;
 		document.hldWrite.smallKubun.value = smallKubun;
+		document.hldWrite.typeCheck.value = typeChk;
+		document.hldWrite.editDocNum.value = <%=hldMngNo%>;
 		
 	}
 	
@@ -264,6 +373,8 @@ var hldVisa;
 
 </head>
 <body onload='setData()'>
+<iframe src="header/header.jsp" height="80px" width="100%" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0>
+</iframe>
 	<form name="hldWrite" action="holidayWrite" onsubmit='return validate();' accept-charset="UTF-8">
 	<div id="center">
 		<table style="width: 921px;">
@@ -364,7 +475,9 @@ var hldVisa;
 		</table>
 		<input type="hidden" name="bigKubun" value="">
 		<input type="hidden" name="smallKubun" value="">
-		<input name="holidayAdd" style="margin-left: 445px;" type="submit" value="登録">
+		<input type="hidden" name="typeCheck" value="">
+		<input type="hidden" name="editDocNum" value="">
+		<input name="holidayBtn" id="holidayBtn" style="margin-left: 445px;" type="submit" value="登録">
 	</div>
 	</form>
 </body>

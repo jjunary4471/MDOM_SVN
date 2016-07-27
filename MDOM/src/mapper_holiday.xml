@@ -25,7 +25,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{HLD_START}, #{HLD_END}, #{HLD_PHONE_JPN}, #{HLD_WORK_AREA}, #{HLD_PROJECT_NAME}, #{HLD_PHONE_ETC}, 
 		#{VISA_DAY}, "", "", "", #{HLD_STATUS}, "", now(), now(), #{TRK_ID})
 	</insert>
-	
 
+	<update id="editHLDInfo">
+		UPDATE holidaytbl set
+			HLD_KBN_CATEGORY = #{HLD_KBN_CATEGORY},
+			HLD_KBN_ITEM = #{HLD_KBN_ITEM},
+			HLD_RSN = #{HLD_RSN},
+			HLD_START = #{HLD_START},
+			HLD_END = #{HLD_END},
+			HLD_PHONE_JPN = #{HLD_PHONE_JPN},
+			HLD_WORK_AREA = #{HLD_WORK_AREA},
+			HLD_PROJECT_NAME = #{HLD_PROJECT_NAME},
+			HLD_PHONE_ETC = #{HLD_PHONE_ETC},
+			VISA_DAY = #{VISA_DAY},
+			UPD_DT = NOW(),
+			UPD_ID = #{UPD_ID}
+		WHERE USER_ID = #{USER_ID} AND HLD_MNG_NO = #{HLD_MNG_NO}
+			
+	</update>
+	
+	<update id="setUserInfo">
+		UPDATE UserInfoTBL set
+			USER_ID = #{USER_ID},
+			USER_PHONE_JPN = #{USER_PHONE_JPN},
+			WORK_AREA = #{WORK_AREA},
+			PROJECT_NAME = #{PROJECT_NAME},
+			USER_PHONE_ETC = #{USER_PHONE_ETC},
+			VISA_DAY = #{VISA_DAY}
+		WHERE USER_ID = #{USER_ID}
+	</update>
+	
+	<select id="setHLDEdit" parameterType="HashMap" resultType="bean.HD_InfoVO">
+		SELECT *
+		FROM holidaytbl
+		WHERE USER_ID = #{USER_ID} and HLD_MNG_NO = #{HLD_MNG_NO}
+	</select>
 	
 </mapper> 	
