@@ -140,9 +140,9 @@ public class MDOM_CD {
 	
 	/**
 	 * コード分類、コードが一致するコード正式名称を取得
-	 * @param cd_bunrui_no
-	 * @param cd_no
-	 * @return
+	 * @param cd_bunrui_no コード分類
+	 * @param cd_no コード
+	 * @return コード正式名称
 	 */
 	public String getCodeSSKName(String cd_bunrui_no, String cd_no){		
 		return allCdMap.get(cd_bunrui_no).get(cd_no).getSSK_NM();
