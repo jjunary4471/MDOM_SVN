@@ -18,9 +18,10 @@ public class MDOM0302 implements Action, Preparable{
 	private Logger log = Logger.getLogger(this.getClass());
 	private ActionContext context = ActionContext.getContext();
 	private Map<String, Object> session = null;
-	private Map<String, Object> parameter = null;
 	// dao
 	private MDOM0302_DAO mdom0302_dao = null;
+	//
+	private String current_doc_ym = null; 
 	
 	@Override
 	public String execute() throws Exception {
@@ -38,11 +39,10 @@ public class MDOM0302 implements Action, Preparable{
 		}
 		// ドキュメント日付の設定
 		String currentDoc_ym = year + month;
-		String doc_ym = String.valueOf(parameter.get("doc_ym"));
 		// データベース取得
 		Map<String, String> param = new HashMap<String, String>();
 		param.put("user_id",user_id);
-		param.put("doc_ym", doc_ym);				//前月
+		param.put("doc_ym", current_doc_ym);		//前月
 		param.put("currentDoc_ym", currentDoc_ym);	//更新する月
 		int returnInt = mdom0302_dao.updateUSInfo(param);
 		if(returnInt != 1) {
@@ -62,8 +62,12 @@ public class MDOM0302 implements Action, Preparable{
 	@Override
 	public void prepare() throws Exception {
 		session = context.getSession();
-		parameter = context.getParameters();
 		mdom0302_dao = new MDOM0302_DAO();
 	}
+
+	public void setCurrent_doc_ym(String current_doc_ym) {
+		this.current_doc_ym = current_doc_ym;
+	}
+
 	
 }

@@ -24,20 +24,11 @@ tr {
 <script>
 	// 今月書類作成イベント
 	function currentMonthWrite() {
-		var status =
-<%TS_InfoVO ts_InfoVO = (TS_InfoVO) request.getAttribute("ts_InfoVO");
-			out.print(ts_InfoVO.getTrns_status());%>
-	+ '';
-		var currentMonth =
-<%=request.getAttribute("currentMonth")%>
-	;
-		var documentMonth =
-<%=request.getAttribute("documentMonth")%>
-	;
+		var status =<%=request.getAttribute("documentStatus")%>;
+		var currentMonth =<%=request.getAttribute("currentMonth")%>;
+		var documentMonth =<%=request.getAttribute("documentMonth")%>;
 		if (documentMonth == currentMonth) {
-
-		} else if (status == "1：作成中") {
-
+		} else if (status == "1") {
 		} else {
 			document.currentMonthBtn.submit();
 		}
@@ -217,9 +208,9 @@ tr {
 	<%--				action="currentMonth"									--%>
 	<%--	parameter	doc_ym="documentDate"									--%>
 	<%--																		--%>
-	<s:form name="currentMonthBtn" action="currentMonth()" method="POST"
+	<s:form name="currentMonthBtn" action="currentMonth" method="POST"
 		enctype="multipart/form-data" theme="simple">
-		<s:hidden name="doc_ym" value="%{documentDate}" />
+		<s:hidden name="current_doc_ym" value="%{documentDate}" />
 		<input type="button" onclick="currentMonthWrite()" value="今月書類" />
 	</s:form>
 	<font size="2">*対象月が前月の場合、クリックしてください。</font>

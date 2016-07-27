@@ -38,6 +38,7 @@ public class MDOM0301 implements Action, Preparable{
 	private String documentDay		= null;
 	private String documentLastDay	= null;
 	private String currentMonth		= null;
+	private String documentStatus	= null;
 	//
 	@Override
 	public String execute() throws Exception {
@@ -54,14 +55,14 @@ public class MDOM0301 implements Action, Preparable{
 			param.put("doc_ym", ts_InfoVO.getDoc_ym());
 			tr_InfoVOList = mdom0301_dao.getTRInfoList(tr_InfoVOList, param);
 			hd_InfoVOList = mdom0301_dao.getHDInfoList(hd_InfoVOList, param);
-			// ドキュメント日付の設定
+			// ドキュメント情報の設定
 			documentDate = ts_InfoVO.getDoc_ym();
 			documentYear = documentDate.substring(0,4);
 			documentMonth = documentDate.substring(4,6);
 			if(documentMonth.substring(0,1).equals("0")) {
 				documentMonth = documentMonth.substring(1, 2);
 			}
-			
+			documentStatus = ts_InfoVO.getTrns_status();
 			// システム日付 の設定
 			DateCalulator dateCalulator = new DateCalulator();
 			currentMonth = String.valueOf(dateCalulator.getCurrentMonth());
@@ -133,8 +134,8 @@ public class MDOM0301 implements Action, Preparable{
 		return currentMonth;
 	}
 
-	public void setDocumentMonth(String documentMonth) {
-		this.documentMonth = documentMonth;
+	public String getDocumentStatus() {
+		return documentStatus;
 	}
 
 	public List<TR_InfoVO> getTr_InfoVOList() {

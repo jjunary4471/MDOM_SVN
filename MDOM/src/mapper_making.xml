@@ -43,9 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SET
 		doc_ym=#{currentDoc_ym}, trns_status='01', trp_reject_reason='',
 		req_day='', cpl_day=''
-		WHERE user_id = #{user_id} AND doc_ym =
-		#{doc_ym}
-		#{doc_ym}
+		WHERE user_id = #{user_id} AND doc_ym =	#{doc_ym}
 	</update>
 
 	<select id="getTRInfo_mesai_no" parameterType="HashMap"
