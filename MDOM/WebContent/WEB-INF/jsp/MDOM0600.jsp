@@ -20,7 +20,9 @@
 			<td style="width: 900px; height: 95px"><h3>交通費明細一覧</h3>
 				<table rules="all" border="1">
 					<tr>
-						<td style="width: 50px" align="center">日</td>
+						<td styl
+						
+						e="width: 50px" align="center">日</td>
 						<td style="width: 50px;" align="center">曜</td>
 						<td style="width: 200px;" align="center">区 間</td>
 						<td style="width: 60px;" align="center">行 先</td>
@@ -69,8 +71,16 @@
 	<s:form>
 		<table style="width: 820px;">
 			<tr align="right">
-				<td><input type="button" value="印刷"> <input
+				<s:if test='#session.work_mode == "0"'>				
+					<td><input type="button" value="印刷"> <input
 					type="button" value="交通費確認依頼"></td>
+				</s:if>
+					<td><input type="button" value="印刷"> <input
+					type="button" value="交通費確認依頼"></td>
+				<s:else>
+				
+				</s:else>
+
 			</tr>
 		</table>
 	</s:form>
