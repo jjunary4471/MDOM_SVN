@@ -62,7 +62,6 @@
 			<result name="SUCCESS" type="redirect">MakeMonthlyDoc</result>
 		</action>
 		
-		<action name="ConfirmMonthyDoc" class="action.reviewList.MDOM0501">
 		<action name="ConfirmMonthlyDoc" class="action.review.MDOM0501">
 			<interceptor-ref name="prepare" />
 			<interceptor-ref name="params" />
