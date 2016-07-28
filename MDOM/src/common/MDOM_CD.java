@@ -113,16 +113,21 @@ public class MDOM_CD {
 	 * @param cd_bunrui_no コード分類
 	 * @return　コード名リスト
 	 */
-	public ArrayList<String> getCodeNameList( String cd_bunrui_no){
+	public ArrayList<HashMap<String, String>> getCodeNameList( String cd_bunrui_no){
 		
 		LinkedHashMap<String, CD_InfoVO> cdMap = new  LinkedHashMap<>();
-		ArrayList<String> cdList = new ArrayList<>();
+		HashMap<String, String> cdMapByKey_NoAanVal_Name = null;
+		ArrayList<HashMap<String, String> > cdList = new ArrayList<>();
 		cdMap = allCdMap.get(cd_bunrui_no);
 		
 		Iterator<CD_InfoVO> iteratorCd = cdMap.values().iterator();
 		
 		while(iteratorCd.hasNext()) {
-			cdList.add(iteratorCd.next().getCODE_NAME());
+			CD_InfoVO cd_InfoVO = iteratorCd.next();
+			cdMapByKey_NoAanVal_Name = new HashMap<>();
+			cdMapByKey_NoAanVal_Name.put("code_no",cd_InfoVO.getCODE_NO());
+			cdMapByKey_NoAanVal_Name.put("code_name",cd_InfoVO.getCODE_NAME());
+			cdList.add(cdMapByKey_NoAanVal_Name);
 		}
 		
 		return cdList;

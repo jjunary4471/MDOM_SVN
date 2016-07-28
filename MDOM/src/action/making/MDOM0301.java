@@ -33,8 +33,8 @@ public class MDOM0301 implements Action, Preparable{
 	private List<TR_InfoVO> tr_InfoVOList	= null;
 	private List<HD_InfoVO> hd_InfoVOList	= null;
 	private LinkedHashMap<String, CD_InfoVO> cd_InfoVOList	= null;
-	private Map<String, LinkedHashMap<String, CD_InfoVO>> cd_hashMap = null;
-	private List<Map<String, String>> code_list = null;
+	private HashMap<String, LinkedHashMap<String, CD_InfoVO>> cd_hashMap = null;
+	private ArrayList<HashMap<String, String>> code_list = null;
 	// request
 	private String documentDate		= null;
 	private String documentYear		= null;
@@ -52,6 +52,8 @@ public class MDOM0301 implements Action, Preparable{
 			// セッション取得
 			context.setSession(session);
 			String user_id = String.valueOf(session.get("s_user_id"));
+			cd_hashMap = (HashMap<String, LinkedHashMap<String, CD_InfoVO>>) session.get("s_allCdMap");
+			MDOM_CD mdcd = new MDOM_CD(cd_hashMap);
 			// データベース取得
 			Map<String, String> param = new HashMap<String, String>();
 			param.put("user_id", user_id);
@@ -72,18 +74,18 @@ public class MDOM0301 implements Action, Preparable{
 			currentMonth = String.valueOf(dateCalulator.getCurrentMonth());
 			documentLastDay = String.valueOf(dateCalulator.getLastDay(documentYear,documentMonth));
 			// コード取得
-			cd_hashMap = (Map<String, LinkedHashMap<String, CD_InfoVO>>) session.get("s_allCdMap");
-			cd_InfoVOList = cd_hashMap.get(MDOM_CD.rnd_trip);
-			code_list = new ArrayList<Map<String, String>>();
-			Iterator<String> iteratorCd = cd_InfoVOList.keySet().iterator();
-			while(iteratorCd.hasNext()) {
-				String key = iteratorCd.next();
-				Map<String, String> code_map = new HashMap<String, String>();
-				CD_InfoVO CD_InfoVOTemp = cd_InfoVOList.get(key);
-				code_map.put("code_no",CD_InfoVOTemp.getCODE_NO());
-				code_map.put("code_name",CD_InfoVOTemp.getCODE_NAME());
-				code_list.add(code_map);				
-			}
+
+			//cd_InfoVOList = cd_hashMap.get(MDOM_CD.rnd_trip);
+			code_list = mdcd.getCodeNameList(MDOM_CD.rnd_trip);
+//			Iterator<String> iteratorCd = cd_InfoVOList.keySet().iterator();
+//			while(iteratorCd.hasNext()) {
+//				String key = iteratorCd.next();
+//				Map<String, String> code_map = new HashMap<String, String>();
+//				CD_InfoVO CD_InfoVOTemp = cd_InfoVOList.get(key);
+//				code_map.put("code_no",CD_InfoVOTemp.getCODE_NO());
+//				code_map.put("code_name",CD_InfoVOTemp.getCODE_NAME());
+//				code_list.add(code_map);				
+//			}
 			// 曜日設定
 			Iterator<TR_InfoVO> iteratorTr = tr_InfoVOList.iterator();
 			while(iteratorTr.hasNext()) {
@@ -167,9 +169,15 @@ public class MDOM0301 implements Action, Preparable{
 		return cd_InfoVOList;
 	}
 
-	public List<Map<String, String>> getCode_list() {
+	public ArrayList<HashMap<String, String>> getCode_list() {
 		return code_list;
 	}
+
+	public void setCode_list(ArrayList<HashMap<String, String>> code_list) {
+		this.code_list = code_list;
+	}
+
+	
 
 	
 	

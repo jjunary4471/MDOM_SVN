@@ -45,7 +45,7 @@
 		</action>
 
 		<action name="holidayWrite" class="action.holiday.MDOM0402">
-			<result name="SUCCESS">/WEB-INF/jsp/MDOM0300.jsp</result>
+			<result name="SUCCESS" type="redirect">MakeMonthlyDoc</result>
 			<result name="FAIL">/WEB-INF/jsp/MDOM0400.jsp</result>
 		</action>
 
