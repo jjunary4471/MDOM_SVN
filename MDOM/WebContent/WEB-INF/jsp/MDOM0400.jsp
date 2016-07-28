@@ -52,10 +52,10 @@ var hldJpnum;
 var hldEtcnum;
 var hldVisa;
 
-var categoryChk = hldWrite.holidayType;
-var shortItemChk = hldWrite.shortHolidayType;
-var longItemChk = hldWrite.longHolidayType;
-var etcItemChk = hldWrite.etcHolidayType;
+var categoryChk;
+var shortItemChk;
+var longItemChk;
+var etcItemChk;
 
 
 function setData() {
@@ -74,7 +74,14 @@ function setData() {
 		document.getElementById("holidayJpnum").value = "<%=user_jpnum%>";
 		document.getElementById("holidayEtcnum").value = "<%=user_etcnum%>";
 		document.getElementById("holidayVisa").value = "<%=user_visa%>";
-				
+		
+		categoryChk = hldWrite.holidayType;
+		shortItemChk = hldWrite.shortHolidayType;
+		longItemChk = hldWrite.longHolidayType;
+		etcItemChk = hldWrite.etcHolidayType;
+		
+		
+		
 		if(<%=hldCategory%> == 01) {
 			categoryChk[0].checked = true;
 			bigKubun = "01";
@@ -240,7 +247,7 @@ function setData() {
 		// 필수 항목 입력란이 공백일 경우
 		if(hldReason == "" || hldStart == "" || hldEnd == "" || hldField == ""
 				|| hldPjname == "" || hldVisa == "" 
-				|| (shortSelected == null && longSelected == null && etcSelected == null))
+				|| (bigKubun == null && smallKubun == null))
 		{
 			alert('必須項目を入力して下さい。');
 			return false;

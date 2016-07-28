@@ -205,7 +205,7 @@ tr {
 </script>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>月次書類作成画面</title>
+<title>月次書類管理システム</title>
 </head>
 <body>
 <iframe src="header/header.jsp" height="80px" width="100%" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0>

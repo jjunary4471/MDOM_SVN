@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>月次書類確認画面</title>
+<title>月次書類管理システム</title>
 </head>
 <body>
 <iframe src="header/header.jsp" height="80px" width="100%" frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0>
@@ -32,14 +32,14 @@
 	<table rules="all" border="1" style="margin-left: 220px; width: 70%">
 		<tr style="width: 448px; height: 44px">
 			<td width="5%" align="center">選択</td>
-			<td align="center" style="height: 9px;">社員番号</td>
-			<td align="center" style="height: 9px;">社員名</td>
-			<td align="center" style="height: 9px;">所属部署</td>
-			<td align="center" style="width: 8%; height: 9px;">職位</td>
-			<td align="center" style="height: 9px;">月次書類状態</td>
-			<td align="center" style="height: 9px;">依頼実施日</td>
-			<td align="center" style="height: 9px;">確認者</td>
-			<td align="center" style="height: 9px;">確認完了日</td>
+			<td align="center">社員番号</td>
+			<td align="center">社員名</td>
+			<td align="center">所属部署</td>
+			<td align="center" style="width: 8px;">職位</td>
+			<td align="center">月次書類状態</td>
+			<td align="center">依頼実施日</td>
+			<td align="center">確認者</td>
+			<td align="center">確認完了日</td>
 		</tr>
 		<tr>
 			<td align="center"><s:checkbox name="chk01"/></td>

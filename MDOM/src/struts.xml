@@ -18,14 +18,12 @@
 
 		<action name="MakeMonthlyDoc" class="action.making.MDOM0301">
 			<interceptor-ref name="prepare" />
-			<interceptor-ref name="modelDriven" />
 			<interceptor-ref name="params" />
 			<result name="SUCCESS">/WEB-INF/jsp/MDOM0300.jsp</result>
 		</action>
 
 		<action name="currentMonth" class="action.making.MDOM0302">
 			<interceptor-ref name="prepare" />
-			<interceptor-ref name="modelDriven" />
 			<interceptor-ref name="params" />
 			<result name="SUCCESS" type="redirect">MakeMonthlyDoc</result>
 		</action>
@@ -47,7 +45,7 @@
 		</action>
 
 		<action name="holidayWrite" class="action.holiday.MDOM0402">
-			<result name="SUCCESS">/WEB-INF/jsp/MDOM0300.jsp</result>
+			<result name="SUCCESS" type="redirect">MakeMonthlyDoc</result>
 			<result name="FAIL">/WEB-INF/jsp/MDOM0400.jsp</result>
 		</action>
 
@@ -60,14 +58,18 @@
 
 		<action name="deleteHD_Info" class="action.making.MDOM0304">
 			<interceptor-ref name="prepare" />
-			<interceptor-ref name="modelDriven" />
 			<interceptor-ref name="params" />
 			<result name="SUCCESS" type="redirect">MakeMonthlyDoc</result>
+		</action>
+		
+		<action name="ConfirmMonthyDoc" class="action.review.MDOM0501">
+			<interceptor-ref name="prepare" />
+			<interceptor-ref name="params" />
+			<result name="SUCCESS">/WEB-INF/jsp/MDOM0500.jsp</result>
 		</action>
 
 		<action name="test" class="action.reviewTrans.MDOM0603">
 			<interceptor-ref name="prepare" />
-			<interceptor-ref name="modelDriven" />
 			<interceptor-ref name="params" />
 			<result name="SUCCESS" type="redirect">MakeMonthlyDoc</result>
 		</action>
