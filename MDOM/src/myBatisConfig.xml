@@ -22,6 +22,7 @@
          <mapper resource="mapper_making.xml" />
          <mapper resource="mapper_login.xml" />
          <mapper resource="mapper_holiday.xml" />
+         <mapper resource="mapper_confirm.xml" />
          <mapper resource="mapper_cd.xml" />
      </mappers>
   

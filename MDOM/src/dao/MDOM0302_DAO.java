@@ -1,15 +1,9 @@
 package dao;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
-import bean.HD_InfoVO;
-import bean.TR_InfoVO;
-import bean.TS_InfoVO;
-import bean.US_InfoVO;
 import mybatis.SqlMapClient;
 import util.MybatisMapper;
 

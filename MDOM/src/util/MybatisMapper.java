@@ -16,6 +16,9 @@ public class MybatisMapper {
 
 	public String MDOM0304_deleteHDInfo = "mdom03.deleteHDInfo";
 	
+	public String MDOM0501_getTSConfirmList = "mdom05.getTSConfirmList";
+	public String MDOM0501_getHDInfoList = "mdom05.getHDInfoList";
+	
 	public String MDOM0601_getTRInfoList = "mdom06.getTRInfoList";
 	public String MDOM0601_getHDInfoList = "mdom06.getHDInfoList";	
 

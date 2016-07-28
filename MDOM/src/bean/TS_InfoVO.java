@@ -1,19 +1,54 @@
 package bean;
 
 public class TS_InfoVO {
-	private String user_id = null;			// 社員番号
-	private String doc_ym = null;			// 月次対象年月
-	private String auth_user = null;		// 確認者
-	private String trns_status = null;		// 書類状態
-	private String trp_reject_reason = null;// 差し戻す理由
-	private String req_day = null;			// 依頼実施日
-	private String cpl_day = null;			// 確認完了日
-	private String upd_dt = null;			// 更新日付
-	private String upd_id = null;			// 更新者
-	private String trk_dt = null;			// 登録日付
-	private String trk_id = null;			// 登録者
-
-	private String trns_status_name = null;		// 書類状態
+	/**
+	 * 社員番号
+	 */
+	private String user_id = null;
+	/**
+	 * 月次対象年月
+	 */
+	private String doc_ym = null;
+	/**
+	 * 確認者
+	 */
+	private String auth_user = null;
+	/**
+	 * 書類状態
+	 */
+	private String trns_status = null;
+	/**
+	 * 差し戻す理由
+	 */
+	private String trp_reject_reason = null;
+	/**
+	 * 依頼実施日
+	 */
+	private String req_day = null;
+	/**
+	 * 確認完了日
+	 */
+	private String cpl_day = null;
+	/**
+	 * 更新日付
+	 */
+	private String upd_dt = null;
+	/**
+	 *  更新者
+	 */
+	private String upd_id = null;
+	/**
+	 * 登録日付
+	 */
+	private String trk_dt = null;
+	/**
+	 * 登録者
+	 */
+	private String trk_id = null;
+	/**
+	 * 書類状態
+	 */
+	private String trns_status_name = null;
 
 	public String getUser_id() {
 		return user_id;

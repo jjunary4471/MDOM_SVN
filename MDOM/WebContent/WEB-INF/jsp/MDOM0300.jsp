@@ -500,7 +500,8 @@ tr {
 					<s:iterator value="hd_InfoVOList" status="hdList">
 						<form name="hd_review_form" action="--------------" method="POST"
 							enctype="multipart/form-data" theme="simple">
-							<s:hidden name="mk_day" value="mk_day" />
+								<s:hidden name="hld_flag" value="2" />
+								<s:hidden name="hld_mng_no" value="%{hld_mng_no}" />
 						<tr>
 							<td id="tr_align_center">
 								<a href="javascript:holidayReview()" onclick="return false">
@@ -508,9 +509,7 @@ tr {
 							</td>
 							</form>
 							<td id="tr_align_center">
-								<s:property value="hld_kbn_category_name" />
-								:
-								<s:property value="hld_kbn_item_name" />
+								<s:property value="hld_kbn_category_name" />:<s:property value="hld_kbn_item_name" />
 							</td>
 							<td style="font-size: 14px">
 								<s:property value="hld_rsn" />

@@ -19,7 +19,6 @@ import bean.TR_InfoVO;
 import bean.TS_InfoVO;
 import common.MDOM_CD;
 import dao.MDOM0301_DAO;
-import dao.MDOMCD_DAO;
 import util.DateCalulator;
 
 public class MDOM0301 implements Action, Preparable{
@@ -60,6 +59,8 @@ public class MDOM0301 implements Action, Preparable{
 			ts_InfoVO = mdom0301_dao.getTSInfo(ts_InfoVO, param);
 			param.put("doc_ym", ts_InfoVO.getDoc_ym());
 			tr_InfoVOList = mdom0301_dao.getTRInfoList(tr_InfoVOList, param);
+			param.put("first_day", ts_InfoVO.getDoc_ym() + "01");
+			param.put("last_day", ts_InfoVO.getDoc_ym() + "31");
 			hd_InfoVOList = mdom0301_dao.getHDInfoList(hd_InfoVOList, param);
 			// ドキュメント情報の設定
 			documentDate = ts_InfoVO.getDoc_ym();

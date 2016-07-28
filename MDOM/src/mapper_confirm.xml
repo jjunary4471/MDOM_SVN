@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mdom05">
+	<select id="getTSConfirmList" parameterType="HashMap" resultType="bean.TS_ConfirmVO">
+		SELECT
+		ts.user_id,	ts.doc_ym, ts.auth_user, ts.trns_status, ts.trp_reject_reason, ts.req_day,
+		ts.cpl_day,	ts.upd_dt, ts.upd_id, ts.trk_dt, ts.trk_id, concat(ui.user_ccfname,ui.user_cclname) as user_name,
+		ui.user_department, ui.user_rank, ui.auth_lvl
+		FROM transtatustbl ts LEFT JOIN userinfotbl ui
+		ON ts.user_id = ui.user_id
+		where ts.doc_ym = #{doc_ym}
+		ORDER BY CONVERT(ts.user_id,UNSIGNED) ASC, ts.trk_dt ASC
+	</select>
+
+	<select id="getHDInfoList" parameterType="HashMap" resultType="bean.HD_ConfirmVO">
+		SELECT ht.user_id,ht.hld_mng_no,ht.mk_day,ht.hld_kbn_category,ht.hld_kbn_item,ht.hld_rsn,ht.hld_start,ht.hld_end,ht.req_day,ht.cpl_day,
+		ht.auth_user,ht.hld_status,ht.hld_reject_reason,ht.upd_dt,ht.upd_id,ht.trk_dt,ht.trk_id,
+		concat(ui.user_ccfname,ui.user_cclname) as user_name, ui.user_department
+		FROM HolidayTBL ht LEFT JOIN  userinfotbl ui
+        ON ht.user_id = ui.user_id
+		WHERE ht.user_id = #{user_id}
+        AND CONVERT(ht.hld_start,UNSIGNED) between #{first_day} AND #{last_day}
+        AND ui.auth_lvl <![CDATA[<=]]> #{auth_lvl}
+		Order By CONVERT(ht.mk_day,UNSIGNED) ASC
+	</select>
+</mapper> 

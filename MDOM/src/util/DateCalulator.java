@@ -10,14 +10,12 @@ public class DateCalulator {
 	
 	public int getCurrentMonth() {
 		Calendar calendar = Calendar.getInstance();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("mm");
 		int returnMonth = calendar.get((Calendar.MONTH)) + 1;
 		return returnMonth;
 	}
 	
 	public int getCurrentYear() {
 		Calendar calendar = Calendar.getInstance();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("mm");
 		int returnYear = calendar.get((Calendar.YEAR));
 		return returnYear;
 	}

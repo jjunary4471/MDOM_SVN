@@ -29,12 +29,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="getHDInfoList" parameterType="HashMap" resultType="bean.HD_InfoVO">
-		SELECT user_id,hld_mng_no,mk_day,hld_kbn_category,hld_kbn_item,hld_rsn,hld_start,hld_end,req_day,cpl_day,auth_user,
+		SELECT user_id,hld_mng_no,mk_day,hld_kbn_category,hld_kbn_item,hld_rsn,hld_start,hld_end,req_day,cpl_day,
+		auth_user,hld_status,hld_reject_reason,upd_dt,upd_id,trk_dt,trk_id,
 		(select code_name from codtbl where code_bunrui_no="008" and code_no=hld_kbn_category) hld_kbn_category_name, 
 		(select code_name from codtbl where code_bunrui_no="009" and code_no=hld_kbn_item) hld_kbn_item_name, 
 		(select code_name from codtbl where code_bunrui_no="006" and code_no=hld_status) hld_status
 		FROM HolidayTBL
-		WHERE user_id = #{user_id}
+		WHERE user_id = #{user_id} AND CAST(hld_start as UNSIGNED) between #{first_day} and #{last_day}
 		Order By mk_day
 	</select>
 
