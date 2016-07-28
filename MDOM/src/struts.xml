@@ -62,14 +62,19 @@
 			<result name="SUCCESS" type="redirect">MakeMonthlyDoc</result>
 		</action>
 		
-		<action name="ConfirmMonthyDoc" class="action.review.MDOM0501">
+		<action name="ConfirmMonthyDoc" class="action.reviewList.MDOM0501">
 			<result name="SUCCESS">/WEB-INF/jsp/MDOM0500.jsp</result>
+			<result name="FAIL">/WEB-INF/jsp/MDOM0200.jsp</result>
 		</action>
 
 		<action name="test" class="action.reviewTrans.MDOM0603">
 			<interceptor-ref name="prepare" />
 			<interceptor-ref name="params" />
 			<result name="SUCCESS" type="redirect">MakeMonthlyDoc</result>
+		</action>
+		
+		<action name="confirmHoliday" class="action.holiday.MDOM0701">
+			<result name="SUCCESS">/WEB-INF/jsp/MDOM0700.jsp</result>
 		</action>
 
 	</package>

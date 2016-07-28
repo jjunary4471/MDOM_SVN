@@ -20,4 +20,5 @@ public class MybatisMapper {
 	public String MDOM0601_getHDInfoList = "mdom06.getHDInfoList";	
 
 	public String MDOMCOMMON_getCDInfoList = "common.getCDInfoList";
+	public String MDOM0602_updateUSInfo = "mdom06.updTRInfo";
 }

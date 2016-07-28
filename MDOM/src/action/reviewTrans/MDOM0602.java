@@ -1,4 +1,4 @@
-package action.review;
+package action.reviewTrans;
 
 import java.util.Map;
 
@@ -8,17 +8,22 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.Preparable;
 
-import dao.MDOM0301_DAO;
-
-public class MDOM0501 {
+public class MDOM0602 implements Action, Preparable {
+	
 	private Logger log = Logger.getLogger(this.getClass());
 	private ActionContext context = ActionContext.getContext();
 	private Map<String, Object> session = null;
-	// dao
-	private MDOM0301_DAO mdom0301_dao		= null;
+	private Map<String, Object> parameter = null;
 
+	@Override
+	public void prepare() throws Exception {
+		session = context.getSession();
+		parameter = context.getParameters();
+	}
+
+	@Override
 	public String execute() throws Exception {
-		return "SUCCESS";
+		return null;
 	}
 
 }
