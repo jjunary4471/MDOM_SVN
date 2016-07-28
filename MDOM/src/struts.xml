@@ -76,6 +76,8 @@
 		<action name="confirmHoliday" class="action.holiday.MDOM0701">
 			<result name="SUCCESS">/WEB-INF/jsp/MDOM0700.jsp</result>
 
+		</action>
+		
 		<action name="reviewMonthlyDoc" class="action.reviewTrans.MDOM0601">
 		    <interceptor-ref name="prepare" />
 			<interceptor-ref name="params" />
