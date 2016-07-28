@@ -20,7 +20,9 @@
 			<td style="width: 900px; height: 95px"><h3>交通費明細一覧</h3>
 				<table rules="all" border="1">
 					<tr>
-						<td style="width: 50px" align="center">日</td>
+						<td styl
+						
+						e="width: 50px" align="center">日</td>
 						<td style="width: 50px;" align="center">曜</td>
 						<td style="width: 200px;" align="center">区 間</td>
 						<td style="width: 60px;" align="center">行 先</td>
