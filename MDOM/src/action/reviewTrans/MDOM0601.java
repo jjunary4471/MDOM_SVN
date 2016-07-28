@@ -17,6 +17,7 @@ import bean.CD_InfoVO;
 import bean.HD_InfoVO;
 import bean.TR_InfoVO;
 import bean.TR_ReviewVO;
+import common.StringUtility;
 import dao.MDOM0301_DAO;
 import dao.MDOM0601_DAO;
 import util.DateCalulator;
@@ -34,7 +35,7 @@ public class MDOM0601 implements Action, Preparable {
 	private String doc_year = null;
 	private String doc_month = null;
 	private String selected_user_id = null;
-	private List<TR_ReviewVO> tr_ReviewVO = null;
+	private List<TR_ReviewVO> tr_ReviewVOList = null;
 //	private List<TR_ReviewVO> tr_ReviewVO = null;
 	
 	private MDOM0601_DAO mdom0601_dao		= null;
@@ -45,6 +46,7 @@ public class MDOM0601 implements Action, Preparable {
 		parameter = context.getParameters();
 		tr_InfoVOList = new ArrayList<TR_InfoVO>();
 		hd_InfoVOList = new ArrayList<HD_InfoVO>();
+		tr_ReviewVOList = new ArrayList<TR_ReviewVO>();
 	}
 
 	@Override
@@ -95,19 +97,32 @@ public class MDOM0601 implements Action, Preparable {
 		ArrayList<TR_ReviewVO> tr_ReviewList = new ArrayList<>();
 		
 		TR_InfoVO tr_InfoVO = null;
-		TR_ReviewVO tr_ReviewVO = null;
-		
-		DateCalulator dateCalulator = new DateCalulator();
+	
+		String zandaka = "0";
 		
 		while(iteratorTr.hasNext()) {
 			tr_InfoVO = iteratorTr.next();
-			tr_ReviewVO = new TR_ReviewVO();
-			tr_ReviewVO.setKinmubi(getKinmubiFromTR_Info(tr_InfoVO.getMesai_no(), tr_InfoVO.getKinmu_day()));
-			tr_ReviewVO.setYobi(getYobiFromTR_Info(dateCalulator, tr_InfoVO.getKinmu_day()));
-			tr_ReviewVO.setKukan(getKukanFromTR_Info(tr_InfoVO.getKukan_start(), tr_InfoVO.getKukan_stop(), tr_InfoVO.getRound_trip()));
-		}
+			zandaka = getZandakaFromTR_Info(tr_InfoVO.getTrp_cost(), zandaka);
+			tr_ReviewList.add(getTR_ReviewVO(tr_InfoVO, zandaka));
+			}
 		
-		return null;
+		return tr_ReviewList;
+	}
+	
+	private TR_ReviewVO getTR_ReviewVO(TR_InfoVO tr_InfoVO, String zandaka){
+		
+		TR_ReviewVO tr_ReviewVO = new TR_ReviewVO();
+		tr_ReviewVO.setKinmubi(getKinmubiFromTR_Info(tr_InfoVO.getMesai_no(), tr_InfoVO.getKinmu_day()));
+		tr_ReviewVO.setYobi(getYobiFromTR_Info(new DateCalulator(), tr_InfoVO.getKinmu_day()));
+		tr_ReviewVO.setKukan(getKukanFromTR_Info(tr_InfoVO.getKukan_start(), 
+												tr_InfoVO.getKukan_stop(), 
+												tr_InfoVO.getRound_trip()));
+		tr_ReviewVO.setIkisaki(tr_InfoVO.getDest_area());
+		tr_ReviewVO.setNorimono(tr_InfoVO.getTrp_shurui());
+		tr_ReviewVO.setKingaku(getYenMoney(tr_InfoVO.getTrp_cost()));
+		tr_ReviewVO.setMaekin("");
+		tr_ReviewVO.setZandaka(getYenMoney(getZandakaFromTR_Info(zandaka, tr_InfoVO.getTrp_cost())));
+		return tr_ReviewVO;
 	}
 	
 	private String getKinmubiFromTR_Info(String meisai_No, String kinmuDay){
@@ -120,6 +135,14 @@ public class MDOM0601 implements Action, Preparable {
 	
 	private String getKukanFromTR_Info(String depature, String arrival, String around){
 		return around.equals(AROUND) ? depature + "⇔" + arrival : depature + "⇒" + arrival; 
+	}
+	
+	private String getYenMoney(String money){
+		return StringUtility.getYenMoney(money);
+	}
+	
+	private String getZandakaFromTR_Info(String zandaka, String kingaku){
+		return String.valueOf(Integer.parseInt(zandaka) - Integer.parseInt(kingaku));
 	}
 	
 }

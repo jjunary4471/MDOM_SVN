@@ -5,14 +5,16 @@
 <script type="text/JavaScript"
 	src=http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js></script>
 <html>
-<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>月次書類確認画面</title>
 </head>
 <body>
 <h1>交通費明細表類確認画面</h1>
-	<h2>（2016年7月）</h2>
+	<h3>
+		(<span id="documentYear"><s:property
+				value="#request.documentYear" /></span>年<span id=documentMonth><s:property
+				value="#request.documentMonth" /></span>月)</h3>
 	<table style="width: 1000px;">
 		<tr>
 			<td style="width: 900px; height: 95px"><h3>交通費明細一覧</h3>
@@ -27,55 +29,40 @@
 						<td style="width: 80px;" align="center">前渡金</td>
 						<td style="width: 100px;" align="center">残 高</td>
 					</tr>
-
-					<tr>
-						<td align="center">1</td>
-						<td align="center">水</td>
-						<td align="center">品川⇔五反田</td>
-						<td align="center">YM</td>
-						<td align="center">電車（定期券）</td>
-						<td align="right">￥1,234</td>
-						<td></td>
-						<td align="right">￥-1,234</td>
-					</tr>
-					<tr>
-						<td align="center">2</td>
-						<td align="center">木</td>
-						<td align="center">品川⇒五反田</td>
-						<td align="center">YM</td>
-						<td align="center">電車（定期券）</td>
-						<td align="right">￥1,234</td>
-						<td></td>
-						<td align="right">￥-2,468</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td align="center">品川⇔五反田</td>
-						<td align="center">MH</td>
-						<td align="center">定期券購入</td>
-						<td align="right">￥10,000</td>
-						<td></td>
-						<td align="right">￥-12,468</td>
-					</tr>
-					<tr>
-						<td align="center">3</td>
-						<td align="center">金</td>
-						<td align="center">五反田⇒横浜</td>
-						<td align="center">MH</td>
-						<td align="center">バス、電車（定期券）</td>
-						<td align="right">￥1,000</td>
-						<td></td>
-						<td align="right">￥-13,468</td>
-					</tr>
-					<tr>
-						<td colspan="4" align="center">合 計</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td align="right">￥-13,468</td>
-					</tr>
-				</table></td>
+					</table>
+					<div style="overflow-y: scroll; overflow-x: hidden; width: 1150px; height: 195px;">
+					<table id="tr_Review_List_Table" rules="all" border="1">
+						<s:iterator value="tr_ReviewVOList">
+							<tr>
+							<td style="display: none">
+									<s:property value="kinmubi" />
+							</td>
+							<td style="display: none">
+									<s:property value="yobi" />
+							</td>
+							<td style="display: none">
+									<s:property value="kukan" />
+							</td>
+							<td style="display: none">
+									<s:property value="ikisaki" />
+							</td>
+							<td style="display: none">
+									<s:property value="norimono" />
+							</td>
+							<td style="display: none">
+									<s:property value="kingaku" />
+							</td>
+							<td style="display: none">
+									<s:property value="maekin" />
+							</td>
+							<td style="display: none">
+									<s:property value="zandaka" />
+							</td>							
+							</tr>
+						</s:iterator>
+					</table>
+					</div>
+				</td>
 		</tr>
 
 	</table>
