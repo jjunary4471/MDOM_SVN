@@ -21,7 +21,7 @@
 	function menu2() {
 		var user_flg = <% out.print(session.getAttribute("s_user_auth_flg"));%>
 		if(user_flg == 1) {
-			alert('관리자네, 관리자여?');
+			parent.document.location.href="ConfirmMonthyDoc.action";
 			return true;
 		}else {
 			alert('確認権限がありません。');
