@@ -26,7 +26,6 @@ public class MDOM0301 implements Action, Preparable{
 	private Logger log = Logger.getLogger(this.getClass());
 	private ActionContext context = ActionContext.getContext();
 	private Map<String, Object> session = null;
-	private Map parameter = null;
 	// dao
 	private MDOM0301_DAO mdom0301_dao		= null;
 	// bean
@@ -82,7 +81,7 @@ public class MDOM0301 implements Action, Preparable{
 				Map<String, String> code_map = new HashMap<String, String>();
 				CD_InfoVO CD_InfoVOTemp = cd_InfoVOList.get(key);
 				code_map.put("code_no",CD_InfoVOTemp.getCODE_NO());
-				code_map.put("code_name",CD_InfoVOTemp.getCODE_NO());
+				code_map.put("code_name",CD_InfoVOTemp.getCODE_NAME());
 				code_list.add(code_map);				
 			}
 			// 曜日設定
