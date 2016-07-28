@@ -35,8 +35,7 @@ public class MDOM0301 implements Action, Preparable{
 	private List<HD_InfoVO> hd_InfoVOList	= null;
 	private LinkedHashMap<String, CD_InfoVO> cd_InfoVOList	= null;
 	private Map<String, LinkedHashMap<String, CD_InfoVO>> cd_hashMap = null;
-	private List<String> code_noList = null;
-	private List<String> code_nameList = null;
+	private List<Map<String, String>> code_list = null;
 	// request
 	private String documentDate		= null;
 	private String documentYear		= null;
@@ -76,11 +75,16 @@ public class MDOM0301 implements Action, Preparable{
 			// コード取得
 			cd_hashMap = (Map<String, LinkedHashMap<String, CD_InfoVO>>) session.get("s_allCdMap");
 			cd_InfoVOList = cd_hashMap.get(MDOM_CD.rnd_trip);
-			//
-			//
-			//
-			//
-			//
+			code_list = new ArrayList<Map<String, String>>();
+			Iterator<String> iteratorCd = cd_InfoVOList.keySet().iterator();
+			while(iteratorCd.hasNext()) {
+				String key = iteratorCd.next();
+				Map<String, String> code_map = new HashMap<String, String>();
+				CD_InfoVO CD_InfoVOTemp = cd_InfoVOList.get(key);
+				code_map.put("code_no",CD_InfoVOTemp.getCODE_NO());
+				code_map.put("code_name",CD_InfoVOTemp.getCODE_NO());
+				code_list.add(code_map);				
+			}
 			// 曜日設定
 			Iterator<TR_InfoVO> iteratorTr = tr_InfoVOList.iterator();
 			while(iteratorTr.hasNext()) {
@@ -162,6 +166,10 @@ public class MDOM0301 implements Action, Preparable{
 
 	public LinkedHashMap<String, CD_InfoVO> getCd_InfoVOList() {
 		return cd_InfoVOList;
+	}
+
+	public List<Map<String, String>> getCode_list() {
+		return code_list;
 	}
 
 	

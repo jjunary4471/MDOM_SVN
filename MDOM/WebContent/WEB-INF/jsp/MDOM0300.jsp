@@ -339,7 +339,7 @@ tr {
 							</td>
 							<td id="tr_vertical_center">
 								<s:select cssStyle="width:90px;" id="round_trip_in"
-									name="round_trip" list="#request.cd_InfoVOList"  listKey="CODE_NO" listValue="CODE_NAME" />
+									name="round_trip" list="#request.code_list"  listKey="code_no" listValue="code_name" />
 							</td>
 							<td id="tr_vertical_center">
 								<s:textfield id="transDestination_in" name="dest_area"
