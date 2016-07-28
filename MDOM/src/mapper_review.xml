@@ -19,25 +19,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		Order By hld_start
 	</select>
 
-	<update id="updateUSInfo" parameterType="HashMap">
+	<update id="updateTRInfoForRequest" parameterType="HashMap">
 		UPDATE TranStatusTBL
 		SET
-		doc_ym=#{currentDoc_ym}, trns_status='01', trp_reject_reason='',
-		req_day='', cpl_day=''
+		trns_status=#{doc_status},req_day=#{sys_date_str},upd_dt=now(),upd_id=#{udp_id} 
 		WHERE user_id = #{user_id} AND doc_ym =
 		#{doc_ym}
+	</update>
+	
+	<update id="updateTRInfoForConfirm" parameterType="HashMap">
+		UPDATE TranStatusTBL
+		SET
+		trns_status=#{doc_status},cpl_day=#{sys_date_str},upd_dt=now(),upd_id=#{udp_id} 
+		WHERE user_id = #{user_id} AND doc_ym =
+		#{doc_ym}
+	</update>
+	
+	<update id="updateTRInfoForReject" parameterType="HashMap">
+		UPDATE TranStatusTBL
+		SET
+		trns_status=#{doc_status},trp_reject_reason=#{reject_reason},upd_dt=now(),upd_id=#{udp_id} 
+		WHERE user_id = #{user_id} AND doc_ym =
 		#{doc_ym}
 	</update>
 
-	<update id="updateTRInfo" parameterType="bean.TR_InfoVO">
-		UPDATE TransportTBL
-		SET
-		kukan_start = #{kukan_start},kukan_stop = #{kukan_stop},round_trip =
-		#{round_trip},dest_area = #{dest_area},trp_shurui =
-		#{trp_shurui},trp_cost = #{trp_cost},mae_money = #{mae_money},upd_id =
-		#{user_id}
-		WHERE user_id = #{user_id} AND mesai_no = #{mesai_no} AND
-		doc_ym = #{doc_ym} AND kinmu_day = #{kinmu_day}
-	</update>
 
 </mapper> 

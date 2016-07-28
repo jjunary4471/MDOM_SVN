@@ -70,17 +70,28 @@
 	</table>
 	<s:form>
 		<table style="width: 820px;">
+		<s:url action="updateTransStatus" id = "statusToRequestConfirm">
+		<s:param name = "docStatus" value="02"/>
+		</s:url>
+		<s:url action="updateTransStatus" id = "statusToExcuteConfirm">
+		<s:param name = "docStatus" value="02"/>
+		</s:url>
+		<s:url action="updateTransStatus" id = "statusToBackword">
+		<s:param name = "docStatus" value="02"/>
+		</s:url>    
 			<tr align="right">
 				<s:if test='#session.work_mode == "0"'>				
-					<td><input type="button" value="印刷"> <input
-					type="button" value="交通費確認依頼"></td>
+					<td>
+					<s:submit action="createExcelForTrans" value="印刷" />
+					<s:submit action="%{statusToRequestConfirm}" value="交通費確認依頼"/>
+					</td>
 				</s:if>
-					<td><input type="button" value="印刷"> <input
-					type="button" value="交通費確認依頼"></td>
 				<s:else>
-				
+					<td>
+					<s:submit action="%{statusToExcuteConfirm}" value="交通費承認"/>
+					<s:submit action="%{statusToBackword}" value="交通費差し戻し"/>
+					</td>
 				</s:else>
-
 			</tr>
 		</table>
 	</s:form>

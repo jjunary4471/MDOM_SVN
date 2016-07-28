@@ -71,6 +71,18 @@
 			<interceptor-ref name="params" />
 			<result name="SUCCESS" type="redirect">MakeMonthlyDoc</result>
 		</action>
+		
+		<action name="reviewMonthlyDoc" class="action.reviewTrans.MDOM0601">
+		    <interceptor-ref name="prepare" />
+			<interceptor-ref name="params" />
+			<result name="SUCCESS" type="redirect">/WEB-INF/jsp/MDOM0600.jsp</result>
+		</action>
+		
+		<action name="updateTransStatus" class="action.reviewTrans.MDOM0602">
+		    <interceptor-ref name="prepare" />
+			<interceptor-ref name="params" />
+			<result name="SUCCESS" type="redirect">reviewMonthlyDoc</result>
+		</action>
 
 	</package>
 
