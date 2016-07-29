@@ -18,6 +18,7 @@ import bean.HD_InfoVO;
 import bean.TR_InfoVO;
 import bean.TS_InfoVO;
 import common.MDOM_CD;
+import common.MDOM_CONSTRUCT;
 import dao.MDOM0301_DAO;
 import util.DateCalulator;
 
@@ -77,7 +78,7 @@ public class MDOM0301 implements Action, Preparable{
 			// コード取得
 
 			//cd_InfoVOList = cd_hashMap.get(MDOM_CD.rnd_trip);
-			code_list = mdcd.getCodeNameList(MDOM_CD.rnd_trip);
+			code_list = mdcd.getCodeNameList(MDOM_CONSTRUCT.rnd_trip);
 //			Iterator<String> iteratorCd = cd_InfoVOList.keySet().iterator();
 //			while(iteratorCd.hasNext()) {
 //				String key = iteratorCd.next();
@@ -176,6 +177,13 @@ public class MDOM0301 implements Action, Preparable{
 
 	public void setCode_list(ArrayList<HashMap<String, String>> code_list) {
 		this.code_list = code_list;
+	}
+
+	/**
+	 * @param ts_InfoVO the ts_InfoVO to set
+	 */
+	public void setTs_InfoVO(TS_InfoVO ts_InfoVO) {
+		this.ts_InfoVO = ts_InfoVO;
 	}
 
 	

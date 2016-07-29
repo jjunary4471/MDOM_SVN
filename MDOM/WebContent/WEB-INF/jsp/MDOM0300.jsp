@@ -459,12 +459,12 @@ tr {
 				<%--				action	="--------------"								--%>
 				<%--	parameter	doc_ym	="documentDate"									--%>
 				<%--																		--%>
-				<s:form name="tr_review_form" action="reviewTR_Info" method="POST"
+				<s:form name="tr_review_form" action="reviewMonthlyDoc" method="POST"
 					enctype="multipart/form-data" theme="simple">
 					<s:hidden name="doc_year" value="%{documentYear}" />
 					<s:hidden name="doc_month" value="%{documentMonth}" />
-					<s:hidden name="tr_InfoVOList" value="%{tr_InfoVOList}" />
-					<s:hidden name="hd_InfoVOList" value="%{hd_InfoVOList}" />
+					<s:hidden name="selected_user_id" value="%{ts_InfoVO.user_id}"/>
+					<s:hidden name="doc_ym" value="%{ts_InfoVO.doc_ym}"/>
 					<tr>
 						<td align="right">
 							<input type="button" onclick="transportReview()" value="交通費確認" />

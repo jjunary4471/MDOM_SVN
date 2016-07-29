@@ -4,6 +4,7 @@ import bean.CD_InfoVO;
 import bean.US_InfoVO;
 import com.opensymphony.xwork2.ActionContext;
 import common.MDOM_CD;
+import common.MDOM_CONSTRUCT;
 import common.StringUtility;
 import dao.MDOM0101_DAO;
 import java.util.ArrayList;
@@ -44,9 +45,9 @@ public class MDOM0101 {
 				this.user_id = this.us_InfoVO.getUser_id();
 				this.user_name = (this.us_InfoVO.getUser_ccfname() + this.us_InfoVO.getUser_cclname());
 				this.user_rank = this.us_InfoVO.getUser_rank();
-				this.user_rank_name = this.mdomCd.getCodeName("003", this.user_rank);
+				this.user_rank_name = this.mdomCd.getCodeName(MDOM_CONSTRUCT.rank, this.user_rank);
 				this.user_department = this.us_InfoVO.getUser_department();
-				this.user_department_name = this.mdomCd.getCodeName("002", this.user_department);
+				this.user_department_name = this.mdomCd.getCodeName(MDOM_CONSTRUCT.dept, this.user_department);
 				this.auth_flg = this.us_InfoVO.getAuth_flg();
 				this.auth_lvl = this.us_InfoVO.getAuth_lvl();
 

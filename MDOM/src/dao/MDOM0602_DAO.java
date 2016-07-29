@@ -18,8 +18,20 @@ public class MDOM0602_DAO {
 		this.sqlSession = this.sqlMapClient.getSqlSession();
 	}
 
-	public int updateUSInfo(Map<String,String> param) {
-		int resultInt = sqlSession.update(mm.MDOM0602_updateUSInfo, param);
+	public int updateTRInfoRequest(Map<String,String> param) {
+		int resultInt = sqlSession.update(mm.MDOM0602_updateTRInfoForRequest, param);
+		sqlSession.commit();
+		return resultInt;
+	}
+	
+	public int updateTRInfoConfirm(Map<String,String> param) {
+		int resultInt = sqlSession.update(mm.MDOM0602_updateTRInfoForConfirm, param);
+		sqlSession.commit();
+		return resultInt;
+	}
+	
+	public int updateTRInfoReject(Map<String,String> param) {
+		int resultInt = sqlSession.update(mm.MDOM0602_updateTRInfoForReject, param);
 		sqlSession.commit();
 		return resultInt;
 	}

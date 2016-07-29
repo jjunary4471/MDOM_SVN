@@ -20,9 +20,7 @@
 			<td style="width: 900px; height: 95px"><h3>交通費明細一覧</h3>
 				<table rules="all" border="1">
 					<tr>
-						<td styl
-						
-						e="width: 50px" align="center">日</td>
+						<td style="width: 50px" align="center">日</td>
 						<td style="width: 50px;" align="center">曜</td>
 						<td style="width: 200px;" align="center">区 間</td>
 						<td style="width: 60px;" align="center">行 先</td>
@@ -37,28 +35,28 @@
 						<s:iterator value="tr_ReviewVOList">
 							<tr>
 							<td style="display: none">
-									<s:property value="kinmubi" />
+									<s:property value="tr_ReviewVO.kinmubi" />
 							</td>
 							<td style="display: none">
-									<s:property value="yobi" />
+									<s:property value="tr_ReviewVO.yobi" />
 							</td>
 							<td style="display: none">
-									<s:property value="kukan" />
+									<s:property value="tr_ReviewVO.kukan" />
 							</td>
 							<td style="display: none">
-									<s:property value="ikisaki" />
+									<s:property value="tr_ReviewVO.ikisaki" />
 							</td>
 							<td style="display: none">
-									<s:property value="norimono" />
+									<s:property value="tr_ReviewVO.norimono" />
 							</td>
 							<td style="display: none">
-									<s:property value="kingaku" />
+									<s:property value="tr_ReviewVO.kingaku" />
 							</td>
 							<td style="display: none">
-									<s:property value="maekin" />
+									<s:property value="tr_ReviewVO.maekin" />
 							</td>
 							<td style="display: none">
-									<s:property value="zandaka" />
+									<s:property value="tr_ReviewVO.zandaka" />
 							</td>							
 							</tr>
 						</s:iterator>
@@ -69,6 +67,8 @@
 
 	</table>
 	<s:form>
+	    <s:hidden name="current_doc_ym" value="%{documentDate}" />
+	    <s:hidden name="current_doc_ym" value="%{selected_user_id}" />
 		<table style="width: 820px;">
 		<s:url action="updateTransStatus" id = "statusToRequestConfirm">
 		<s:param name = "docStatus" value="02"/>
