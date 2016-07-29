@@ -590,13 +590,5 @@ tr {
 			</td>
 		</tr>
 	</table>
-		<s:form action="test" method="POST"
-					enctype="multipart/form-data" theme="simple">
-					<s:hidden name="doc_year" value="%{documentYear}" />
-					<s:hidden name="doc_month" value="%{documentMonth}" />
-					<s:hidden name="tr_InfoVOList" value="%{tr_InfoVOList}" />
-					<s:hidden name="hd_InfoVOList" value="%{hd_InfoVOList}" />
-					<s:submit value="----" />
-				</s:form>
 </body>
 </html>

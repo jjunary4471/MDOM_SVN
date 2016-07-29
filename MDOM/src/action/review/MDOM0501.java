@@ -23,23 +23,23 @@ import dao.MDOM0501_DAO;
 import util.DateCalulator;
 
 public class MDOM0501 implements Action, Preparable {
-	private Logger log = Logger.getLogger(this.getClass());
-	private ActionContext context = ActionContext.getContext();
+	private Logger log					= Logger.getLogger(this.getClass());
+	private ActionContext context		= ActionContext.getContext();
 	private Map<String, Object> session = null;
 	// dao
-	private MDOM0501_DAO mdom0501_dao = null;
+	private MDOM0501_DAO mdom0501_dao	= null;
 	// bean
 	private HashMap<String, LinkedHashMap<String, CD_InfoVO>> cd_hashMap = null;
-	private ArrayList<HashMap<String, String>> code_sts_list = null;
-	private ArrayList<HashMap<String, String>> code_dept_list = null;
-	private ArrayList<HashMap<String, String>> code_rank_list = null;
-	private ArrayList<HashMap<String, String>> code_category_list = null;
-	private ArrayList<HashMap<String, String>> code_item_list = null;
-	private List<TS_ConfirmVO> ts_ConfirmVOList = null;
-	private List<HD_ConfirmVO> hd_ConfirmVOList = null;
+	private ArrayList<HashMap<String, String>> code_sts_list		= null;
+	private ArrayList<HashMap<String, String>> code_dept_list		= null;
+	private ArrayList<HashMap<String, String>> code_rank_list		= null;
+	private ArrayList<HashMap<String, String>> code_category_list	= null;
+	private ArrayList<HashMap<String, String>> code_item_list		= null;
+	private List<TS_ConfirmVO> ts_ConfirmVOList						= null;
+	private List<HD_ConfirmVO> hd_ConfirmVOList						= null;
 	//
-	private String user_id = null;
-	private String auth_lvl = null;
+	private String user_id	= null;
+	private String auth_lvl	= null;
 
 	@Override
 	public String execute() throws Exception {
@@ -48,30 +48,31 @@ public class MDOM0501 implements Action, Preparable {
 		try {
 			// ===========================================================================
 			// セッション取得
-			user_id = (String) session.get("s_user_id");
-			auth_lvl = (String) session.get("s_user_auth_lvl");
+			user_id		= (String) session.get("s_user_id");
+			auth_lvl	= (String) session.get("s_user_auth_lvl");
 
 			// ===========================================================================
 			// コード取得及び処理
-			cd_hashMap = (HashMap<String, LinkedHashMap<String, CD_InfoVO>>) session.get("s_allCdMap");
-			MDOM_CD mdcd = new MDOM_CD(cd_hashMap);
-			code_sts_list = mdcd.getCodeNameList(MDOM_CONSTRUCT.doc_sts);
-			code_dept_list = mdcd.getCodeNameList(MDOM_CONSTRUCT.dept);
-			code_rank_list = mdcd.getCodeNameList(MDOM_CONSTRUCT.rank);
-			code_category_list = mdcd.getCodeNameList(MDOM_CONSTRUCT.holi_cate);
-			code_item_list = mdcd.getCodeNameList(MDOM_CONSTRUCT.holi_item);
+			cd_hashMap			= (HashMap<String, LinkedHashMap<String, CD_InfoVO>>) session.get("s_allCdMap");
+			MDOM_CD mdcd		= new MDOM_CD(cd_hashMap);
+			code_sts_list		= mdcd.getCodeNameList(MDOM_CONSTRUCT.doc_sts);
+			code_dept_list		= mdcd.getCodeNameList(MDOM_CONSTRUCT.dept);
+			code_rank_list		= mdcd.getCodeNameList(MDOM_CONSTRUCT.rank);
+			code_category_list	= mdcd.getCodeNameList(MDOM_CONSTRUCT.holi_cate);
+			code_item_list		= mdcd.getCodeNameList(MDOM_CONSTRUCT.holi_item);
 
 			// ===========================================================================
 			// システム日付取得
 			DateCalulator dateCalulator = new DateCalulator();
 			String year = String.valueOf(dateCalulator.getCurrentYear());
 			String month = String.valueOf(dateCalulator.getCurrentMonth());
-			if (month.length() == 1)
+			if (month.length() == 1) {
 				month = "0" + month;
-			String lastDay = String.valueOf(dateCalulator.getLastDay(year, month));
-			String doc_ym = year + month;
+			}
+			String lastDay	 = String.valueOf(dateCalulator.getLastDay(year, month));
+			String doc_ym	 = year + month;
 			String first_day = year + month + "01";
-			String last_day = year + month + lastDay;
+			String last_day	 = year + month + lastDay;
 
 			// ===========================================================================
 			// パラメーター設定
@@ -99,10 +100,19 @@ public class MDOM0501 implements Action, Preparable {
 				while (iteratorTs.hasNext()) {
 					TS_ConfirmVO ts_ConfirmVOTemp = new TS_ConfirmVO();
 					ts_ConfirmVOTemp	= iteratorTs.next();
+					// 
+					String userLastName		= ts_ConfirmVOTemp.getUser_last_name();
+					String userFirstName	= ts_ConfirmVOTemp.getUser_first_name();
+					ts_ConfirmVOTemp.setUser_name(userLastName + userFirstName);
+					//
+					String authLastName		= ts_ConfirmVOTemp.getAuth_user_last_name();
+					String authFirstName	= ts_ConfirmVOTemp.getAuth_user_first_name();
+					ts_ConfirmVOTemp.setAuth_user_name(authLastName + authFirstName); 
+					// 
 					String status		= ts_ConfirmVOTemp.getTrns_status();
 					String department	= ts_ConfirmVOTemp.getUser_department();
 					String rank			= ts_ConfirmVOTemp.getUser_rank();
-
+					//
 					Iterator<HashMap<String, String>> iteratorSts = code_sts_list.iterator();
 					while (iteratorSts.hasNext()) {
 						Map<String, String> mapTemp = iteratorSts.next();
@@ -135,11 +145,16 @@ public class MDOM0501 implements Action, Preparable {
 				while(iteratorHd.hasNext()) {
 					HD_ConfirmVO hd_ConfirmVOTemp = new HD_ConfirmVO();
 					hd_ConfirmVOTemp	= iteratorHd.next();
+					// 
+					String lastName		= hd_ConfirmVOTemp.getUser_last_name();
+					String firstName	= hd_ConfirmVOTemp.getUser_first_name();
+					hd_ConfirmVOTemp.setUser_name(lastName + firstName);
+					//
 					String department	= hd_ConfirmVOTemp.getUser_department();
 					String status		= hd_ConfirmVOTemp.getHld_status();
 					String category		= hd_ConfirmVOTemp.getHld_kbn_category();
 					String item			= hd_ConfirmVOTemp.getHld_kbn_item();
-
+					//
 					Iterator<HashMap<String, String>> iteratorDept = code_dept_list.iterator();
 					while (iteratorDept.hasNext()) {
 						Map<String, String> mapTemp = iteratorDept.next();

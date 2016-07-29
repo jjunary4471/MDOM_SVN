@@ -30,22 +30,14 @@ public class HD_ConfirmVO
   private String hld_kbn_category_name = null;
   private String hld_kbn_item_name = null;
   private String hld_status_name = null;
+  private String user_last_name = null;
+  private String user_first_name = null;
   private String user_name = null;
   private String user_department = null;
   private String user_department_name = null;
-  
-/**
- * @return the user_department_name
- */
-public String getUser_department_name() {
-	return user_department_name;
-}
-/**
- * @param user_department_name the user_department_name to set
- */
-public void setUser_department_name(String user_department_name) {
-	this.user_department_name = user_department_name;
-}
+  private String auth_user_last_name = null;
+  private String auth_user_first_name = null;
+  private String auth_user_name = null;
 /**
  * @return the user_id
  */
@@ -347,6 +339,30 @@ public void setHld_status_name(String hld_status_name) {
 	this.hld_status_name = hld_status_name;
 }
 /**
+ * @return the user_last_name
+ */
+public String getUser_last_name() {
+	return user_last_name;
+}
+/**
+ * @param user_last_name the user_last_name to set
+ */
+public void setUser_last_name(String user_last_name) {
+	this.user_last_name = user_last_name;
+}
+/**
+ * @return the user_first_name
+ */
+public String getUser_first_name() {
+	return user_first_name;
+}
+/**
+ * @param user_first_name the user_first_name to set
+ */
+public void setUser_first_name(String user_first_name) {
+	this.user_first_name = user_first_name;
+}
+/**
  * @return the user_name
  */
 public String getUser_name() {
@@ -370,5 +386,54 @@ public String getUser_department() {
 public void setUser_department(String user_department) {
 	this.user_department = user_department;
 }
+/**
+ * @return the user_department_name
+ */
+public String getUser_department_name() {
+	return user_department_name;
+}
+/**
+ * @param user_department_name the user_department_name to set
+ */
+public void setUser_department_name(String user_department_name) {
+	this.user_department_name = user_department_name;
+}
+/**
+ * @return the auth_user_last_name
+ */
+public String getAuth_user_last_name() {
+	return auth_user_last_name;
+}
+/**
+ * @param auth_user_last_name the auth_user_last_name to set
+ */
+public void setAuth_user_last_name(String auth_user_last_name) {
+	this.auth_user_last_name = auth_user_last_name;
+}
+/**
+ * @return the auth_user_first_name
+ */
+public String getAuth_user_first_name() {
+	return auth_user_first_name;
+}
+/**
+ * @param auth_user_first_name the auth_user_first_name to set
+ */
+public void setAuth_user_first_name(String auth_user_first_name) {
+	this.auth_user_first_name = auth_user_first_name;
+}
+/**
+ * @return the auth_user_name
+ */
+public String getAuth_user_name() {
+	return auth_user_name;
+}
+/**
+ * @param auth_user_name the auth_user_name to set
+ */
+public void setAuth_user_name(String auth_user_name) {
+	this.auth_user_name = auth_user_name;
+}
+
   
 }

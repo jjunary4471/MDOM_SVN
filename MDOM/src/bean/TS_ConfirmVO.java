@@ -72,7 +72,23 @@ public class TS_ConfirmVO {
 	 */
 	private String user_rank_name = null;
 	/**
-	 * 確認者
+	 * 社員名ーラスト・ネーム
+	 */
+	private String user_last_name = null;
+	/**
+	 * 社員名ーファースト・ネーム
+	 */
+	private String user_first_name = null;
+	/**
+	 * 確認者名ーファースト・ネーム
+	 */
+	private String auth_user_last_name = null;
+	/**
+	 * 確認社名ーファースト・ネーム
+	 */
+	private String auth_user_first_name = null;
+	/**
+	 * 確認社名
 	 */
 	private String auth_user_name = null;
 	/**
@@ -278,6 +294,54 @@ public class TS_ConfirmVO {
 	 */
 	public void setUser_rank_name(String user_rank_name) {
 		this.user_rank_name = user_rank_name;
+	}
+	/**
+	 * @return the user_last_name
+	 */
+	public String getUser_last_name() {
+		return user_last_name;
+	}
+	/**
+	 * @param user_last_name the user_last_name to set
+	 */
+	public void setUser_last_name(String user_last_name) {
+		this.user_last_name = user_last_name;
+	}
+	/**
+	 * @return the user_first_name
+	 */
+	public String getUser_first_name() {
+		return user_first_name;
+	}
+	/**
+	 * @param user_first_name the user_first_name to set
+	 */
+	public void setUser_first_name(String user_first_name) {
+		this.user_first_name = user_first_name;
+	}
+	/**
+	 * @return the auth_user_last_name
+	 */
+	public String getAuth_user_last_name() {
+		return auth_user_last_name;
+	}
+	/**
+	 * @param auth_user_last_name the auth_user_last_name to set
+	 */
+	public void setAuth_user_last_name(String auth_user_last_name) {
+		this.auth_user_last_name = auth_user_last_name;
+	}
+	/**
+	 * @return the auth_user_first_name
+	 */
+	public String getAuth_user_first_name() {
+		return auth_user_first_name;
+	}
+	/**
+	 * @param auth_user_first_name the auth_user_first_name to set
+	 */
+	public void setAuth_user_first_name(String auth_user_first_name) {
+		this.auth_user_first_name = auth_user_first_name;
 	}
 	/**
 	 * @return the auth_user_name
