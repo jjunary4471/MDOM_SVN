@@ -17,8 +17,8 @@ import com.opensymphony.xwork2.Preparable;
 import bean.CD_InfoVO;
 import bean.HD_ConfirmVO;
 import bean.TS_ConfirmVO;
-import bean.TS_InfoVO;
 import common.MDOM_CD;
+import common.MDOM_CONSTRUCT;
 import dao.MDOM0501_DAO;
 import util.DateCalulator;
 
@@ -55,11 +55,11 @@ public class MDOM0501 implements Action, Preparable {
 			// コード取得及び処理
 			cd_hashMap = (HashMap<String, LinkedHashMap<String, CD_InfoVO>>) session.get("s_allCdMap");
 			MDOM_CD mdcd = new MDOM_CD(cd_hashMap);
-			code_sts_list = mdcd.getCodeNameList(MDOM_CD.doc_sts);
-			code_dept_list = mdcd.getCodeNameList(MDOM_CD.dept);
-			code_rank_list = mdcd.getCodeNameList(MDOM_CD.rank);
-			code_category_list = mdcd.getCodeNameList(MDOM_CD.holi_cate);
-			code_item_list = mdcd.getCodeNameList(MDOM_CD.holi_item);
+			code_sts_list = mdcd.getCodeNameList(MDOM_CONSTRUCT.doc_sts);
+			code_dept_list = mdcd.getCodeNameList(MDOM_CONSTRUCT.dept);
+			code_rank_list = mdcd.getCodeNameList(MDOM_CONSTRUCT.rank);
+			code_category_list = mdcd.getCodeNameList(MDOM_CONSTRUCT.holi_cate);
+			code_item_list = mdcd.getCodeNameList(MDOM_CONSTRUCT.holi_item);
 
 			// ===========================================================================
 			// システム日付取得
